@@ -67,7 +67,7 @@ function App() {
     return (
         <div className={stales.app}>
             <div className={stales.wrapper}>
-                <h1 className={stales.appTitle}>To-Do List Sveta</h1>
+                <h1 className={stales.appTitle}>To-Do List Svetailo</h1>
                 <button onClick={onClickAddTaskHandler} className={stales.button_addTasks}>Add new task</button>
                 <div className={stales.wrap}>
                     <TodoList
