@@ -1,0 +1,25 @@
+.app {
+  /*padding: 20px;*/
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+}
+.appTitle{
+  margin: 0;
+  padding: 0;
+}
+.wrapper{
+  padding: 20px;
+}
+.wrap{
+  display: flex;
+
+}
+
+.button_addTasks{
+  margin: 10px 0;
+}
+
+.App > div {
+  margin-right: 50px;
+}
