@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import stales from './App.module.css';
 import {TaskType, ToDoList} from './component/ToDoList/ToDoList';
 import {v1} from 'uuid';
+import AddItemForm from './component/AddItemForm/AddItemForm';
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -89,17 +90,23 @@ function App() {
                 [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, isDone})
             })
     }
+    const changeTaskTitle = (taskId: string, title: string, toDoListID: string) => {
+        setTasks({...tasks,
+                [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, title})
+            }
+    }
+
 
     //--------------------------------------------------
 
-    const removeToDoList = (toDoListID: string) =>{
+    const removeToDoList = (toDoListID: string) => {
         setTodolist(toDoList.filter(tl => tl.id !== toDoListID))
         delete tasks[toDoListID]
     }
 
     const todoListComponents = toDoList.map(tl => {
         let tasksForTodolist;
-        switch (tl.filter){
+        switch (tl.filter) {
             case 'completed':
                 tasksForTodolist = tasks[tl.id].filter(task => task.isDone)
                 break
@@ -121,6 +128,14 @@ function App() {
             removeToDoList={removeToDoList}
         />
     })
+    const addTodoList = (title: string) => {
+        const newTodoListID = v1()
+        const newTodoList: ToDoListType = {
+            id: newTodoListID, title: title, filter: 'all'
+        }
+        setTodolist([...toDoList, newTodoList])
+        setTasks({...tasks, [newTodoListID]: []})
+    }
 
     return (
         <div className={stales.app}>
@@ -128,6 +143,7 @@ function App() {
                 <h1 className={stales.appTitle}>To-Do List for Svetailo</h1>
                 <button onClick={onClickAddTaskHandler} className={stales.button_addTasks}>Add new task</button>
                 <div className={stales.wrap}>
+                    <AddItemForm addItem={addTodoList}/>
                     {todoListComponents}
                 </div>
             </div>
