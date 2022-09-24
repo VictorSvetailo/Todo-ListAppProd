@@ -24,7 +24,7 @@ function App() {
     const [toDoList, setTodolist] = useState<Array<ToDoListType>>([
         {id: toDoListID_1, title: 'What to learn?', filter: 'all'},
         {id: toDoListID_2, title: 'What to buy?', filter: 'all'},
-        {id: toDoListID_3, title: 'What to buy?', filter: 'all'},
+        {id: toDoListID_3, title: 'Hello Victor?', filter: 'all'},
     ])
     const [tasks, setTasks] = useState<TaskStateType>({
         [toDoListID_1]: [
@@ -57,14 +57,7 @@ function App() {
     //--//
     // Remove--------------------------------------------------
     const removeTask = (taskID: string, toDoListID: string) => {
-        // короткий способ создать логику
         setTasks({...tasks, [toDoListID]: tasks[toDoListID].filter(task => task.id !== taskID)})
-        // 1) создаем новый объект {...tasks}
-        // 2)
-        //длинный код
-        // const copyTasks = {...tasks}
-        // copyTasks[toDoListID] = copyTasks[toDoListID].filter(task => task.id !== taskID)
-        // setTasks(copyTasks)
     }
     //--//
     // Filter--------------------------------------------------
@@ -72,7 +65,6 @@ function App() {
 
     function changeToDoListFilter(filter: FilterValuesType, toDoListID: string) {
         setTodolist(toDoList.map(tl => tl.id !== toDoListID ? tl : {...tl, filter: filter}))
-
         // setFilter(value);
     }
 
@@ -90,10 +82,22 @@ function App() {
                 [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, isDone})
             })
     }
-    const changeTaskTitle = (taskId: string, title: string, toDoListID: string) => {
-        setTasks({...tasks,
-                [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, title})
-            }
+    // const changeTaskTitle = (taskId: string, title: string, toDoListID: string) => {
+    //     setTasks({
+    //         ...tasks,
+    //         [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, title})
+    //     }
+    // }
+
+    const changeToDoListTitle = (toDoListID: string, title: string) => {
+        // console.log(toDoListID, title)
+        const find = toDoList.find(tl => tl.id === toDoListID)
+        // console.log(find + 'i\m Victor')
+        if (find){
+            find.title = title
+            setTodolist([...toDoList])
+        }
+
     }
 
 
@@ -126,6 +130,7 @@ function App() {
             changeStatus={changeTaskStatus}
             filter={tl.filter}
             removeToDoList={removeToDoList}
+            changeToDoLIstTitleCB={changeToDoListTitle}
         />
     })
     const addTodoList = (title: string) => {

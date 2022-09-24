@@ -14,7 +14,7 @@ export type ToDoListPropsType = {
     addTask: (title: string, toDoListID: string) => void
     changeStatus: (taskId: string, isDone: boolean, toDoListID: string) => void
     filter: FilterValuesType
-
+    changeToDoLIstTitleCB: (toDoListID: string, title: string) => void
 }
 
 export type TaskType = {
@@ -47,12 +47,16 @@ export const ToDoList: FC<ToDoListPropsType> = (props) => {
                     <button onClick={() => props.removeTask(task.id, props.toDoListID)}>Delete</button>
                 </li>
             )
-        })//removeToDoListHandler
-    const changeToDoListTitle = (title: string) => props.changeToDoListTitle(title, props.toDoListID)
+        })
+    //removeToDoListHandler
+    const changeToDoListTitle = (title: string) => {
+            props.changeToDoLIstTitleCB(props.toDoListID, title)
+    }
         return (
             <div className={styles.block_list}>
-                <h3>{props.title}
+                <h3>
                     <EditableSpan title={props.title} changeTitle={changeToDoListTitle}/>
+
                     <button onClick={() => props.removeToDoList(props.toDoListID)}>x</button>
                 </h3>
                 <div>
