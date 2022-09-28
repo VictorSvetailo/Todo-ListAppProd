@@ -6,13 +6,13 @@ import AddItemForm from './component/AddItemForm/AddItemForm';
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 
-type ToDoListType = {
+export type ToDoListType = {
     title: string
     filter: FilterValuesType
     id: string
 }
 
-type TaskStateType = {
+export type TaskStateType = {
     [toDoList_ID: string]: Array<TaskType>
 }
 
@@ -20,6 +20,8 @@ function App() {
     const toDoListID_1 = v1()
     const toDoListID_2 = v1()
     const toDoListID_3 = v1()
+
+
     // Array toDoList
     const [toDoList, setTodolist] = useState<Array<ToDoListType>>([
         {id: toDoListID_1, title: 'What to learn?', filter: 'all'},
@@ -89,12 +91,20 @@ function App() {
     //     }
     // }
 
-    const changeToDoListTitle = (toDoListID: string, title: string) => {
-        // console.log(toDoListID, title)
-        const find = toDoList.find(tl => tl.id === toDoListID)
-        // console.log(find + 'i\m Victor')
-        if (find){
-            find.title = title
+    const changeTaskTitle = (toDoListID: string, idTask: string, newTitle: string) => {
+        let todoListTasks = tasks[toDoListID]
+        const task = todoListTasks.find(t => t.id === idTask)
+        if (task) {
+            task.title = newTitle
+            console.log(task)
+            setTasks({...tasks})
+        }
+
+    }
+    const changeToDoListTitle = (toDoListID: string, newTitle: string) => {
+        const todoList = toDoList.find(tl => tl.id === toDoListID)
+        if (todoList) {
+            todoList.title = newTitle
             setTodolist([...toDoList])
         }
 
@@ -130,7 +140,8 @@ function App() {
             changeStatus={changeTaskStatus}
             filter={tl.filter}
             removeToDoList={removeToDoList}
-            changeToDoLIstTitleCB={changeToDoListTitle}
+            changeTaskTitle={changeTaskTitle}
+            changeToDoListTitle={changeToDoListTitle}
         />
     })
     const addTodoList = (title: string) => {

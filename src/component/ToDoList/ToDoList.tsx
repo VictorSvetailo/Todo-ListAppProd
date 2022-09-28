@@ -14,7 +14,8 @@ export type ToDoListPropsType = {
     addTask: (title: string, toDoListID: string) => void
     changeStatus: (taskId: string, isDone: boolean, toDoListID: string) => void
     filter: FilterValuesType
-    changeToDoLIstTitleCB: (toDoListID: string, title: string) => void
+    changeTaskTitle: (toDoListID: string, idTask: string, newTitle: string) => void
+    changeToDoListTitle: (toDoListID: string, newTitle: string) => void
 }
 
 export type TaskType = {
@@ -28,6 +29,9 @@ export const ToDoList: FC<ToDoListPropsType> = (props) => {
             props.addTask(title, props.toDoListID)
         }
 
+    const onChangeToDoListTitle = (newTitle: string) => {
+        props.changeToDoListTitle(props.toDoListID, newTitle)
+    }
         const onClickSetFilterCreator = (filter: FilterValuesType) => {
             return () => {
                 props.changeToDoListFilter(filter, props.toDoListID)
@@ -35,28 +39,26 @@ export const ToDoList: FC<ToDoListPropsType> = (props) => {
         }
         const tasksItems = props.tasks.map((task: TaskType) => {
             const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                debugger
                 props.changeStatus(task.id, e.currentTarget.checked, props.toDoListID)
+            }
+            const onChangeTitleHandler = (newTitle: string) => {
+                props.changeTaskTitle(props.toDoListID, task.id, newTitle)
             }
             return (
                 <li key={task.id} className={task.isDone ? 'is_done' : ''}>
                     <input type="checkbox"
                            onChange={onChangeHandler}
                            checked={task.isDone}/>
-                    <span>{task.title}</span>
+                    <EditableSpan title={task.title} onChangeTitle={onChangeTitleHandler}/>
                     <button onClick={() => props.removeTask(task.id, props.toDoListID)}>Delete</button>
                 </li>
             )
         })
-    //removeToDoListHandler
-    const changeToDoListTitle = (title: string) => {
-            props.changeToDoLIstTitleCB(props.toDoListID, title)
-    }
+
         return (
             <div className={styles.block_list}>
                 <h3>
-                    <EditableSpan title={props.title} changeTitle={changeToDoListTitle}/>
-
+                    <EditableSpan title={props.title} onChangeTitle={onChangeToDoListTitle}/>
                     <button onClick={() => props.removeToDoList(props.toDoListID)}>x</button>
                 </h3>
                 <div>
