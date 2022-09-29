@@ -12,7 +12,7 @@ export type ToDoListType = {
     id: string
 }
 
-export type TaskStateType = {
+export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
 }
 
@@ -21,14 +21,32 @@ function App() {
     const toDoListID_2 = v1()
     const toDoListID_3 = v1()
 
-
-    // Array toDoList
+    // Array toDoList--------------------------------------------------
     const [toDoList, setTodolist] = useState<Array<ToDoListType>>([
         {id: toDoListID_1, title: 'What to learn?', filter: 'all'},
         {id: toDoListID_2, title: 'What to buy?', filter: 'all'},
         {id: toDoListID_3, title: 'Hello Victor?', filter: 'all'},
     ])
-    const [tasks, setTasks] = useState<TaskStateType>({
+
+    const removeToDoList = (toDoListID: string) => {
+        setTodolist(toDoList.filter(tl => tl.id !== toDoListID))
+        delete tasks[toDoListID]
+    }
+    function changeToDoListFilter(filter: FilterValuesType, toDoListID: string) {
+        setTodolist(toDoList.map(tl => tl.id !== toDoListID ? tl : {...tl, filter: filter}))
+        // setFilter(value);
+    }
+    const changeToDoListTitle = (toDoListID: string, newTitle: string) => {
+        const todoList = toDoList.find(tl => tl.id === toDoListID)
+        if (todoList) {
+            todoList.title = newTitle
+            setTodolist([...toDoList])
+        }
+
+    }
+
+    // Task--------------------------------------------------
+    const [tasks, setTasks] = useState<TasksStateType>({
         [toDoListID_1]: [
             {id: v1(), title: 'HTML', isDone: false},
             {id: v1(), title: 'CSS ', isDone: false},
@@ -45,6 +63,7 @@ function App() {
             {id: v1(), title: 'Apple', isDone: false},
         ]
     })
+
     // Add Tasks
     const addTask = (title: string, toDoListID: string) => {
         setTasks({
@@ -56,26 +75,10 @@ function App() {
         })
         //setTasks([{id: v1(), title, isDone: false}, ...tasks])
     }
-    //--//
     // Remove--------------------------------------------------
     const removeTask = (taskID: string, toDoListID: string) => {
         setTasks({...tasks, [toDoListID]: tasks[toDoListID].filter(task => task.id !== taskID)})
     }
-    //--//
-    // Filter--------------------------------------------------
-    let [filter, setFilter] = useState<FilterValuesType>('all');
-
-    function changeToDoListFilter(filter: FilterValuesType, toDoListID: string) {
-        setTodolist(toDoList.map(tl => tl.id !== toDoListID ? tl : {...tl, filter: filter}))
-        // setFilter(value);
-    }
-
-    //--//
-    // Add New Tasks
-    const onClickAddTaskHandler = () => {
-        console.log('Add-New Task')
-    }
-
     // Change status
     const changeTaskStatus = (taskId: string, isDone: boolean, toDoListID: string) => {
         setTasks(
@@ -84,13 +87,6 @@ function App() {
                 [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, isDone})
             })
     }
-    // const changeTaskTitle = (taskId: string, title: string, toDoListID: string) => {
-    //     setTasks({
-    //         ...tasks,
-    //         [toDoListID]: tasks[toDoListID].map(t => t.id !== taskId ? t : {...t, title})
-    //     }
-    // }
-
     const changeTaskTitle = (toDoListID: string, idTask: string, newTitle: string) => {
         let todoListTasks = tasks[toDoListID]
         const task = todoListTasks.find(t => t.id === idTask)
@@ -101,23 +97,8 @@ function App() {
         }
 
     }
-    const changeToDoListTitle = (toDoListID: string, newTitle: string) => {
-        const todoList = toDoList.find(tl => tl.id === toDoListID)
-        if (todoList) {
-            todoList.title = newTitle
-            setTodolist([...toDoList])
-        }
 
-    }
-
-
-    //--------------------------------------------------
-
-    const removeToDoList = (toDoListID: string) => {
-        setTodolist(toDoList.filter(tl => tl.id !== toDoListID))
-        delete tasks[toDoListID]
-    }
-
+    // Component --------------------------------------------------
     const todoListComponents = toDoList.map(tl => {
         let tasksForTodolist;
         switch (tl.filter) {
@@ -157,7 +138,7 @@ function App() {
         <div className={stales.app}>
             <div className={stales.wrapper}>
                 <h1 className={stales.appTitle}>To-Do List for Svetailo</h1>
-                <button onClick={onClickAddTaskHandler} className={stales.button_addTasks}>Add new task</button>
+                <button className={stales.button_addTasks}>Add new task</button>
                 <div className={stales.wrap}>
                     <AddItemForm addItem={addTodoList}/>
                     {todoListComponents}
