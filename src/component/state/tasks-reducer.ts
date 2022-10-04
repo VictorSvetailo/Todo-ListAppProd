@@ -1,4 +1,4 @@
-import {TasksStateType} from '../../App';
+import {TasksStateType} from '../../AppWithRedux';
 import {AddTodolistActionType, RemoveTodolistActionType} from './todolists-reducer';
 import {v1} from 'uuid';
 import {useReducer} from 'react';
@@ -60,10 +60,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'CHANGE-TASK-STATUS':
             return {
                 ...state,
-                [action.toDoListID]: state[action.toDoListID].map(t => t.id !== action.taskID ? t : {
-                    ...t,
-                    isDone: action.isDone
-                })
+                [action.toDoListID]: state[action.toDoListID].map(t => t.id !== action.taskID ? t : {...t, isDone: action.isDone})
             }
         case 'CHANGE-TASK-TITLE':
             return {
@@ -85,7 +82,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
 
         default:
             return state
-        // throw new Error('I don\'t understand this type')
 
     }
 }

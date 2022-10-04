@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, FC, useState} from 'react';
+import {log} from 'util';
 
 type EditableSpanType = {
     title: string
@@ -6,7 +7,8 @@ type EditableSpanType = {
 }
 
 
-export const EditableSpan: FC<EditableSpanType> = (props) => {
+export const EditableSpan: FC<EditableSpanType> = React.memo((props) => {
+    console.log('EditableSpan VS')
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
 
@@ -44,4 +46,4 @@ export const EditableSpan: FC<EditableSpanType> = (props) => {
             : <span onDoubleClick={offEditMode}>{props.title}</span>}
         </span>
     );
-};
+});

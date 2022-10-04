@@ -7,7 +7,9 @@ type AddItemFormPropsType = {
 }
 
 
-const AddItemForm: FC<AddItemFormPropsType> = (props) => {
+const  AddItemForm: FC<AddItemFormPropsType> = React.memo( (props) => {
+    console.log("AddItemForm is called")
+
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
     const onClickAddTask = () => {
@@ -19,7 +21,9 @@ const AddItemForm: FC<AddItemFormPropsType> = (props) => {
         setTitle('')
     }
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setError(null)
+        if (setError !== null) {
+            setError(null)
+        }
         setTitle(e.currentTarget.value)
     }
     const onKeyDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && onClickAddTask()
@@ -36,6 +40,6 @@ const AddItemForm: FC<AddItemFormPropsType> = (props) => {
             {error && <div className={styles.error_message}>*Field is required bro</div>}
         </div>
     );
-};
+});
 
 export default AddItemForm;
