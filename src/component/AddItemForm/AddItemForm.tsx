@@ -36,7 +36,7 @@ const  AddItemForm: FC<AddItemFormPropsType> = React.memo( (props) => {
                    onKeyDown={onKeyDownAddTask}
                    className={error ? `${styles.error}` : ''}
             />
-            <button onClick={onClickAddTask}>Add</button>
+            <button onClick={onClickAddTask}>Add List</button>
             {error && <div className={styles.error_message}>*Field is required bro</div>}
         </div>
     );
