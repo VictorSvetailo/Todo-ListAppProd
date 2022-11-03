@@ -1,15 +1,16 @@
-import {TasksStateType, ToDoListType} from '../../AppWithRedux';
+import {TasksStateType} from '../../App';
 import {tasksReducer} from './tasks-reducer';
-import {addTodolistsAC, todolistsReducer} from './todolists-reducer';
+import {addTodoListsAC, setToDoListsAC, TodoListDomainType, todolistsReducer} from './todolists-reducer';
+import {v1} from 'uuid';
 
 test('ids should be equals', () => {
     const startTasksState: TasksStateType = {}
-    const startTodolistsState: Array<ToDoListType> = []
+    const startTodoListsState: Array<TodoListDomainType> = []
 
-    const action = addTodolistsAC('new todolist')
+    const action = addTodoListsAC('new todolist')
 
     const endTasksState = tasksReducer(startTasksState, action)
-    const endTodolistsState = todolistsReducer(startTodolistsState, action)
+    const endTodolistsState = todolistsReducer(startTodoListsState, action)
 
     const keys = Object.keys(endTasksState)
     const idFromTasks = keys[0]
@@ -17,4 +18,22 @@ test('ids should be equals', () => {
 
     expect(idFromTasks).toBe(action.toDoListID)
     expect(idFromTodolists).toBe(action.toDoListID)
+})
+
+let todolistId1 = v1()
+let todolistId2 = v1()
+
+test('empty arrays should be added when we set todoLists', () => {
+    const action = setToDoListsAC([
+        {id: '1', title: 'What to learn 1 ' ,  addedDate: '', order: 0},
+        {id: '2', title: 'What to buy 1 ', addedDate: '', order: 0}
+    ])
+
+    const endState = tasksReducer({}, action)
+    const keys = Object.keys(endState)
+
+
+    expect(keys.length).toBe(2)
+    expect(endState['1']).toStrictEqual([])
+    expect(endState['2']).toStrictEqual([])
 })

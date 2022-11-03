@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import {Button} from './Button';
@@ -6,7 +6,6 @@ import AddItemForm from '../component/AddItemForm/AddItemForm';
 import {action} from '@storybook/addon-actions';
 import styles from '../component/ToDoList/ToDoLIst.module.css';
 import {Tasks} from '../component/ToDoList/Tasks';
-import {TaskType} from '../component/ToDoList/ToDoList';
 import {v1} from 'uuid';
 
 // // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

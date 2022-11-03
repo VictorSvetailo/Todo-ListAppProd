@@ -85,7 +85,7 @@ import React, {useReducer, useState} from 'react';
 //         dispatchToTasksReducer(action)
 //     }
 //     // Change status
-//     const changeTaskStatus = (toDoListID: string, taskId: string, isDone: boolean) => {
+//     const changeTaskStatus = (toDoListID: string, taskId: string, status: TaskStatuses) => {
 //         dispatchToTasksReducer(changeTaskStatusAC(toDoListID, taskId, isDone))
 //     }
 //     const changeTaskTitle = (toDoListID: string, idTask: string, newTitle: string) => {

@@ -1,13 +1,18 @@
-import React, {FC, useCallback} from 'react';
-import {FilterValuesType, ToDoListType} from '../../AppWithRedux';
+import React, {FC, useCallback, useEffect} from 'react';
 import styles from './ToDoLIst.module.css'
 import AddItemForm from '../AddItemForm/AddItemForm';
 import {EditableSpan} from '../EditableSpan/EditableSpan';
-import {addTaskAC} from '../state/tasks-reducer';
+import {addTaskAC, fetchTasksTC} from '../state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../state/store';
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodoListAC} from '../state/todolists-reducer';
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC, fetchTodoListTC,
+    FilterValuesType,
+    removeTodoListAC
+} from '../state/todolists-reducer';
 import {Tasks} from './Tasks';
+import {TaskStatuses, TaskType, TodoListType} from '../../api/todoLists-api';
 
 export type ToDoListPropsType = {
     toDoListID: string
@@ -15,18 +20,20 @@ export type ToDoListPropsType = {
     filter: FilterValuesType
 }
 
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean,
-}
-
 export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
+
+    useEffect(() => {
+
+        // @ts-ignore
+        dispatch(fetchTasksTC(props.toDoListID));
+
+    }, [props.toDoListID])
+
 
     console.log('ToDoList is called')
 
     const dispatch = useDispatch()
-    const toDoList = useSelector<AppRootStateType, Array<ToDoListType>>((state => state.todolists))
+    const toDoList = useSelector<AppRootStateType, Array<TodoListType>>((state => state.todolists))
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.toDoListID])
 
     const addTask = useCallback((title: string) => {
@@ -43,10 +50,10 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     let tasksForTodolist = allToDoLIstTasks;
     switch (props.filter) { 
         case 'completed':
-            tasksForTodolist = allToDoLIstTasks.filter(tasks => tasks.isDone)
+            tasksForTodolist = allToDoLIstTasks.filter(tasks => tasks.status === TaskStatuses.Completed)
             break
         case 'active':
-            tasksForTodolist = allToDoLIstTasks.filter(tasks => !tasks.isDone)
+            tasksForTodolist = allToDoLIstTasks.filter(tasks => tasks.status === TaskStatuses.New)
             break
         default:
             tasksForTodolist = tasks
