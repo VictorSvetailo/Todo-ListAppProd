@@ -6,8 +6,6 @@ import {addTodoListsAC, fetchTodoListTC, TodoListDomainType} from './component/s
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './component/state/store';
 import {TaskType} from './api/todoLists-api';
-import {ThunkDispatch} from 'redux-thunk';
-import {AnyAction} from 'redux';
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
