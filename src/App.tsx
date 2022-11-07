@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react';
 import stales from './App.module.css';
 import {ToDoList} from './component/ToDoList/ToDoList';
 import AddItemForm from './component/AddItemForm/AddItemForm';
-import {addTodoListsAC, fetchTodoListTC, TodoListDomainType} from './component/state/todolists-reducer';
+import {addTodoListsAC, addTodoListsTC, fetchTodoListTC, TodoListDomainType} from './component/state/todolists-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './component/state/store';
 import {TaskType} from './api/todoLists-api';
@@ -23,7 +23,6 @@ export const App = React.memo(() => {
     const dispatch = useDispatch()
     // componentDidMount
     useEffect(() => {
-
         // @ts-ignore
         dispatch(fetchTodoListTC());
 
@@ -47,9 +46,11 @@ export const App = React.memo(() => {
         </div>
         </>
     })
+
+
     const addTodoList = useCallback((title: string) => {
-        const action = addTodoListsAC(title)
-        dispatch(action)
+        // @ts-ignore
+        dispatch(addTodoListsTC(title))
     }, [dispatch])
 
 

@@ -152,7 +152,7 @@ export const UpdateTasks = () => {
     const [startDate, setStartDate] = useState<string>('')
     const [deadline, setDeadline] = useState<string>('')
     const updateTaskHandler = () => {
-        todoListsAPI.updateTasks(todoListID, taskID, {
+        todoListsAPI.updateTask(todoListID, taskID, {
             deadline: '',
             description: description,
             priority: priority,

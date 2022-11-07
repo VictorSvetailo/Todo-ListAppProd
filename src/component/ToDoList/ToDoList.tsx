@@ -1,15 +1,15 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {FC, useCallback, useEffect, MouseEvent, useState} from 'react';
 import styles from './ToDoLIst.module.css'
 import AddItemForm from '../AddItemForm/AddItemForm';
 import {EditableSpan} from '../EditableSpan/EditableSpan';
-import {addTaskAC, fetchTasksTC} from '../state/tasks-reducer';
+import {addTaskTC, fetchTasksTC} from '../state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../state/store';
 import {
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodoListTC,
+    changeTodoListTitleTC,
     FilterValuesType,
-    removeTodoListAC
+    removeTodoListTC
 } from '../state/todolists-reducer';
 import {Tasks} from './Tasks';
 import {TaskStatuses, TaskType, TodoListType} from '../../api/todoLists-api';
@@ -23,10 +23,8 @@ export type ToDoListPropsType = {
 export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
 
     useEffect(() => {
-
         // @ts-ignore
         dispatch(fetchTasksTC(props.toDoListID));
-
     }, [props.toDoListID])
 
 
@@ -37,7 +35,8 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.toDoListID])
 
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskAC(props.toDoListID, title))
+        // @ts-ignore
+        dispatch(addTaskTC(props.toDoListID, title))
     }, [dispatch])
 
     const onClickSetFilterCreator = useCallback((filter: FilterValuesType) => {
@@ -47,8 +46,8 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     }, [])
 
     let allToDoLIstTasks = tasks;
-    let tasksForTodolist = allToDoLIstTasks;
-    switch (props.filter) { 
+    let tasksForTodolist: Array<TaskType>;
+    switch (props.filter) {
         case 'completed':
             tasksForTodolist = allToDoLIstTasks.filter(tasks => tasks.status === TaskStatuses.Completed)
             break
@@ -60,7 +59,17 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     }
 
     const onChangeTitle = useCallback((title: string) => {
-        dispatch(changeTodolistTitleAC(props.toDoListID, title))
+        // @ts-ignore
+        dispatch(changeTodoListTitleTC(props.toDoListID, title))
+    }, [props.toDoListID])
+
+    const [disabledH, setDisabledH] = useState(false)
+
+    const removeTodoListHandler = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+        setDisabledH(true)
+        // @ts-ignore
+        dispatch(removeTodoListTC(props.toDoListID))
+
     }, [props.toDoListID])
 
 
@@ -68,14 +77,16 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
         <div className={styles.block_list}>
             <h3>
                 <EditableSpan title={props.title} onChangeTitle={onChangeTitle}/>
-                <button onClick={() => dispatch(removeTodoListAC(props.toDoListID))}>x</button>
+
+                <button disabled={disabledH} onClick={removeTodoListHandler}>x</button>
             </h3>
             <div>
                 <AddItemForm addItem={addTask}/>
             </div>
             <ul>
                 {
-                    tasksForTodolist.map((task: TaskType) => <Tasks key={task.id} task={task} toDoListID={props.toDoListID} title={props.title}/>)
+                    tasksForTodolist.map((task: TaskType) => <Tasks key={task.id} task={task}
+                                                                    toDoListID={props.toDoListID} title={props.title}/>)
                 }
             </ul>
             <div>
