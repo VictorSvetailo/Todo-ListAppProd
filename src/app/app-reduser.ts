@@ -32,8 +32,8 @@ export type InitialStateType = {
 }
 
 
-export type SetErrorAT = ReturnType<typeof setAppErrorAC>
-export type SetStatusAT = ReturnType<typeof setAppStatusAC>
+export type SetAppErrorAT = ReturnType<typeof setAppErrorAC>
+export type SetAppStatusAT = ReturnType<typeof setAppStatusAC>
 type ActionsType =
-    | SetStatusAT
-    | SetErrorAT
+    | SetAppStatusAT
+    | SetAppErrorAT
