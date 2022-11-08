@@ -1,6 +1,7 @@
 import {TasksStateType} from '../../app/App';
 
 import {
+    TaskStatuses,
     TaskType,
     todoListsAPI,
     UpdateTaskModelType,
@@ -11,6 +12,7 @@ import {
     RemoveTodoListActionType, SetTodoListActionType,
 } from './todolists-reducer';
 import {Dispatch} from 'redux';
+import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from '../../app/app-reduser';
 
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionType): TasksStateType => {
@@ -67,19 +69,32 @@ export const setTaskAC = (toDoListID: string, tasks: Array<TaskType>) =>
     ({type: 'SET_TASKS', toDoListID, tasks} as const)
 
 // thank
-export const fetchTasksTC = (todoListID: string) => (dispatch: Dispatch<ActionType>) => {
+export const fetchTasksTC = (todoListID: string) => (dispatch: Dispatch<ActionType | SetStatusAT>) => {
+    dispatch(setStatusAC('loading'))
     todoListsAPI.getTasks(todoListID)
         .then((res) => {
             const tasks = res.data.items
             const action = setTaskAC(todoListID, tasks)
             dispatch(action)
+            dispatch(setStatusAC('succeeded'))
         })
 }
-export const addTaskTC = (toDoListID: string, title: string) => (dispatch: Dispatch<ActionType>) => {
+export const addTaskTC = (toDoListID: string, title: string) => (dispatch: Dispatch<ActionType | SetErrorAT | SetStatusAT>) => {
+    dispatch(setStatusAC('loading'))
     todoListsAPI.createTasks(toDoListID, title)
         .then(res => {
-            const task = res.data.data.item
-            dispatch(addTaskAC(task))
+            if (res.data.resultCode === TaskStatuses.New) {
+                const task = res.data.data.item
+                dispatch(addTaskAC(task))
+                dispatch(setStatusAC('succeeded'))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                }else {
+                        dispatch(setErrorAC('Some Error'))
+                    }
+                dispatch(setStatusAC('failed'))
+            }
         })
 }
 export const removeTaskTC = (toDoListID: string, taskID: string) => (dispatch: Dispatch<ActionType>) => {
