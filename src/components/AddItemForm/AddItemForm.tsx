@@ -4,17 +4,19 @@ import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.css';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
 
-const  AddItemForm: FC<AddItemFormPropsType> = React.memo( (props) => {
-    console.log("AddItemForm is called")
+const AddItemForm: FC<AddItemFormPropsType> = React.memo(({addItem, disabled = false}) => {
+    console.log('AddItemForm is called')
 
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
     const onClickAddTask = () => {
         if (title.trim()) {
-             props.addItem(title)
+            addItem(title)
+            setTitle('')
         } else {
             setError('Title is required')
         }
@@ -31,12 +33,13 @@ const  AddItemForm: FC<AddItemFormPropsType> = React.memo( (props) => {
     //const errorMessage = <div style={{color: 'hotpink'}}>Title is required!</div>
     return (
         <div>
-            <input value={title}
+            <input disabled={disabled}
+                   value={title}
                    onChange={onChangeSetTitle}
                    onKeyDown={onKeyDownAddTask}
                    className={error ? `${styles.error}` : ''}
             />
-            <button onClick={onClickAddTask}>Add List</button>
+            <button disabled={disabled} onClick={onClickAddTask}>Add List</button>
             {error && <div className={styles.error_message}>*Field is required bro</div>}
         </div>
     );

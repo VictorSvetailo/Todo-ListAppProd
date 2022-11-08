@@ -12,7 +12,11 @@ export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
 }
 
-export const App = React.memo(() => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
 
    const status = useSelector<AppRootStateType, RequestStatusType>(state=> state.app.status)
 
@@ -21,7 +25,7 @@ export const App = React.memo(() => {
         <div className={stales.app}>
             <ErrorSnackbar/>
             {status === 'loading' && <LinearProgress/>}
-            <TodoListsList/>
+            <TodoListsList demo={demo}/>
         </div>
     );
 })

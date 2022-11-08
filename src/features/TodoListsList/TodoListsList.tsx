@@ -6,14 +6,20 @@ import {ToDoList} from './TodoList/ToDoList';
 import stales from '../../app/App.module.css';
 import AddItemForm from '../../components/AddItemForm/AddItemForm';
 
-type TodoListsListPropsType = {}
-export const TodoListsList: React.FC<TodoListsListPropsType> = (props) => {
+type TodoListsListPropsType = {
+    demo?: boolean
+}
+export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) => {
 
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>((state => state.todolists))
 
     const dispatch = useDispatch()
+
     // componentDidMount
     useEffect(() => {
+        if (demo){
+            return
+        }
         // @ts-ignore
         dispatch(fetchTodoListTC());
 
@@ -29,9 +35,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = (props) => {
             <div style={{marginTop: '10px'}}>
                 <ToDoList
                     key={tl.id}
-                    toDoListID={tl.id}
-                    title={tl.title}
-                    filter={tl.filter}
+                    todoList={tl}
+                    demo={demo}
                 />
             </div>
         </>

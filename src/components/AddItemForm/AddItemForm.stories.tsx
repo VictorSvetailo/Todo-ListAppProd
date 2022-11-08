@@ -25,6 +25,13 @@ export const AddItemFormStory = Template.bind({});
 AddItemFormStory.args = {
   addItem: action('Clicked Button')
 };
+
+export const AddItemFormDisabledExample = (props: any) => {
+  return (<AddItemForm disabled={true} addItem={action('Button inside form clicked')}/>)
+}
+
+
+
 //
 // export const Template1: ComponentStory<typeof AddItemForm> = (args) => {
 //   console.log("AddItemForm is called")

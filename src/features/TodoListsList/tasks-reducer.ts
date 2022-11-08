@@ -12,7 +12,7 @@ import {
     RemoveTodoListActionType, SetTodoListActionType,
 } from './todolists-reducer';
 import {Dispatch} from 'redux';
-import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from '../../app/app-reduser';
+import {setAppErrorAC, SetErrorAT, setAppStatusAC, SetStatusAT} from '../../app/app-reduser';
 
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionType): TasksStateType => {
@@ -70,30 +70,30 @@ export const setTaskAC = (toDoListID: string, tasks: Array<TaskType>) =>
 
 // thank
 export const fetchTasksTC = (todoListID: string) => (dispatch: Dispatch<ActionType | SetStatusAT>) => {
-    dispatch(setStatusAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     todoListsAPI.getTasks(todoListID)
         .then((res) => {
             const tasks = res.data.items
             const action = setTaskAC(todoListID, tasks)
             dispatch(action)
-            dispatch(setStatusAC('succeeded'))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 export const addTaskTC = (toDoListID: string, title: string) => (dispatch: Dispatch<ActionType | SetErrorAT | SetStatusAT>) => {
-    dispatch(setStatusAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     todoListsAPI.createTasks(toDoListID, title)
         .then(res => {
             if (res.data.resultCode === TaskStatuses.New) {
                 const task = res.data.data.item
                 dispatch(addTaskAC(task))
-                dispatch(setStatusAC('succeeded'))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 if (res.data.messages.length) {
-                    dispatch(setErrorAC(res.data.messages[0]))
+                    dispatch(setAppErrorAC(res.data.messages[0]))
                 }else {
-                        dispatch(setErrorAC('Some Error'))
+                        dispatch(setAppErrorAC('Some Error'))
                     }
-                dispatch(setStatusAC('failed'))
+                dispatch(setAppStatusAC('failed'))
             }
         })
 }
