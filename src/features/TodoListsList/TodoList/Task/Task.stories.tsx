@@ -1,17 +1,17 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
-import {Button} from './Button';
-import AddItemForm from '../component/AddItemForm/AddItemForm';
+import {Button} from '../../../../stories/Button';
+import AddItemForm from '../../../../components/AddItemForm/AddItemForm';
 import {action} from '@storybook/addon-actions';
-import styles from '../component/ToDoList/ToDoLIst.module.css';
-import {Tasks} from '../component/ToDoList/Tasks';
+import styles from '../ToDoLIst.module.css';
+import {Tasks} from './Tasks';
 import {v1} from 'uuid';
 
 // // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // export default {
-//     title: 'ToDoList/Task',
-//     component: Tasks,
+//     title: 'TodoList/Task',
+//     components: Tasks,
 //     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 //     args: {
 //         addItem: {
@@ -20,7 +20,7 @@ import {v1} from 'uuid';
 //     },
 // } as ComponentMeta<typeof Tasks>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+// More on components templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 // const Template: ComponentStory<typeof Tasks> = (args) => <Tasks {...args} />;
 //
 // export const TasksIsDone = Template.bind({});

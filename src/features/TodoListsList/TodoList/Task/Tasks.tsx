@@ -2,9 +2,9 @@ import React, {ChangeEvent, FC, useCallback, MouseEvent} from 'react';
 import {useDispatch} from 'react-redux';
 import {
     removeTaskTC, updateTaskTC
-} from '../state/tasks-reducer';
-import {EditableSpan} from '../EditableSpan/EditableSpan';
-import {TaskStatuses, TaskType} from '../../api/todoLists-api';
+} from '../../tasks-reducer';
+import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
+import {TaskStatuses, TaskType} from '../../../../api/todoLists-api';
 
 export type TaskPropsType = {
     title: string,

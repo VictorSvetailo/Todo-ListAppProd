@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import AddItemForm from '../component/AddItemForm/AddItemForm';
+import AddItemForm from '../AddItemForm/AddItemForm';
 import {action} from '@storybook/addon-actions';
-import {EditableSpan} from '../component/EditableSpan/EditableSpan';
+import {EditableSpan} from './EditableSpan';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'ToDoList/EditableSpan',
+  title: 'TodoList/EditableSpan',
   component: EditableSpan,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -16,7 +16,7 @@ export default {
   },
 } as ComponentMeta<typeof EditableSpan>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+// More on components templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {...args} />;
 
 export const EditableSpanStory = Template.bind({});

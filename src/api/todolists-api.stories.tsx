@@ -1,5 +1,5 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {todoListsAPI, UpdateTaskModelType} from '../api/todoLists-api';
+import {todoListsAPI, UpdateTaskModelType} from './todoLists-api';
 import {string} from 'prop-types';
 
 export default {

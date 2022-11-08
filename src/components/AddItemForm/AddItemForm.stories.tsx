@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import AddItemForm from '../component/AddItemForm/AddItemForm';
+import AddItemForm from './AddItemForm';
 import {action} from '@storybook/addon-actions';
-import styles from '../component/ToDoList/ToDoLIst.module.css';
+import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.css';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'ToDoList/AddItemForm',
+  title: 'TodoList/AddItemForm',
   component: AddItemForm,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -17,7 +17,7 @@ export default {
   },
 } as ComponentMeta<typeof AddItemForm>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+// More on components templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args} />;
 
 export const AddItemFormStory = Template.bind({});

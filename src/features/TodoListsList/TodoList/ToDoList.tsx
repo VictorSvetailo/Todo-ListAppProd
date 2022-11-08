@@ -1,18 +1,18 @@
 import React, {FC, useCallback, useEffect, MouseEvent, useState} from 'react';
 import styles from './ToDoLIst.module.css'
-import AddItemForm from '../AddItemForm/AddItemForm';
-import {EditableSpan} from '../EditableSpan/EditableSpan';
-import {addTaskTC, fetchTasksTC} from '../state/tasks-reducer';
+import AddItemForm from '../../../components/AddItemForm/AddItemForm';
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
+import {addTaskTC, fetchTasksTC} from '../tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../state/store';
+import {AppRootStateType} from '../../../app/store';
 import {
     changeTodolistFilterAC,
     changeTodoListTitleTC,
     FilterValuesType,
     removeTodoListTC
-} from '../state/todolists-reducer';
-import {Tasks} from './Tasks';
-import {TaskStatuses, TaskType, TodoListType} from '../../api/todoLists-api';
+} from '../todolists-reducer';
+import {Tasks} from './Task/Tasks';
+import {TaskStatuses, TaskType, TodoListType} from '../../../api/todoLists-api';
 
 export type ToDoListPropsType = {
     toDoListID: string
@@ -28,7 +28,7 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     }, [props.toDoListID])
 
 
-    console.log('ToDoList is called')
+    console.log('TodoList is called')
 
     const dispatch = useDispatch()
     const toDoList = useSelector<AppRootStateType, Array<TodoListType>>((state => state.todolists))

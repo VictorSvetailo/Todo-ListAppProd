@@ -3,7 +3,7 @@
   margin: 0;
   height: 100vh;
   width: 100%;
-  background: url("./component/Image/AppImage/1.jpeg") 0/cover no-repeat;
+  background: url("../components/Image/AppImage/1.jpeg") 0/cover no-repeat;
 }
 .appTitle{
   margin: 0;

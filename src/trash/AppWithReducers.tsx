@@ -1,22 +1,22 @@
 import React, {useReducer, useState} from 'react';
 // import stales from './App.module.css';
-// import {TaskType, ToDoList} from './component/ToDoList/ToDoList';
+// import {TaskType, TodoList} from './components/TodoList/TodoList';
 // import {v1} from 'uuid';
-// import AddItemForm from './component/AddItemForm/AddItemForm';
+// import AddItemForm from './components/AddItemForm/AddItemForm';
 // import {
 //     addTodolistsAC,
 //     changeTodolistFilterAC,
 //     changeTodolistTitleAC,
 //     removeTodoListAC,
 //     todolistsReducer
-// } from './component/state/todolists-reducer';
+// } from './components/state/todolists-reducer';
 // import {
 //     addTaskAC,
 //     changeTaskStatusAC,
 //     changeTaskTitleAC,
 //     removeTaskAC,
 //     tasksReducer
-// } from './component/state/tasks-reducer';
+// } from './components/state/tasks-reducer';
 //
 // export type FilterValuesType = 'all' | 'completed' | 'active';
 //
@@ -105,7 +105,7 @@ import React, {useReducer, useState} from 'react';
 //             default:
 //                 tasksForTodolist = tasks[tl.id]
 //         }
-//         return <ToDoList
+//         return <TodoList
 //             toDoListID={tl.id}
 //             title={tl.title}
 //             tasks={tasksForTodolist}
