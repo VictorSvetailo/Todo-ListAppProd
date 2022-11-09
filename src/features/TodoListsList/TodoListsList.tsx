@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../app/store';
+import {useSelector} from 'react-redux';
+import {AppRootStateType, useAppDispatch} from '../../app/store';
 import {addTodoListsTC, fetchTodoListTC, TodoListDomainType} from './todolists-reducer';
 import {ToDoList} from './TodoList/ToDoList';
 import stales from '../../app/App.module.css';
@@ -13,20 +13,18 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
 
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>((state => state.todolists))
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     // componentDidMount
     useEffect(() => {
         if (demo){
             return
         }
-        // @ts-ignore
         dispatch(fetchTodoListTC());
 
     }, [])
 
     const addTodoList = useCallback((title: string) => {
-        // @ts-ignore
         dispatch(addTodoListsTC(title))
     }, [dispatch])
 

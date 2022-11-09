@@ -5,6 +5,7 @@ import {
 } from '../../tasks-reducer';
 import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import {TaskStatuses, TaskType} from '../../../../api/todoLists-api';
+import {useAppDispatch} from '../../../../app/store';
 
 export type TaskPropsType = {
     title: string,
@@ -14,27 +15,18 @@ export type TaskPropsType = {
 
 
 export const Tasks: FC<TaskPropsType> = React.memo((props) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
-        let status = e.currentTarget.checked
-            ? TaskStatuses.Completed : TaskStatuses.New
-        // @ts-ignore
-        dispatch(updateTaskTC(props.toDoListID, props.task.id, {status}))
+        dispatch(updateTaskTC(props.toDoListID, props.task.id, {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}))
     }
 
-
     const onChangeTitle = useCallback((newTitle: string) => {
-        // @ts-ignore
         dispatch(updateTaskTC(props.toDoListID, props.task.id, {title: newTitle}))
     }, [dispatch])
 
     const removeTaskHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        // @ts-ignore
         dispatch(removeTaskTC(props.toDoListID, props.task.id))
-
     }
-
 
     return (
         <li key={props.task.id} className={props.task.status === TaskStatuses.Completed ? 'is_done' : ''}>

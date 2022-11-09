@@ -3,8 +3,8 @@ import styles from './ToDoLIst.module.css'
 import AddItemForm from '../../../components/AddItemForm/AddItemForm';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {addTaskTC, fetchTasksTC} from '../tasks-reducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../../app/store';
+import {useSelector} from 'react-redux';
+import {AppRootStateType, useAppDispatch} from '../../../app/store';
 import {
     changeTodolistFilterAC,
     changeTodoListTitleTC,
@@ -16,33 +16,25 @@ import {TaskStatuses, TaskType, TodoListType} from '../../../api/todoLists-api';
 
 export type ToDoListPropsType = {
     todoList: TodoListDomainType
-    // toDoListID: string
-    // title: string
-    // filter: FilterValuesType
     demo?: boolean
 }
 
 export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
 
     if (typeof props.demo === 'undefined') props.demo = false
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (props.demo) {
             return
         }
-        // @ts-ignore
         dispatch(fetchTasksTC(props.todoList.id));
     }, [props.todoList.id])
 
-
-    console.log('TodoList is called')
-
-    const dispatch = useDispatch()
     const toDoList = useSelector<AppRootStateType, Array<TodoListType>>((state => state.todolists))
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.todoList.id])
 
     const addTask = useCallback((title: string) => {
-        // @ts-ignore
         dispatch(addTaskTC(props.todoList.id, title))
     }, [dispatch])
 
@@ -66,15 +58,12 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
     }
 
     const onChangeTitle = useCallback((title: string) => {
-        // @ts-ignore
         dispatch(changeTodoListTitleTC(props.todoList.id, title))
     }, [props.todoList.id])
 
 
     const removeTodoListHandler = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-        // @ts-ignore
         dispatch(removeTodoListTC(props.todoList.id))
-
     }, [props.todoList.id])
 
 

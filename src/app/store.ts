@@ -1,8 +1,10 @@
-import { tasksReducer } from '../features/TodoListsList/tasks-reducer'
-import { todolistsReducer } from '../features/TodoListsList/todolists-reducer'
-import {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import {TasksActionType, tasksReducer} from '../features/TodoListsList/tasks-reducer'
+import {TodoListsActionType, todolistsReducer} from '../features/TodoListsList/todolists-reducer'
+import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {appReducer} from './app-reduser';
+import {useDispatch} from 'react-redux';
+
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -16,6 +18,18 @@ export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
+// все типы action lkz всего App
+export type AppActionsType = TodoListsActionType | TasksActionType
+
+
+
+
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
+export const useAppDispatch = () => useDispatch<AppDispatch>()
+
+// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
+// export type AppDispatch = typeof store.dispatch
+// export type AppDispatch = any
 // определить типы в ручную
 // type AppRootStateType ={
 //     todolists: Array<ToDoListType>
