@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux';
 import {AppRootStateType} from './store';
 import {RequestStatusType} from './app-reduser';
 
+
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
 }
