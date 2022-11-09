@@ -44,7 +44,6 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
     return <>
         <div className={stales.wrapper}>
             <h1 className={stales.appTitle}>To-Do List</h1>
-            <button className={stales.button_addTasks}>Add new task</button>
             <div className={stales.wrap}>
                 <AddItemForm addItem={addTodoList}/>
                 <div style={{maxWidth: '1140px'}}>
