@@ -7,6 +7,8 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from './store';
 import {RequestStatusType} from './app-reduser';
+import {Login} from '../features/Login/Login';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 
 export type TasksStateType = {
@@ -19,16 +21,25 @@ type PropsType = {
 
 export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
 
-   const status = useSelector<AppRootStateType, RequestStatusType>(state=> state.app.status)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
 
 
-    return (
-        <div className={stales.app}>
-            <ErrorSnackbar/>
-            {status === 'loading' && <LinearProgress/>}
-            <TodoListsList demo={demo}/>
-        </div>
-    );
+    return <>
+        <BrowserRouter>
+
+            <div className={stales.app} style={{position: 'relative'}}>
+                <ErrorSnackbar/>
+                <div style={{position: 'relative', top: '0', left: '0', height: '5px'}}>
+                    {status === 'loading' && <LinearProgress/>}
+                </div>
+                <Routes>
+                    <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                </Routes>
+            </div>
+
+        </BrowserRouter>
+    </>
 })
 
 
