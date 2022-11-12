@@ -1,45 +1,84 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import stales from './App.module.css';
 import {TaskType} from '../api/todoLists-api';
 import {TodoListsList} from '../features/TodoListsList/TodoListsList';
-import {LinearProgress} from '@mui/material';
+import {CircularProgress, LinearProgress} from '@mui/material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useSelector} from 'react-redux';
-import {AppRootStateType} from './store';
-import {RequestStatusType} from './app-reduser';
+import {AppRootStateType, useAppDispatch} from './store';
+import {isInitializeAppTC, RequestStatusType} from './app-reduser';
 import {Login} from '../features/Login/Login';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-
+import {logoutTC} from '../features/Login/auth-reducer';
 
 export type TasksStateType = {
-    [toDoList_ID: string]: Array<TaskType>
-}
+    [toDoList_ID: string]: Array<TaskType>;
+};
 
 type PropsType = {
-    demo?: boolean
-}
+    demo?: boolean;
+};
 
 export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
+    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status);
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized);
+    const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
 
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(isInitializeAppTC());
+    }, []);
+
+    const logoutH = useCallback(() => {
+        dispatch(logoutTC());
+    }, []);
 
 
-    return <>
-        <BrowserRouter>
-
-            <div className={stales.app} style={{position: 'relative'}}>
-                <ErrorSnackbar/>
-                <div style={{position: 'relative', top: '0', left: '0', height: '5px'}}>
-                    {status === 'loading' && <LinearProgress/>}
+    if (!isInitialized) {
+        return (
+            <>
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '48%',
+                        left: '48%',
+                    }}
+                >
+                    <CircularProgress/>
                 </div>
-                <Routes>
-                    <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
-                </Routes>
-            </div>
-
-        </BrowserRouter>
-    </>
-})
+            </>
+        );
+    }
 
 
+    return (
+        <>
+            <BrowserRouter>
+                <div
+                    className={stales.app}
+                    style={{
+                        position: 'relative',
+                    }}
+                >
+                    <ErrorSnackbar/>
+                    <div
+                        style={{
+                            position: 'relative',
+                            top: '0',
+                            left: '0',
+                            height: '5px',
+                        }}
+                    >
+                        {status === 'loading' && <LinearProgress/>}
+                    </div>
+                    {isLoggedIn && <button onClick={logoutH}>logout</button>}
+                    <Routes>
+                        <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
+                        <Route path={'/login'} element={<Login/>}/>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+        </>
+    );
+});

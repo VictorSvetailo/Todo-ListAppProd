@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, { useReducer, useState } from "react";
 // import stales from './App.module.css';
 // import {TaskType, TodoList} from './components/TodoList/TodoList';
 // import {v1} from 'uuid';

@@ -1,12 +1,12 @@
-import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import {Button} from '../../../../stories/Button';
-import AddItemForm from '../../../../components/AddItemForm/AddItemForm';
-import {action} from '@storybook/addon-actions';
-import styles from '../ToDoLIst.module.css';
-import {Tasks} from './Tasks';
-import {v1} from 'uuid';
+import { Button } from "../../../../stories/Button";
+import AddItemForm from "../../../../components/AddItemForm/AddItemForm";
+import { action } from "@storybook/addon-actions";
+import styles from "../ToDoLIst.module.css";
+import { Tasks } from "./Tasks";
+import { v1 } from "uuid";
 
 // // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 // export default {
@@ -34,7 +34,6 @@ import {v1} from 'uuid';
 // TasksIsNotDone.args = {
 //
 // };
-
 
 // const Template: ComponentStory<typeof Tasks> = (args) => {
 //     const [task, setState] = useState({id: v1(), title: action.title, isDone: false})
