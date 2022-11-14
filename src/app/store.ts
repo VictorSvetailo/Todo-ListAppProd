@@ -34,7 +34,6 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 // export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 // export type AppDispatch = typeof store.dispatch
 // export type AppDispatch = any
-// определить типы в ручную
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
 window.store = store;
