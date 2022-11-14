@@ -5,17 +5,17 @@ import thunkMiddleware from "redux-thunk";
 import { tasksReducer } from "../features/TodoListsList/tasks-reducer";
 import { appReducer } from "../app/app-reduser";
 import { TaskPriorities, TaskStatuses } from "../api/todoLists-api";
-import { todolistsReducer } from "../features/TodoListsList/todolists-reducer";
+import { todoListsReducer } from "../features/TodoListsList/todo-lists-reducer";
 import { v1 } from "uuid";
 
 const rootReducer = combineReducers({
    tasks: tasksReducer,
-   todolists: todolistsReducer,
+   todoLists: todoListsReducer,
    app: appReducer,
 });
 
 const initialGlobalState: AppRootStateType = {
-   todolists: [
+   todoLists: [
       {
          id: "todolistId1",
          title: "Whattolearn",

@@ -5,7 +5,7 @@ import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
 import { addTaskTC, fetchTasksTC } from "../tasks-reducer";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "../../../app/store";
-import { changeTodolistFilterAC, changeTodoListTitleTC, fetchTodoListTC, FilterValuesType, removeTodoListTC, TodoListDomainType } from "../todolists-reducer";
+import { changeTodolistFilterAC, changeTodoListTitleTC, fetchTodoListTC, FilterValuesType, removeTodoListTC, TodoListDomainType } from "../todo-lists-reducer";
 import { Tasks } from "./Task/Tasks";
 import { TaskStatuses, TaskType, TodoListType } from "../../../api/todoLists-api";
 
@@ -25,7 +25,7 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
       dispatch(fetchTasksTC(props.todoList.id));
    }, [props.todoList.id]);
 
-   const toDoList = useSelector<AppRootStateType, Array<TodoListType>>((state) => state.todolists);
+   const toDoList = useSelector<AppRootStateType, Array<TodoListType>>((state) => state.todoLists);
    const tasks = useSelector<AppRootStateType, Array<TaskType>>((state) => state.tasks[props.todoList.id]);
 
    const addTask = useCallback(
@@ -37,7 +37,8 @@ export const ToDoList: FC<ToDoListPropsType> = React.memo((props) => {
 
    const onClickSetFilterCreator = useCallback((filter: FilterValuesType) => {
       return () => {
-         dispatch(changeTodolistFilterAC(props.todoList.id, filter));
+         //@ts-ignore
+         dispatch(changeTodolistFilterAC({ id: props.todoList.id, filter }));
       };
    }, []);
 

@@ -69,13 +69,13 @@ export const authAPI = {
          }>
       >("auth/login", data);
    },
-    logout() {
-        return instance.delete<
-            ResponseType<{
-                userID?: number;
-            }>
-            >("auth/login");
-    },
+   logout() {
+      return instance.delete<
+         ResponseType<{
+            userID?: number;
+         }>
+      >("auth/login");
+   },
    me() {
       return instance.get<
          ResponseType<{

@@ -10,11 +10,13 @@ beforeEach(() => {
 });
 
 test("correct error message should be set", () => {
+   // @ts-ignore
    const endState = appReducer(startState, setAppErrorAC("Some error"));
    expect(endState.error).toBe("Some error");
 });
 
 test("correct status message should be set", () => {
+   // @ts-ignore
    const endState = appReducer(startState, setAppStatusAC("loading"));
    expect(endState.status).toBe("loading");
 });
