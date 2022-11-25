@@ -1,8 +1,8 @@
-import {tasksReducer } from "../features/TodoListsList/tasks-reducer";
-import { todoListsReducer } from "../features/TodoListsList/todo-lists-reducer";
+import {tasksReducer } from "../features/TodoListsList/TodoList/Task/tasks-reducer";
+import { todoListsReducer } from "../features/TodoListsList/todoLists-reducer";
 import { combineReducers } from "redux";
 import thunkMiddleware, { ThunkDispatch } from "redux-thunk";
-import { appReducer } from "./app-reduser";
+import { appReducer } from "./app-reducer";
 import { useDispatch } from "react-redux";
 import { authReducer } from "../features/Login/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
@@ -16,6 +16,8 @@ const rootReducer = combineReducers({
    auth: authReducer,
 });
 
+export type RootReducerType = typeof rootReducer
+
 // непосредственно создаём store ghb помощи configureStore
 export const store = configureStore({
    reducer: rootReducer,
@@ -23,7 +25,7 @@ export const store = configureStore({
 });
 
 // определить автоматически тип всего объекта состояния
-export type AppRootStateType = ReturnType<typeof rootReducer>;
+export type AppRootStateType = ReturnType<RootReducerType>;
 
 // все типы action lkz всего App
 export type AppActionsType = any;
