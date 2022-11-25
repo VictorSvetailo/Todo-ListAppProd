@@ -1,4 +1,4 @@
-import { setAppStatusAC } from "../../app/app-reduser";
+import { setAppStatusAC } from "../../app/app-reducer";
 import { Dispatch } from "redux";
 import { authAPI, LoginParamsType, TaskStatuses } from "../../api/todoLists-api";
 import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
@@ -38,6 +38,8 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
          handleServerNetworkError(error, dispatch);
       });
 };
+
+
 export const logoutTC = () => (dispatch: Dispatch) => {
    dispatch(setAppStatusAC({ status: "loading" }));
    authAPI

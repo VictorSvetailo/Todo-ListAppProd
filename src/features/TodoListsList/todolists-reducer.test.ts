@@ -1,7 +1,7 @@
-import { addTodoListsAC, changeTodolistEntityStatusAC, changeTodolistFilterAC, changeTodolistTitleAC, FilterValuesType, removeTodoListAC, setToDoListsAC, TodoListDomainType, todoListsReducer } from "./todo-lists-reducer";
+import { addTodoListsAC, changeTodolistEntityStatusAC, changeTodolistFilterAC, changeTodolistTitleAC, FilterValuesType, removeTodoListAC, setToDoListsAC, TodoListDomainType, todoListsReducer } from "./todoLists-reducer";
 import { v1 } from "uuid";
 import { TodoListType } from "../../api/todoLists-api";
-import { RequestStatusType } from "../../app/app-reduser";
+import { RequestStatusType } from "../../app/app-reducer";
 
 let todolistId1 = v1();
 let todolistId2 = v1();

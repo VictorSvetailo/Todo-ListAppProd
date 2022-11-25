@@ -2,10 +2,10 @@ import React, { FC, useCallback, useEffect, MouseEvent, useState } from "react";
 import styles from "./ToDoLIst.module.css";
 import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
-import { addTaskTC, fetchTasksTC } from "../tasks-reducer";
+import { addTaskTC, fetchTasksTC } from "./Task/tasks-reducer";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "../../../app/store";
-import { changeTodolistFilterAC, changeTodoListTitleTC, fetchTodoListTC, FilterValuesType, removeTodoListTC, TodoListDomainType } from "../todo-lists-reducer";
+import { changeTodolistFilterAC, changeTodoListTitleTC, fetchTodoListTC, FilterValuesType, removeTodoListTC, TodoListDomainType } from "../todoLists-reducer";
 import { Tasks } from "./Task/Tasks";
 import { TaskStatuses, TaskType, TodoListType } from "../../../api/todoLists-api";
 

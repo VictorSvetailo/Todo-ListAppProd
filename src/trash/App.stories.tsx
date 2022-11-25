@@ -2,13 +2,15 @@ import React from "react";
 
 import { App } from "../app/App";
 
-import { ReduxStoreProviderDecorator } from "./ReduxStoreProviderDecorator";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from './ReduxStoreProviderDecorator';
+
+
+//StoryRouter
 
 export default {
    title: "TodoList/App",
    component: App,
-   decorators: [ReduxStoreProviderDecorator],
+   decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],
 };
 //as ComponentMeta<typeof App>;
 
