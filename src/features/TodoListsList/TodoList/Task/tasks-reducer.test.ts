@@ -1,4 +1,4 @@
-import {addTaskAC, updateTaskAC, removeTaskAC, setTaskAC, tasksReducer} from './tasks-reducer';
+import {addTaskAC, updateTaskAC, tasksReducer, fetchTasksTC, removeTaskTC} from './tasks-reducer';
 import {TasksStateType} from '../../../../app/App';
 import {TaskPriorities, TaskStatuses} from '../../../../api/todoLists-api';
 import {addTodoListsAC, removeTodoListAC} from '../../todoLists-reducer';
@@ -80,7 +80,7 @@ beforeEach(() => {
 test('correct task should be deleted from correct array', () => {
 
 
-    const action = removeTaskAC({todoListID: 'todolistId2', taskID: '2'})
+    const action = removeTaskTC.fulfilled({toDoListID: 'todolistId2', taskID: '2'}, 'requestId', {toDoListID: 'todolistId2', taskID: '2'})
 
     const endState = tasksReducer(startState, action)
 
@@ -187,7 +187,8 @@ test('property with toDoListID should be deleted', () => {
 
 test('property should toDoListID should be deleted', () => {
 
-    const action = setTaskAC({toDoListID: 'todolistId1', tasks: startState['todolistId1']} )
+    // const action = setTaskAC({toDoListID: 'todolistId1', tasks: startState['todolistId1']} )
+    const action = fetchTasksTC.fulfilled({toDoListID: 'todolistId1', tasks: startState['todolistId1']}, '', 'todolistId1')
 
     const endState = tasksReducer({
         'todolistId2': [],

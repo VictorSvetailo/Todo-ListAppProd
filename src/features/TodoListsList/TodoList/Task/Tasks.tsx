@@ -33,7 +33,7 @@ export const Tasks: FC<TaskPropsType> = React.memo((props) => {
     );
 
     const removeTaskHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        dispatch(removeTaskTC(props.toDoListID, props.task.id));
+        dispatch(removeTaskTC({toDoListID: props.toDoListID, taskID: props.task.id}));
     };
 
     return (

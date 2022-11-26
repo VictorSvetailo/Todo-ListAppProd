@@ -47,7 +47,6 @@ export const todoListsAPI = {
 };
 
 
-
 export const authAPI = {
     login(data: LoginParamsType) {
         return instance.post<ResponseType<{
@@ -67,7 +66,6 @@ export const authAPI = {
         }>>('auth/me');
     },
 };
-
 
 
 // enum
@@ -101,9 +99,11 @@ export type TodoListType = {
     addedDate: string;
     order: number;
 };
+export type FieldErrorType = { error: string, message: string };
 export type ResponseType<D = {}> = {
     resultCode: number;
     messages: Array<string>;
+    fieldsErrors?: Array<FieldErrorType>;
     data: D;
 };
 export type TaskType = {
