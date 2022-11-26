@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './store';
 import {isInitializeAppTC, RequestStatusType} from './app-reducer';
 import {Login} from '../features/Login/Login';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {logoutTC} from '../features/Login/auth-reducer';
 
 export type TasksStateType = {
