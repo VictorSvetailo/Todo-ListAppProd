@@ -5,6 +5,7 @@ import {addTodoListsTC, fetchTodoListTC, removeTodoListTC} from '../../todoLists
 import {setAppStatusAC} from '../../../../app/app-reducer';
 import {handleServerAppError, handleServerNetworkError} from '../../../../utils/error-utils';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {AxiosError} from 'axios';
 
 const initialState: TasksStateType = {};
 
@@ -19,7 +20,7 @@ export const fetchTasksTC = createAsyncThunk('task/fetchTasks', async (toDoListI
 
 export const removeTaskTC = createAsyncThunk('task/removeTasks', async (param: { toDoListID: string, taskID: string }, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: 'loading'}));
-    const res = await todoListsAPI.deleteTasks(param.toDoListID, param.taskID)
+    await todoListsAPI.deleteTasks(param.toDoListID, param.taskID)
     thunkAPI.dispatch(setAppStatusAC({status: 'succeeded'}));
     return {toDoListID: param.toDoListID, taskID: param.taskID}
 })
@@ -38,9 +39,9 @@ export const addTaskTC = createAsyncThunk('task/addTask', async (param: { toDoLi
             handleServerAppError(res.data, dispatch);
             return rejectWithValue(null)
         }
-    } catch (error) {
-        //@ts-ignore
-        handleServerNetworkError(error, dispatch);
+    } catch (err) {
+        const error = err as AxiosError
+        handleServerNetworkError(error, dispatch)
         return rejectWithValue(null)
     }
 })
@@ -67,7 +68,7 @@ export const updateTaskTC = createAsyncThunk('task/updateTask', async (param: { 
     };
     dispatch(setAppStatusAC({status: 'loading'}));
     try {
-       const res = await todoListsAPI.updateTask(param.toDoListID, param.taskID, apiModel)
+        const res = await todoListsAPI.updateTask(param.toDoListID, param.taskID, apiModel)
         if (res.data.resultCode === TaskStatuses.New) {
             dispatch(setAppStatusAC({status: 'succeeded'}));
             return param
@@ -75,9 +76,9 @@ export const updateTaskTC = createAsyncThunk('task/updateTask', async (param: { 
             handleServerAppError(res.data, dispatch);
             return rejectWithValue(null)
         }
-    } catch (error) {
-        //@ts-ignore
-        handleServerNetworkError(error, dispatch);
+    } catch (err) {
+        const error = err as AxiosError
+        handleServerNetworkError(error, dispatch)
         return rejectWithValue(null)
     }
 })

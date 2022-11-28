@@ -2,6 +2,7 @@ import {todoListsAPI, TodoListType} from '../../api/todoLists-api';
 import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
 import {handleServerNetworkError} from '../../utils/error-utils';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {AxiosError} from 'axios';
 
 
 export const fetchTodoListTC = createAsyncThunk('todoLists/fetchTodoList', async (param, {
@@ -13,9 +14,9 @@ export const fetchTodoListTC = createAsyncThunk('todoLists/fetchTodoList', async
         const res = await todoListsAPI.getTodoLists();
         dispatch(setAppStatusAC({status: 'succeeded'}));
         return {todoLists: res.data}
-    } catch (error) {
-        // @ts-ignore
-        handleServerNetworkError(error, dispatch);
+    } catch (err) {
+        const error = err as AxiosError
+        handleServerNetworkError(error, dispatch)
         return rejectWithValue(null)
     }
 })
@@ -54,10 +55,6 @@ const slice = createSlice({
     name: 'todoLists',
     initialState: [] as Array<TodoListDomainType>,
     reducers: {
-        // changeTodolistTitleAC(stateDraft, action: PayloadAction<{ id: string; title: string }>) {
-        //     const index = stateDraft.findIndex((tl) => tl.id === action.payload.id);
-        //     stateDraft[index].title = action.payload.title;
-        // },
         changeTodolistFilterAC(stateDraft, action: PayloadAction<{ id: string; filter: FilterValuesType }>) {
             const index = stateDraft.findIndex((tl) => tl.id === action.payload.id);
             stateDraft[index].filter = action.payload.filter;
@@ -93,17 +90,6 @@ export const {
     changeTodolistFilterAC,
     changeTodolistEntityStatusAC,
 } = slice.actions;
-
-// thunks
-// export const fetchTodoListTC = () => (dispatch: ThunkDispatch) => {
-//     dispatch(setAppStatusAC('loading'))
-//     todoListsAPI.getTodoLists()
-//         .then((res) => {
-//             dispatch(setToDoListsAC(res.data))
-//             dispatch(setAppStatusAC('succeeded'))
-//         })
-// }
-
 
 // - types -
 
