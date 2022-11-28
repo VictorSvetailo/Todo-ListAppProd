@@ -7,8 +7,6 @@ type AddItemFormPropsType = {
 };
 
 const AddItemForm: FC<AddItemFormPropsType> = React.memo(({ addItem, disabled = false }) => {
-   console.log("AddItemForm is called");
-
    const [title, setTitle] = useState<string>("");
    const [error, setError] = useState<string | null>(null);
    const onClickAddTask = () => {
@@ -27,8 +25,7 @@ const AddItemForm: FC<AddItemFormPropsType> = React.memo(({ addItem, disabled = 
       setTitle(e.currentTarget.value);
    };
    const onKeyDownAddTask = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && onClickAddTask();
-   //const interErrorClass = error ? 'error' : ''
-   //const errorMessage = <div style={{color: 'hotpink'}}>Title is required!</div>
+
    return (
       <div>
          <input disabled={disabled} value={title} onChange={onChangeSetTitle} onKeyDown={onKeyDownAddTask} className={error ? `${styles.error}` : ""} />

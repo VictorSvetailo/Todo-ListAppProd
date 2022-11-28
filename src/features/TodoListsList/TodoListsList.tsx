@@ -32,7 +32,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
 
     const todoListComponents = todoList.map((tl) => {
         return (
-            <>
+            <div key={tl.id}>
                 <div
                     style={{
                         marginTop: '10px',
@@ -40,7 +40,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
                 >
                     <ToDoList key={tl.id} todoList={tl} demo={demo}/>
                 </div>
-            </>
+            </div>
         );
     });
 

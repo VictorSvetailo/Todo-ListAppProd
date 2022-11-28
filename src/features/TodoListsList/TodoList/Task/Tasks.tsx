@@ -15,8 +15,10 @@ export const Tasks: FC<TaskPropsType> = React.memo((props) => {
     const dispatch = useAppDispatch();
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(
-            updateTaskTC(props.toDoListID, props.task.id, {
-                status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New,
+            updateTaskTC({
+                toDoListID: props.toDoListID,
+                taskID: props.task.id,
+                model: {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}
             })
         );
     };
@@ -24,8 +26,10 @@ export const Tasks: FC<TaskPropsType> = React.memo((props) => {
     const onChangeTitle = useCallback(
         (newTitle: string) => {
             dispatch(
-                updateTaskTC(props.toDoListID, props.task.id, {
-                    title: newTitle,
+                updateTaskTC({
+                    toDoListID: props.toDoListID,
+                    taskID: props.task.id,
+                    model: {title: newTitle,}
                 })
             );
         },

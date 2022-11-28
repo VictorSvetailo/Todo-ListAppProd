@@ -27,7 +27,7 @@ export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (!demo){
+        if (!demo) {
             dispatch(isInitializeAppTC());
         }
 
@@ -55,30 +55,29 @@ export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
 
     return (
         <>
-
+            <div
+                className={stales.app}
+                style={{
+                    position: 'relative',
+                }}
+            >
+                <ErrorSnackbar/>
                 <div
-                    className={stales.app}
                     style={{
                         position: 'relative',
+                        top: '0',
+                        left: '0',
+                        height: '5px',
                     }}
                 >
-                    <ErrorSnackbar/>
-                    <div
-                        style={{
-                            position: 'relative',
-                            top: '0',
-                            left: '0',
-                            height: '5px',
-                        }}
-                    >
-                        {status === 'loading' && <LinearProgress/>}
-                    </div>
-                    {isLoggedIn && <button onClick={logoutH}>logout</button>}
-                    <Routes>
-                        <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
-                        <Route path={'/login'} element={<Login/>}/>
-                    </Routes>
+                    {status === 'loading' && <LinearProgress/>}
                 </div>
+                {isLoggedIn && <button onClick={logoutH}>logout</button>}
+                <Routes>
+                    <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                </Routes>
+            </div>
 
         </>
     );
