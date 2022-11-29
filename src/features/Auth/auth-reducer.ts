@@ -17,8 +17,7 @@ export const loginTC = createAsyncThunk<undefined, LoginParamsType, { rejectValu
             return thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
     } catch (err) {
-        //@ts-ignore
-        const error: AxiosError = err
+        const error = err as AxiosError
         handleServerNetworkError(error, thunkAPI.dispatch);
         return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
     }
@@ -35,14 +34,19 @@ export const logoutTC = createAsyncThunk('auth/logout', async (param, thunkAPI) 
             handleServerAppError(res.data, thunkAPI.dispatch);
             return thunkAPI.rejectWithValue({})
         }
-    } catch (error) {
-        //@ts-ignore
+    } catch (err) {
+        const error = err as AxiosError
         handleServerNetworkError(error, thunkAPI.dispatch);
         return thunkAPI.rejectWithValue({})
     }
 })
 
-const slice = createSlice({
+export const asyncActions = {
+    loginTC,
+    logoutTC,
+}
+
+export const slice = createSlice({
     name: 'auth',
     initialState: {isLoggedIn: false},
     reducers: {

@@ -1,15 +1,19 @@
 import React, {useCallback, useEffect} from 'react';
 import stales from './App.module.css';
 import {TaskType} from '../api/todoLists-api';
-import {TodoListsList} from '../features/TodoListsList/TodoListsList';
+import {TodoListsList} from '../features/TodoListsList';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch} from './store';
-import {isInitializeAppTC, RequestStatusType} from './app-reducer';
-import {Login} from '../features/Login/Login';
+import {useAppDispatch} from './store';
+import {Login} from '../features/Auth';
 import {Route, Routes} from 'react-router-dom';
-import {logoutTC} from '../features/Login/auth-reducer';
+import {logoutTC} from '../features/Auth/auth-reducer';
+import {authSelectors} from '../features/Auth';
+import {selectIsInitialized, selectStatus} from './selectors';
+import {asyncActions} from './app-reducer';
+
+
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>;
@@ -19,16 +23,18 @@ type PropsType = {
     demo?: boolean;
 };
 
+
+
 export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status);
-    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized);
-    const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
+    const status = useSelector(selectStatus)
+    const isInitialized = useSelector(selectIsInitialized);
+    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!demo) {
-            dispatch(isInitializeAppTC());
+            dispatch(asyncActions.isInitializeAppTC());
         }
 
     }, []);

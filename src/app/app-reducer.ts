@@ -1,9 +1,10 @@
 import {authAPI} from '../api/todoLists-api';
-import {setIsLoggedInAC} from '../features/Login/auth-reducer';
+import {setIsLoggedInAC} from '../features/Auth/auth-reducer';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 
-export const isInitializeAppTC = createAsyncThunk('auth/initializeApp', async (param, {dispatch}) => {
+
+const isInitializeAppTC = createAsyncThunk('auth/initializeApp', async (param, {dispatch}) => {
     dispatch(setAppStatusAC({status: 'loading'}));
     const res = await authAPI.me()
     if (res.data.resultCode === 0) {
@@ -12,6 +13,11 @@ export const isInitializeAppTC = createAsyncThunk('auth/initializeApp', async (p
         //in development
     }
 })
+
+
+export const asyncActions = {
+    isInitializeAppTC
+}
 
 
 const slice = createSlice({

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
 import {FormikHelpers, useFormik} from 'formik';
-import {AppRootStateType, useAppDispatch} from '../../app/store';
-import {loginTC} from './auth-reducer';
+import {useActions, useAppDispatch} from '../../app/store';
 import {useSelector} from 'react-redux';
 import {Navigate} from 'react-router-dom';
-
+import {selectIsLoggedIn} from './selectors';
+import {authActions} from './index';
 
 type FormikValuesType = {
     email: string
@@ -16,7 +16,9 @@ type FormikValuesType = {
 export const Login = () => {
     const dispatch = useAppDispatch();
 
-    const isLoggedIn = useSelector<AppRootStateType>((state) => state.auth.isLoggedIn);
+    const {loginTC} = useActions(authActions)
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
     const formik = useFormik({
         validate: (values) => {
@@ -38,7 +40,7 @@ export const Login = () => {
         },
 
         onSubmit: async (values: FormikValuesType, formikHelpers: FormikHelpers<FormikValuesType>) => {
-            const action = await dispatch(loginTC(values));
+            const action = await dispatch(authActions.loginTC(values))
 
             if (loginTC.rejected.match(action)) {
                 if (action.payload?.fieldsErrors?.length) {

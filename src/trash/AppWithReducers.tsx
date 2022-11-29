@@ -5,7 +5,7 @@ import React, { useReducer, useState } from "react";
 // import AddItemForm from './components/AddItemForm/AddItemForm';
 // import {
 //     addTodolistsAC,
-//     changeTodolistFilterAC,
+//     changeTodolistFilter,
 //     changeTodolistTitleAC,
 //     removeTodoListAC,
 //     todolistsReducer
@@ -49,7 +49,7 @@ import React, { useReducer, useState } from "react";
 //     }
 //
 //     function changeToDoListFilter(toDoListID: string, filter: FilterValuesType) {
-//         dispatchToDoListsReducer(changeTodolistFilterAC(toDoListID, filter))
+//         dispatchToDoListsReducer(changeTodolistFilter(toDoListID, filter))
 //     }
 //
 //     const changeToDoListTitle = (toDoListID: string, newTitle: string) => {
@@ -75,7 +75,7 @@ import React, { useReducer, useState } from "react";
 //         ]
 //     })
 //
-//     // Add Tasks
+//     // Add Task
 //     const addTask = (toDoListID: string, title: string) => {
 //         dispatchToTasksReducer(addTaskAC(toDoListID, title))
 //     }

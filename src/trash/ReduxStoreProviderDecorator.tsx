@@ -7,7 +7,7 @@ import {appReducer} from '../app/app-reducer';
 import {TaskPriorities, TaskStatuses} from '../api/todoLists-api';
 import {todoListsReducer} from '../features/TodoListsList/todoLists-reducer';
 import {v1} from 'uuid';
-import {authReducer} from '../features/Login/auth-reducer';
+import {authReducer} from '../features/Auth/auth-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 import ReactDOM from 'react-dom';
 import {App} from '../app/App';

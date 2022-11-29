@@ -20,14 +20,20 @@ export default {
 // More on components templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args} />;
 
+
+
+const asyncCaB = async (...params: any[]) =>{
+   action('Button inside form clicked')(...params)
+}
+
 export const AddItemFormStory = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 AddItemFormStory.args = {
-   addItem: action("Clicked Button"),
+   addItem: asyncCaB,
 };
 
 export const AddItemFormDisabledExample = (props: any) => {
-   return <AddItemForm disabled={true} addItem={action("Button inside form clicked")} />;
+   return <AddItemForm disabled={true} addItem={asyncCaB}/>;
 };
 
 //

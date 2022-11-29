@@ -1,9 +1,11 @@
 import {
     addTodoListsTC,
-    changeTodolistEntityStatusAC,
-    changeTodolistFilterAC, changeTodoListTitleTC,
+    changeTodolistEntityStatus,
+    changeTodolistFilter,
+    changeTodoListTitleTC,
     fetchTodoListTC,
-    FilterValuesType, removeTodoListTC,
+    FilterValuesType,
+    removeTodoListTC,
     TodoListDomainType,
     todoListsReducer
 } from './todoLists-reducer';
@@ -73,7 +75,7 @@ test('correct todolist should change its name', () => {
 test('correct filter of todolist should be changed', () => {
     let newFilter: FilterValuesType = 'completed';
 
-    const endState = todoListsReducer(startState, changeTodolistFilterAC({id: todolistId2, filter: newFilter}));
+    const endState = todoListsReducer(startState, changeTodolistFilter({id: todolistId2, filter: newFilter}));
 
     expect(endState[0].filter).toBe('all');
     expect(endState[1].filter).toBe(newFilter);
@@ -89,7 +91,7 @@ test('todolist should be set to the state', () => {
 test('correct entity Status of todolist should be changed', () => {
     let newStatus: RequestStatusType = 'loading';
 
-    const endState = todoListsReducer(startState, changeTodolistEntityStatusAC({id: todolistId2, status: newStatus}));
+    const endState = todoListsReducer(startState, changeTodolistEntityStatus({id: todolistId2, status: newStatus}));
 
     expect(endState[0].entityStatus).toBe('idle');
     expect(endState[1].entityStatus).toBe(newStatus);

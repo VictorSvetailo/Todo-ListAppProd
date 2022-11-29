@@ -1,22 +1,29 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import styles from "../../features/TodoListsList/TodoList/ToDoLIst.module.css";
+import {AxiosError} from 'axios';
 
 type AddItemFormPropsType = {
-   addItem: (title: string) => void;
+   addItem: (title: string) => Promise<any>;
    disabled?: boolean;
 };
+
 
 const AddItemForm: FC<AddItemFormPropsType> = React.memo(({ addItem, disabled = false }) => {
    const [title, setTitle] = useState<string>("");
    const [error, setError] = useState<string | null>(null);
-   const onClickAddTask = () => {
-      if (title.trim()) {
-         addItem(title);
-         setTitle("");
+
+   const onClickAddTask = async () => {
+      if (title.trim() !=='') {
+         try {
+            await addItem(title);
+            setTitle("");
+         } catch (err){
+            const error = err as AxiosError
+            setError(error.message)
+         }
       } else {
          setError("Title is required");
       }
-      setTitle("");
    };
    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
       if (setError !== null) {
@@ -32,7 +39,7 @@ const AddItemForm: FC<AddItemFormPropsType> = React.memo(({ addItem, disabled = 
          <button disabled={disabled} onClick={onClickAddTask}>
             Add List
          </button>
-         {error && <div className={styles.error_message}>*Field is required bro</div>}
+         {error && <div className={styles.error_message}>{error}</div>}
       </div>
    );
 });
