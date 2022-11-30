@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import {AppRootStateType, useActions} from '../../app/store';
+import {AppRootStateType, useActions, useAppDispatch} from '../../app/store';
 import {TodoListDomainType} from './todoLists-reducer';
 import {TodoList} from './TodoList/TodoList';
 import stales from '../../app/App.module.css';
-import AddItemForm from '../../components/AddItemForm/AddItemForm';
+import AddItemForm, {AssItemFormSubmitHelperType} from '../../components/AddItemForm/AddItemForm';
 import {Navigate} from 'react-router-dom';
 import {selectIsLoggedIn} from '../Auth/selectors';
 import {todoListsActions} from './index';
+import {tasksActions} from './TodoList/Task';
 
 type TodoListsListPropsType = {
     demo?: boolean;
@@ -15,8 +16,8 @@ type TodoListsListPropsType = {
 export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) => {
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>((state) => state.todoLists);
     const isLoggedIn = useSelector(selectIsLoggedIn);
-    const {addTodoListsTC, fetchTodoListTC} = useActions(todoListsActions)
-
+    const {fetchTodoListTC} = useActions(todoListsActions)
+    const dispatch = useAppDispatch()
     // componentDidMount
     useEffect(() => {
         if (demo || !isLoggedIn) {
@@ -25,8 +26,20 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
         fetchTodoListTC()
     }, []);
 
-    const addTodoListsCB = useCallback(async (title: string) => {
-        addTodoListsTC(title);
+    const addTodoListsCB = useCallback(async (title: string, helper: AssItemFormSubmitHelperType) => {
+        let thunk = todoListsActions.addTodoListsTC(title);
+        const resultAction = await dispatch(thunk)
+
+        if (todoListsActions.addTodoListsTC.rejected.match(resultAction)) {
+            if (resultAction.payload?.errors?.length) {
+                const errorMessage = resultAction.payload?.errors[0]
+                helper.setError(errorMessage)
+            } else {
+                helper.setError('Some error occurred')
+            }
+        }else{
+            helper.setTitle('')
+        }
         }, []
     );
 
@@ -73,3 +86,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
         </>
     );
 };
+
+
+
+

@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useEffect, MouseEvent, useState} from 'react';
 import styles from './ToDoLIst.module.css';
-import AddItemForm from '../../../components/AddItemForm/AddItemForm';
+import AddItemForm, {AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {useSelector} from 'react-redux';
 import {AppRootStateType, useActions, useAppDispatch} from '../../../app/store';
@@ -11,7 +11,6 @@ import {Task} from './Task/Task';
 import {TaskStatuses, TaskType} from '../../../api/todoLists-api';
 import {tasksActions} from './Task';
 import {todoListsActions} from '../index';
-import {authActions} from '../../Auth';
 
 export type ToDoListPropsType = {
     todoList: TodoListDomainType;
@@ -33,18 +32,19 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
         fetchTasks(props.todoList.id)
     }, []);
 
-    const addTaskCB = useCallback(async (title: string) => {
+    const addTaskCB = useCallback(async (title: string, helper: AssItemFormSubmitHelperType) => {
             let thunk = tasksActions.addTask({todoListId: props.todoList.id, title});
-
             const resultAction = await dispatch(thunk)
 
             if (tasksActions.addTask.rejected.match(resultAction)) {
                 if (resultAction.payload?.errors?.length) {
                     const errorMessage = resultAction.payload?.errors[0]
-                    throw new Error(errorMessage)
+                    helper.setError(errorMessage)
                 } else {
-                    throw new Error('Some error occurred')
+                    helper.setError('Some error occurred')
                 }
+            }else{
+                helper.setTitle('')
             }
 
         }, [props.todoList.id]
@@ -91,7 +91,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                 {!tasksForTodolist.length && <span style={{color: 'grey'}}>No tasks</span>}
             </ul>
             <div>
-                <FilterButton todoList={props.todoList}/>
+                <FilterButtonComponent todoList={props.todoList}/>
             </div>
         </div>
     );
@@ -101,7 +101,7 @@ type FilterButtonPropsType = {
     todoList: TodoListDomainType;
 }
 
-const FilterButton: React.FC<FilterButtonPropsType> = (props) => {
+export const FilterButtonComponent: React.FC<FilterButtonPropsType> = (props) => {
     const {changeTodolistFilter} = useActions(todoListsActions)
 
     return <div>

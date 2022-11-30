@@ -1,8 +1,9 @@
-import {todoListsAPI, TodoListType} from '../../api/todoLists-api';
+import {FieldErrorType, TaskType, todoListsAPI, TodoListType} from '../../api/todoLists-api';
 import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
+import {ThunkError} from '../../app/store';
 
 export const fetchTodoListTC = createAsyncThunk('todoLists/fetchTodoList', async (param, {
     dispatch,
@@ -19,27 +20,25 @@ export const fetchTodoListTC = createAsyncThunk('todoLists/fetchTodoList', async
         return rejectWithValue(null)
     }
 })
-export const addTodoListsTC = createAsyncThunk('todoLists/addTodoLists', async (title: string, {
-    dispatch,
-    rejectWithValue
-}) => {
+export const addTodoListsTC = createAsyncThunk<{todoList: TodoListType }, string, ThunkError>
+('todoLists/addTodoLists', async (title, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}));
-   try {
+    try {
         const res = await todoListsAPI.createTodoLists(title);
         if (res.data.resultCode === 0) {
             dispatch(setAppStatusAC({status: 'succeeded'}));
             return {todoList: res.data.data.item}
         } else {
-            handleServerAppError(res.data, dispatch)
-            return rejectWithValue(null)
+            handleServerAppError(res.data, dispatch, false);
+            return rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors})
         }
     } catch (err) {
-       const error = err as AxiosError
-       handleServerNetworkError(error, dispatch)
-       return rejectWithValue(null)
-   }
-
+        const error = err as AxiosError
+        handleServerNetworkError(error, dispatch, false)
+        return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
+    }
 })
+
 export const removeTodoListTC = createAsyncThunk('todoLists/removeTodoList', async (toDoListID: string, {
     dispatch,
     rejectWithValue

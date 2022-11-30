@@ -112,7 +112,7 @@ test('correct task should be added to correct array', () => {
         startDate: ''
     }
 
-    const action = addTask.fulfilled(task, 'requestId', {title: task.title, toDoListID: task.todoListId})
+    const action = addTask.fulfilled(task, 'requestId', {title: task.title, todoListId: task.todoListId})
     const endState = tasksReducer(startState, action)
     expect(endState['todolistId1'].length).toBe(4)
     expect(endState['todolistId2'].length).toBe(3)
