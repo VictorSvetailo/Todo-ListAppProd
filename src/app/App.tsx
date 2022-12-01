@@ -1,17 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
 import stales from './App.module.css';
-import {TaskType} from '../api/todoLists-api';
 import {TodoListsList} from '../features/TodoListsList';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useSelector} from 'react-redux';
-import {useAppDispatch} from './store';
-import {Login} from '../features/Auth';
+import {Login, authActions} from '../features/Auth';
 import {Route, Routes} from 'react-router-dom';
-import {logoutTC} from '../features/Auth/auth-reducer';
 import {authSelectors} from '../features/Auth';
-import {selectIsInitialized, selectStatus} from './selectors';
-import {asyncActions} from './app-reducer';
+import {selectIsInitialized, selectStatus} from '../features/Apllication/selectors';
+import {appActions} from '../features/Apllication';
+import {useActions} from '../utils/redux-utils';
+import {TaskType} from '../api/types';
 
 
 
@@ -29,18 +28,17 @@ export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized);
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-
-    const dispatch = useAppDispatch();
+    const {logout} = useActions(authActions)
+    const {isInitializeApp} = useActions(appActions)
 
     useEffect(() => {
         if (!demo) {
-            dispatch(asyncActions.isInitializeAppTC());
+           isInitializeApp()
         }
-
     }, []);
 
     const logoutH = useCallback(() => {
-        dispatch(logoutTC());
+        logout()
     }, []);
 
     if (!isInitialized) {

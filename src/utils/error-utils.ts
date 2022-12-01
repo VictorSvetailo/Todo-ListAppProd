@@ -1,34 +1,26 @@
-import {setAppErrorAC, SetAppErrorAT, setAppStatusAC, SetAppStatusAT} from '../app/app-reducer';
-import {ResponseType} from '../api/todoLists-api';
-import {Dispatch} from 'redux';
+import {appActions} from '../features/CommanActions/AppActions';
 
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<SetAppStatusAT | SetAppErrorAT>,
-                                        showError = true) => {
-    if (showError) {
-        dispatch(setAppErrorAC({error: data.messages.length ? data.messages[0] : 'Some Error'}));
-    }
-    dispatch(setAppStatusAC({status: 'failed'}));
-};
+import {ThunkAPIType} from './types';
+import {ResponseType} from '../api/types';
 
-export const handleServerNetworkError = (
-    error: {
-        message: string;
-    },
-    dispatch: Dispatch<SetAppStatusAT | SetAppErrorAT>, showError = true
-) => {
+const {setAppStatus, setAppError} = appActions
+// Async
+export const handleAsyncServerAppError = <D>(data: ResponseType<D>, thunkAPI: ThunkAPIType,
+                                             showError = true) => {
     if (showError) {
-        dispatch(setAppErrorAC({error: error.message ? error.message : 'Some error occurred'}));
+        thunkAPI.dispatch(setAppError({error: data.messages.length ? data.messages[0] : 'Some Error'}));
     }
-    dispatch(setAppStatusAC({status: 'failed'}));
+    thunkAPI.dispatch(setAppStatus({status: 'failed'}));
+    return thunkAPI.rejectWithValue({errors: data.messages, fieldsErrors: data.fieldsErrors})
 };
 
 
 export const handleAsyncServerNetworkError = (
-    error: { message: string; }, thunkAPI: any, showError = true) => {
+    error: { message: string; }, thunkAPI: ThunkAPIType, showError = true) => {
     if (showError) {
-        thunkAPI.dispatch(setAppErrorAC({error: error.message ? error.message : 'Some error occurred'}));
+        thunkAPI.dispatch(setAppError({error: error.message ? error.message : 'Some error occurred'}));
     }
-    thunkAPI.dispatch(setAppStatusAC({status: 'failed'}));
+    thunkAPI.dispatch(setAppStatus({status: 'failed'}));
     return thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined})
 };
 

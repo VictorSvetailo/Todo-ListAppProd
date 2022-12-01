@@ -7,11 +7,11 @@ import {
     FilterValuesType,
     removeTodoListTC,
     TodoListDomainType,
-    todoListsReducer
 } from './todoLists-reducer';
 import {v1} from 'uuid';
-import {TodoListType} from '../../api/todoLists-api';
-import {RequestStatusType} from '../../app/app-reducer';
+import {RequestStatusType} from '../Apllication/application-reducer';
+import {todoListsReducer} from './index';
+import {TodoListType} from '../../api/types';
 
 let todolistId1 = v1();
 let todolistId2 = v1();
@@ -83,7 +83,7 @@ test('correct filter of todolist should be changed', () => {
 
 test('todolist should be set to the state', () => {
     let payload = {todoLists: startState};
-    const action = fetchTodoListTC.fulfilled(payload,'requestId');
+    const action = fetchTodoListTC.fulfilled(payload,'requestId', undefined);
     const endState = todoListsReducer([], action);
     expect(endState.length).toBe(2);
 });

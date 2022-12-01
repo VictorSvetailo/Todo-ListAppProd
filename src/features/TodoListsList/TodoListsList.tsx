@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import {AppRootStateType, useActions, useAppDispatch} from '../../app/store';
+import {AppRootStateType} from '../../app/store';
 import {TodoListDomainType} from './todoLists-reducer';
 import {TodoList} from './TodoList/TodoList';
 import stales from '../../app/App.module.css';
@@ -8,7 +8,7 @@ import AddItemForm, {AssItemFormSubmitHelperType} from '../../components/AddItem
 import {Navigate} from 'react-router-dom';
 import {selectIsLoggedIn} from '../Auth/selectors';
 import {todoListsActions} from './index';
-import {tasksActions} from './TodoList/Task';
+import {useActions, useAppDispatch} from '../../utils/redux-utils';
 
 type TodoListsListPropsType = {
     demo?: boolean;

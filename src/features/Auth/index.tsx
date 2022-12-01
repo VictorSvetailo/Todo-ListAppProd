@@ -8,8 +8,12 @@ const authActions = {
     ...slice.actions
 }
 
+const authReducer = slice.reducer
+
+
 export {
     authSelectors,
     authActions,
+    authReducer,
     Login,
 }

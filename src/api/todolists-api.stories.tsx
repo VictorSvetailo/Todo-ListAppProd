@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { todoListsAPI, UpdateTaskModelType } from "./todoLists-api";
+import { todoListsAPI} from "./todoLists-api";
 import { string } from "prop-types";
+import {UpdateTaskModelType} from './types';
 
 export default {
    title: "API",

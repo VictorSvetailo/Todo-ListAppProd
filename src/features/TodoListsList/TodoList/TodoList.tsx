@@ -3,14 +3,15 @@ import styles from './ToDoLIst.module.css';
 import AddItemForm, {AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {useSelector} from 'react-redux';
-import {AppRootStateType, useActions, useAppDispatch} from '../../../app/store';
+import {AppRootStateType} from '../../../app/store';
 import {
     TodoListDomainType
 } from '../todoLists-reducer';
 import {Task} from './Task/Task';
-import {TaskStatuses, TaskType} from '../../../api/todoLists-api';
 import {tasksActions} from './Task';
 import {todoListsActions} from '../index';
+import {useActions, useAppDispatch} from '../../../utils/redux-utils';
+import {TaskStatuses, TaskType} from '../../../api/types';
 
 export type ToDoListPropsType = {
     todoList: TodoListDomainType;

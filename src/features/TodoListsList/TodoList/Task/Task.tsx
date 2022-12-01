@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, useCallback, MouseEvent} from 'react';
 import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
-import {TaskStatuses, TaskType} from '../../../../api/todoLists-api';
-import {useActions} from '../../../../app/store';
 import {tasksActions} from './index';
+import {useActions} from '../../../../utils/redux-utils';
+import {TaskStatuses, TaskType} from '../../../../api/types';
 
 export type TaskPropsType = {
     todoListId: string;

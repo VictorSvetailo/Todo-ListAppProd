@@ -1,7 +1,8 @@
-import {addTask, fetchTasks, removeTask, tasksReducer, updateTask} from './tasks-reducer';
+import {addTask, fetchTasks, removeTask, updateTask} from './tasks-reducer';
 import {TasksStateType} from '../../../../app/App';
-import {TaskPriorities, TaskStatuses} from '../../../../api/todoLists-api';
 import {addTodoListsTC, removeTodoListTC} from '../../todoLists-reducer';
+import {tasksReducer} from './index';
+import {TaskPriorities, TaskStatuses} from '../../../../api/types';
 
 
 let startState: TasksStateType = {}
@@ -89,7 +90,7 @@ test('correct task should be deleted from correct array', () => {
 
     expect(endState['todolistId1'].length).toBe(3)
     expect(endState['todolistId2'].length).toBe(2)
-    expect(endState['todolistId2'].every(t => t.id !== '2')).toBeTruthy()
+    expect(endState['todolistId2'].every((t: any) => t.id !== '2')).toBeTruthy()
     expect(endState['todolistId2'][0].id).toBe('1')
     expect(endState['todolistId2'][1].id).toBe('3')
     expect(endState['todolistId2'][1].id).toBeDefined()

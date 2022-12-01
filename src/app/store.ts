@@ -1,13 +1,11 @@
-import {tasksReducer} from '../features/TodoListsList/TodoList/Task/tasks-reducer';
-import {todoListsReducer} from '../features/TodoListsList/todoLists-reducer';
-import {ActionCreatorsMapObject, bindActionCreators, combineReducers} from 'redux';
+import {tasksReducer} from '../features/TodoListsList/TodoList/Task';
+import {todoListsReducer} from '../features/TodoListsList';
+import {combineReducers} from 'redux';
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
-import {appReducer} from './app-reducer';
-import {useDispatch} from 'react-redux';
-import {authReducer} from '../features/Auth/auth-reducer';
+import {appReducer} from '../features/Apllication';
+import {authReducer} from '../features/Auth';
 import {configureStore} from '@reduxjs/toolkit';
-import {useMemo} from 'react';
-import {FieldErrorType} from '../api/todoLists-api';
+import {FieldErrorType} from '../api/types';
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -33,7 +31,6 @@ export type AppRootStateType = ReturnType<RootReducerType>;
 export type AppActionsType = any;
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 // export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 // export type AppDispatch = typeof store.dispatch
@@ -43,16 +40,6 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 window.store = store;
 
 // export type AppDispatchType = type store.dispatch
-
-
-export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
-    const dispatch = useAppDispatch()
-
-    const boundActions = useMemo(() => {
-        return bindActionCreators(actions, dispatch)
-    }, [])
-    return boundActions
-}
 
 
 export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
