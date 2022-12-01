@@ -63,7 +63,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
     return (
         <>
             <div className={stales.wrapper}>
-                <h1 className={stales.appTitle}>To-do List</h1>
+                <h1 className={stales.appTitle}>Todo-List App</h1>
                 <div className={stales.wrap}>
                     <AddItemForm addItem={addTodoListsCB}/>
                     <div
