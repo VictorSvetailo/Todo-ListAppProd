@@ -1,7 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import AddItemForm from "./AddItemForm";
+import {AddItemForm} from "./AddItemForm";
 import { action } from "@storybook/addon-actions";
 import styles from "../../features/TodoListsList/TodoList/ToDoLIst.module.css";
 
@@ -33,7 +33,7 @@ AddItemFormStory.args = {
 };
 
 export const AddItemFormDisabledExample = (props: any) => {
-   return <AddItemForm disabled={true} addItem={asyncCaB}/>;
+   return <AddItemForm  placeholder={'Todo List'} disabled={true} addItem={asyncCaB}/>;
 };
 
 //

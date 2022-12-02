@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import stales from './App.module.css';
 import {TodoListsList} from '../features/TodoListsList';
-import {CircularProgress, LinearProgress} from '@mui/material';
+import {Box, CircularProgress, Grid, LinearProgress} from '@mui/material';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useSelector} from 'react-redux';
 import {Login, authActions} from '../features/Auth';
@@ -11,7 +11,7 @@ import {selectIsInitialized, selectStatus} from '../features/Apllication/selecto
 import {appActions} from '../features/Apllication';
 import {useActions} from '../utils/redux-utils';
 import {TaskType} from '../api/types';
-
+import {AppMenuBar} from '../components/Menu/MenuBar';
 
 
 export type TasksStateType = {
@@ -23,22 +23,17 @@ type PropsType = {
 };
 
 
-
 export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized);
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-    const {logout} = useActions(authActions)
+    // const {logout} = useActions(authActions)
     const {isInitializeApp} = useActions(appActions)
 
     useEffect(() => {
         if (!demo) {
-           isInitializeApp()
+            isInitializeApp()
         }
-    }, []);
-
-    const logoutH = useCallback(() => {
-        logout()
     }, []);
 
     if (!isInitialized) {
@@ -58,31 +53,42 @@ export const App: React.FC<PropsType> = React.memo(({demo = false}) => {
     }
 
     return (
-        <>
-            <div
-                className={stales.app}
-                style={{
-                    position: 'relative',
-                }}
-            >
-                <ErrorSnackbar/>
-                <div
-                    style={{
-                        position: 'relative',
-                        top: '0',
-                        left: '0',
-                        height: '5px',
-                    }}
-                >
-                    {status === 'loading' && <LinearProgress/>}
-                </div>
-                {isLoggedIn && <button onClick={logoutH}>logout</button>}
-                <Routes>
-                    <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
-                </Routes>
-            </div>
+        <div>
+            <div className={stales.app}>
+                <div className={!isLoggedIn ? stales.back : ''}>
+                    <ErrorSnackbar/>
+                    <Box sx={{flexGrow: 1}}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <div style={{position: 'relative', width: '100%'}}>
 
-        </>
+                                    {isLoggedIn && <AppMenuBar/>}
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '-3px',
+                                        left: '0',
+                                        width: '100%',
+                                        height: '5px',
+                                    }}>
+                                        {status === 'loading' && <LinearProgress color="primary"/>}
+                                    </div>
+                                </div>
+
+                            </Grid>
+                            <Grid item xs={12}>
+                                <div style={{position: 'relative'}}>
+                                    <div>
+                                        <Routes>
+                                            <Route path={'/'} element={<TodoListsList demo={demo}/>}/>
+                                            <Route path={'/login'} element={<Login/>}/>
+                                        </Routes>
+                                    </div>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </div>
+            </div>
+        </div>
     );
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button } from "../../../../stories/Button";
-import AddItemForm from "../../../../components/AddItemForm/AddItemForm";
+import {AddItemForm} from "../../../../components/AddItemForm/AddItemForm";
 import { action } from "@storybook/addon-actions";
 import styles from "../ToDoLIst.module.css";
 import { Task } from "./Task";

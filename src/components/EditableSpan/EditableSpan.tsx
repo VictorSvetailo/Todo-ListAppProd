@@ -1,5 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, FC, useState } from "react";
 import { log } from "util";
+import {TextField} from '@mui/material';
+import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.css';
 
 type EditableSpanType = {
    title: string;
@@ -28,5 +30,22 @@ export const EditableSpan: FC<EditableSpanType> = React.memo((props) => {
       e.key === "Enter" && offEditMode();
    };
 
-   return <span>{editMode ? <input value={title} autoFocus onBlur={onEditMode} onChange={onChangeSetTitle} onKeyDown={onKeyDownOffEditMode} /> : <span onDoubleClick={offEditMode}>{props.title}</span>}</span>;
+   return <span >{editMode
+       ? <TextField
+           style={{marginTop: '6px'}}
+           id="outlined-multiline-flexible"
+                     label="Print text"
+                     multiline
+                     size={'small'}
+                     variant={'outlined'}
+                     maxRows={8}
+                     onChange={onChangeSetTitle}
+                     onKeyDown={onKeyDownOffEditMode}
+                     value={title}
+                     autoFocus
+                     onBlur={onEditMode}/>
+       : <span onDoubleClick={offEditMode}>{props.title}</span>}</span>;
 });
+
+
+// <input value={title} autoFocus onBlur={onEditMode} onChange={onChangeSetTitle} onKeyDown={onKeyDownOffEditMode} />

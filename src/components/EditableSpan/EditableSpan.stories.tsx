@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import AddItemForm from "../AddItemForm/AddItemForm";
+import {AddItemForm} from "../AddItemForm/AddItemForm";
 import { action } from "@storybook/addon-actions";
 import { EditableSpan } from "./EditableSpan";
 

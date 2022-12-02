@@ -57,41 +57,50 @@ export const Login = () => {
 
     return (
         <>
-            <Grid container justifyContent={'center'}>
-                <Grid item xs={4}>
-                    <form onSubmit={formik.handleSubmit}>
-                        <FormControl>
-                            <FormLabel>
-                                <p>
-                                    <b>Test Label</b>
-                                </p>
-                            </FormLabel>
-                            <FormGroup>
-                                <TextField label="Email" margin="normal" {...formik.getFieldProps('email')} />
-                                {formik.errors.email ? (
-                                    <div
-                                        style={{
-                                            color: 'red',
-                                        }}
-                                    >
-                                        {formik.errors.email}
-                                    </div>
-                                ) : null}
-                                <TextField type="password" label="Password"
-                                           margin="normal" {...formik.getFieldProps('password')} />
-                                {formik.errors.password ? (
-                                    <div style={{color: 'red',}}>{formik.errors.password}</div>) : null}
-                                <FormControlLabel label={'Remember me'}
-                                                  control={<Checkbox {...formik.getFieldProps('rememberMe')}
-                                                                     checked={formik.values.rememberMe}/>}/>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}>
-                                    Login
-                                </Button>
-                            </FormGroup>
-                        </FormControl>
-                    </form>
+            <div>
+
+
+                <Grid container justifyContent={'center'}>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        item xs={2}>
+                        <form onSubmit={formik.handleSubmit}>
+                            <FormControl>
+                                <FormLabel>
+                                    <p>
+                                        <b>Test Label</b>
+                                    </p>
+                                </FormLabel>
+                                <FormGroup>
+                                    <TextField style={{background: 'transparent'}} label="Email" margin="normal" {...formik.getFieldProps('email')} />
+                                    {formik.errors.email ? (
+                                        <div
+                                            style={{
+                                                color: 'red',
+                                            }}
+                                        >
+                                            {formik.errors.email}
+                                        </div>
+                                    ) : null}
+                                    <TextField style={{background: 'transparent'}} type="password" label="Password"
+                                               margin="normal" {...formik.getFieldProps('password')} />
+                                    {formik.errors.password ? (
+                                        <div style={{color: 'red',}}>{formik.errors.password}</div>) : null}
+                                    <FormControlLabel label={'Remember me'}
+                                                      control={<Checkbox {...formik.getFieldProps('rememberMe')}
+                                                                         checked={formik.values.rememberMe}/>}/>
+                                    <Button type={'submit'} variant={'contained'} color={'primary'}>
+                                        Login
+                                    </Button>
+                                </FormGroup>
+                            </FormControl>
+                        </form>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </div>
         </>
     );
 };

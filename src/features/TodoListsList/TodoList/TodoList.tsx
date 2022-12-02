@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useEffect, MouseEvent, useState} from 'react';
 import styles from './ToDoLIst.module.css';
-import AddItemForm, {AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm';
+import {AddItemForm, AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../app/store';
@@ -12,11 +12,14 @@ import {tasksActions} from './Task';
 import {todoListsActions} from '../index';
 import {useActions, useAppDispatch} from '../../../utils/redux-utils';
 import {TaskStatuses, TaskType} from '../../../api/types';
+import {Button, Grid, IconButton, Paper} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type ToDoListPropsType = {
     todoList: TodoListDomainType;
     demo?: boolean;
 };
+
 
 export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
     const tasks = useSelector<AppRootStateType, Array<TaskType>>((state) => state.tasks[props.todoList.id]);
@@ -44,7 +47,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                 } else {
                     helper.setError('Some error occurred')
                 }
-            }else{
+            } else {
                 helper.setTitle('')
             }
 
@@ -76,24 +79,72 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
             tasksForTodolist = tasks;
     }
 
+    //
+
+    const stylesInput = {
+        width: '100%',
+        variant: 'standard'
+    }
+
+    const stylesButton = {
+        position: 'absolute',
+        top: '50%',
+        right: '-2px',
+        transform: 'translate(0%, -50%)',
+        width: '85%',
+        variant: 'outlined'
+    }
+    //
     return (
-        <div className={styles.block_list}>
-            <h3>
-                <EditableSpan title={props.todoList.title} onChangeTitle={onChangeTitle}/>
-                <button disabled={props.todoList.entityStatus === 'loading'} onClick={removeTodoListHandler}>x</button>
-            </h3>
-            <div>
-                <AddItemForm addItem={addTaskCB} disabled={props.todoList.entityStatus === 'loading'}/>
-            </div>
-            <ul>
-                {tasksForTodolist.map((task: TaskType) => (
-                    <Task key={task.id} task={task} todoListId={props.todoList.id}/>
-                ))}
-                {!tasksForTodolist.length && <span style={{color: 'grey'}}>No tasks</span>}
-            </ul>
-            <div>
-                <FilterButtonComponent todoList={props.todoList}/>
-            </div>
+        <div>
+            <Paper elevation={5}>
+                <div className={styles.block_list}>
+                    <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        spacing={0}>
+                        <Grid item xs={10}>
+                            <div>
+                                <h3 style={{overflow: 'hidden',  textOverflow: 'ellipsis'}}><EditableSpan title={props.todoList.title} onChangeTitle={onChangeTitle}/></h3>
+                            </div>
+                        </Grid>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-end"
+                            alignItems="flex-end"
+                            item xs={2}>
+                            <IconButton disabled={props.todoList.entityStatus === 'loading'}
+                                        onClick={removeTodoListHandler}
+                                        aria-label="delete" color="default">
+                                <DeleteIcon fontSize="small"/>
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <div style={{position: 'relative'}}>
+                                <AddItemForm placeholder={'Add Task'}  stylesInput={stylesInput} sizeInput={'small'} stylesButton={stylesButton}
+                                             sizeButton={'medium'} colorButton={'primary'} addItem={addTaskCB}
+                                             disabled={props.todoList.entityStatus === 'loading'}/>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ul style={{listStyleType: 'none', padding: '0',  maxHeight: '500px', overflowY: 'auto'}}>
+                                {tasksForTodolist.map((task: TaskType) => (
+                                    <Task key={task.id} task={task} todoListId={props.todoList.id}/>
+                                ))}
+                                <div style={{position: 'relative'}}>
+                                    {!tasksForTodolist.length &&
+                                        <span style={{color: 'grey'}}>No tasks</span>}
+                                </div>
+                            </ul>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FilterButtonComponent todoList={props.todoList}/>
+                        </Grid>
+                    </Grid>
+                </div>
+            </Paper>
         </div>
     );
 });
@@ -106,18 +157,38 @@ export const FilterButtonComponent: React.FC<FilterButtonPropsType> = (props) =>
     const {changeTodolistFilter} = useActions(todoListsActions)
 
     return <div>
-        <button disabled={props.todoList.entityStatus === 'loading'}
-                className={props.todoList.filter === 'all' ? `${styles.active_filter}` : ''}
-                onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'all'})}>
-            All
-        </button>
-        <button className={props.todoList.filter === 'active' ? `${styles.active_filter}` : ''}
-                onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'active'})}>
-            Active
-        </button>
-        <button className={props.todoList.filter === 'completed' ? `${styles.active_filter}` : ''}
-                onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'completed'})}>
-            Completed
-        </button>
+
+        <Grid container rowSpacing={1} columnSpacing={{xs: 0.5, sm: 0.5, md: 0}}>
+            <Grid item xs={4}>
+                <Button
+                    size={'small'}
+                    disabled={props.todoList.entityStatus === 'loading'}
+                    onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'all'})}
+                    color="inherit"
+                    variant={props.todoList.filter === 'all' ? `${'contained'}` : 'text'}
+                >
+
+                    All
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
+                <Button
+                    variant={props.todoList.filter === 'active' ? `${'outlined'}` : 'text'}
+                    size={'small'} color="primary"
+                    onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'active'})}>
+                    Active
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
+                <Button
+                    variant={props.todoList.filter === 'completed' ? `${'outlined'}` : 'text'}
+                    size={'small'} color="success"
+                    onClick={() => changeTodolistFilter({id: props.todoList.id, filter: 'completed'})}>
+                    Completed
+                </Button>
+            </Grid>
+        </Grid>
+
+
     </div>
 }
