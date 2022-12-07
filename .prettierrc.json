@@ -1,4 +1,14 @@
 {
-   "printWidth": 300,
-   "tabWidth": 3
+  "trailingComma": "none",
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "arrowParens": "always",
+  "max-len": [
+    "error",
+    200,
+    2
+  ],
+  "tabWidth": 4,
+  "useTabs": false
 }

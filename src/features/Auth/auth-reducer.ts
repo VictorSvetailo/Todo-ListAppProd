@@ -6,7 +6,6 @@ import {FieldErrorType, LoginParamsType, TaskStatuses} from '../../api/types';
 import {appActions} from '../CommanActions/AppActions';
 
 
-
 const {setAppStatus} = appActions
 
 export const login = createAsyncThunk<undefined, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }>('auth/login', async (param, thunkAPI) => {

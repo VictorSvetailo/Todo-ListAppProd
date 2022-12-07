@@ -1,27 +1,43 @@
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import SortIcon from '@mui/icons-material/Sort';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
-
+import * as React from 'react'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import ElectricBoltIcon from '@mui/icons-material/ElectricBolt'
 
 type PropsType = {
     name: string
 }
 
-export const SelectVariants: React.FC<PropsType> = ({name}) => {
-    const [sortBy, setSortBy] = React.useState('');
+export const SelectVariants: React.FC<PropsType> = ({ name }) => {
+    const [sortBy, setSortBy] = React.useState('')
 
     const handleChange = (event: SelectChangeEvent) => {
-        setSortBy(event.target.value);
-    };
+        setSortBy(event.target.value)
+    }
 
     return (
         <div>
-            <FormControl style={{position: 'relative'}} variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel style={{width: '100%', textAlign: 'center'}} id="demo-simple-select-standard-label"><span style={{position: 'absolute' , top: '-2px', left: '0px'}}><ElectricBoltIcon style={{color: '#33cf4d'}}/></span> {name}  </InputLabel>
+            <FormControl
+                style={{ position: 'relative' }}
+                variant="standard"
+                sx={{ m: 1, minWidth: 120 }}
+            >
+                <InputLabel
+                    style={{ width: '100%', textAlign: 'center' }}
+                    id="demo-simple-select-standard-label"
+                >
+                    <span
+                        style={{
+                            position: 'absolute',
+                            top: '-2px',
+                            left: '0px'
+                        }}
+                    >
+                        <ElectricBoltIcon style={{ color: '#33cf4d' }} />
+                    </span>{' '}
+                    {name}{' '}
+                </InputLabel>
                 <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
@@ -41,5 +57,5 @@ export const SelectVariants: React.FC<PropsType> = ({name}) => {
                 </Select>
             </FormControl>
         </div>
-    );
+    )
 }
