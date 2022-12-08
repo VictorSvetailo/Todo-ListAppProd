@@ -15,6 +15,7 @@ import { Navigate } from 'react-router-dom'
 import { selectIsLoggedIn } from './selectors'
 import { authActions } from './index'
 import { useActions, useAppDispatch } from '../../utils/redux-utils'
+import style from './Login.module.scss'
 
 type FormikValuesType = {
     email: string
@@ -88,6 +89,7 @@ export const Login = () => {
                                 </FormLabel>
                                 <FormGroup>
                                     <TextField
+                                        className={style.login_email}
                                         style={{ background: 'transparent' }}
                                         label="Email"
                                         margin="normal"

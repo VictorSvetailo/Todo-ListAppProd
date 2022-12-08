@@ -2,27 +2,27 @@
   "extends": [
     "react-app",
     "react-app/jest"
-  ],
-  "rules": {
-    "no-unused-vars": "error",
-    "no-console": "warn",
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "max-len": [
-      "error",
-      {
-        "code": 140
-      }
-    ],
-    "comma-dangle": [
-      "error",
-      "never"
-    ],
-    "semi": [
-      "warn",
-      "never"
-    ]
-  }
+  ]
+  //  "rules": {
+  //    "no-unused-vars": "warn",
+  //    "no-console": "warn",
+  //    "quotes": [
+  //      "warn",
+  //      "single"
+  //    ],
+  //    "max-len": [
+  //      "warn",
+  //      {
+  //        "code": 140
+  //      }
+  //    ],
+  //    "comma-dangle": [
+  //      "warn",
+  //      "never"
+  //    ],
+  //    "semi": [
+  //      "warn",
+  //      "never"
+  //    ]
+  //  }
 }

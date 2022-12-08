@@ -34,6 +34,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.56.1",
     "shebang-regex": "^4.0.0",
     "storybook": "^6.5.12",
     "styled-components": "^5.3.6",
