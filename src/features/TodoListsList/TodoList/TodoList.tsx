@@ -1,19 +1,16 @@
-import React, { FC, MouseEvent, useCallback, useEffect } from 'react'
+import React, {FC, MouseEvent, useCallback, useEffect} from 'react'
 import styles from './ToDoLIst.module.css'
-import {
-    AddItemForm,
-    AssItemFormSubmitHelperType
-} from '../../../components/AddItemForm/AddItemForm'
-import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
-import { useSelector } from 'react-redux'
-import { AppRootStateType } from '../../../app/store'
-import { TodoListDomainType } from '../todoLists-reducer'
-import { Task } from './Task/Task'
-import { tasksActions } from './Task'
-import { todoListsActions } from '../index'
-import { useActions, useAppDispatch } from '../../../utils/redux-utils'
-import { TaskStatuses, TaskType } from '../../../api/types'
-import { Button, Grid, IconButton, Paper } from '@mui/material'
+import {AddItemForm, AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm'
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../../app/store'
+import {TodoListDomainType} from '../todoLists-reducer'
+import {Task} from './Task/Task'
+import {tasksActions} from './Task'
+import {todoListsActions} from '../index'
+import {useActions, useAppDispatch} from '../../../utils/redux-utils'
+import {TaskStatuses, TaskType} from '../../../api/types'
+import {Button, Grid, IconButton, Paper} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 export type ToDoListPropsType = {
@@ -25,10 +22,11 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(
         (state) => state.tasks[props.todoList.id]
     )
+    console.log('dcsdcddcdcds')
     const dispatch = useAppDispatch()
-    const { removeTodoListTC, changeTodoListTitleTC } =
+    const {removeTodoListTC, changeTodoListTitleTC} =
         useActions(todoListsActions)
-    const { fetchTasks } = useActions(tasksActions)
+    const {fetchTasks} = useActions(tasksActions)
 
     if (typeof props.demo === 'undefined') props.demo = false
 
@@ -36,7 +34,9 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
         if (props.demo) {
             return
         }
-        fetchTasks(props.todoList.id)
+        if (!tasks.length) {
+            fetchTasks(props.todoList.id)
+        }
     }, [])
 
     const addTaskCB = useCallback(
@@ -63,7 +63,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
 
     const onChangeTitle = useCallback(
         (title: string) => {
-            changeTodoListTitleTC({ toDoListID: props.todoList.id, title })
+            changeTodoListTitleTC({toDoListID: props.todoList.id, title})
         },
         [props.todoList.id]
     )
@@ -149,11 +149,11 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                                 aria-label="delete"
                                 color="default"
                             >
-                                <DeleteIcon fontSize="small" />
+                                <DeleteIcon fontSize="small"/>
                             </IconButton>
                         </Grid>
                         <Grid item xs={12}>
-                            <div style={{ position: 'relative' }}>
+                            <div style={{position: 'relative'}}>
                                 <AddItemForm
                                     placeholder={'Add Task'}
                                     stylesInput={stylesInput}
@@ -185,9 +185,9 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                                         todoListId={props.todoList.id}
                                     />
                                 ))}
-                                <div style={{ position: 'relative' }}>
+                                <div style={{position: 'relative'}}>
                                     {!tasksForTodolist.length && (
-                                        <span style={{ color: 'grey' }}>
+                                        <span style={{color: 'grey'}}>
                                             No tasks
                                         </span>
                                     )}
@@ -195,7 +195,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                             </ul>
                         </Grid>
                         <Grid item xs={12}>
-                            <FilterButtonComponent todoList={props.todoList} />
+                            <FilterButtonComponent todoList={props.todoList}/>
                         </Grid>
                     </Grid>
                 </div>
@@ -211,14 +211,14 @@ type FilterButtonPropsType = {
 export const FilterButtonComponent: React.FC<FilterButtonPropsType> = (
     props
 ) => {
-    const { changeTodolistFilter } = useActions(todoListsActions)
+    const {changeTodolistFilter} = useActions(todoListsActions)
 
     return (
         <div>
             <Grid
                 container
                 rowSpacing={1}
-                columnSpacing={{ xs: 0.5, sm: 0.5, md: 0 }}
+                columnSpacing={{xs: 0.5, sm: 0.5, md: 0}}
             >
                 <Grid item xs={4}>
                     <Button

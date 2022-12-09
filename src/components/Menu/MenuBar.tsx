@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { alpha, styled } from '@mui/material/styles'
+import React, {FC, useCallback, useState} from 'react'
+import {alpha, styled} from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -15,21 +15,21 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 import MailIcon from '@mui/icons-material/Mail'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import MoreIcon from '@mui/icons-material/MoreVert'
-import { useSelector } from 'react-redux'
-import { authActions, authSelectors } from '../../features/Auth'
+import {useSelector} from 'react-redux'
+import {authActions, authSelectors} from '../../features/Auth'
 import stales from '../../app/App.module.css'
-import { useActions } from '../../utils/redux-utils'
-import { BadgeAvatars } from './AvatarButton'
+import {useActions} from '../../utils/redux-utils'
+import {BadgeAvatars} from './AvatarButton'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
-import { FormControlLabel, Switch, SwitchProps } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import {FormControlLabel, Switch, SwitchProps} from '@mui/material'
+import {NavLink} from 'react-router-dom'
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -45,7 +45,7 @@ const Search = styled('div')(({ theme }) => ({
     }
 }))
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -55,7 +55,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center'
 }))
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -69,9 +69,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     }
 }))
 
-export const AppMenuBar = () => {
+type PropsMenuBar = {
+    choosingThemeCB?: boolean
+}
+
+export const AppMenuBar: FC<PropsMenuBar> = (props) => {
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
-    const { logout } = useActions(authActions)
+    const {logout} = useActions(authActions)
     const logoutH = useCallback(() => {
         logout()
     }, [])
@@ -104,7 +108,9 @@ export const AppMenuBar = () => {
 
     //
     const [checked, setChecked] = useState(false)
+
     const [menuSwitch, setMenuSwitch] = useState(false)
+    const [choosingTheme, setChoosingTheme] = useState<boolean>(false)
 
     const menuSwitchH = () => {
         setMenuSwitch(!menuSwitch)
@@ -112,11 +118,12 @@ export const AppMenuBar = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked)
+        setChoosingTheme(event.target.checked)
     }
 
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" {...props} />
-    ))(({ theme }) => ({
+    ))(({theme}) => ({
         width: 42,
         height: 21,
         padding: 0,
@@ -187,27 +194,27 @@ export const AppMenuBar = () => {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose} disabled>
-                <Avatar /> Profile
+                <Avatar/> Profile
             </MenuItem>
             <MenuItem disabled>
-                <Avatar /> My account
+                <Avatar/> My account
             </MenuItem>
-            <Divider />
+            <Divider/>
             <MenuItem disabled>
                 <ListItemIcon>
-                    <PersonAdd fontSize="small" />
+                    <PersonAdd fontSize="small"/>
                 </ListItemIcon>
                 Add another account
             </MenuItem>
             <MenuItem disabled>
                 <ListItemIcon>
-                    <Settings fontSize="small" />
+                    <Settings fontSize="small"/>
                 </ListItemIcon>
                 Settings
             </MenuItem>
-            <MenuItem style={{ color: 'red' }} onClick={logoutH}>
+            <MenuItem style={{color: 'red'}} onClick={logoutH}>
                 <ListItemIcon>
-                    <Logout style={{ color: 'red' }} fontSize="small" />
+                    <Logout style={{color: 'red'}} fontSize="small"/>
                 </ListItemIcon>
                 Sign out
             </MenuItem>
@@ -238,7 +245,7 @@ export const AppMenuBar = () => {
                     color="inherit"
                 >
                     <Badge badgeContent={4} color="error">
-                        <MailIcon />
+                        <MailIcon/>
                     </Badge>
                 </IconButton>
                 <p>Messages </p>
@@ -250,7 +257,7 @@ export const AppMenuBar = () => {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <NotificationsIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -263,16 +270,17 @@ export const AppMenuBar = () => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
         </Menu>
     )
-
+//style={xxx ? `${background: 'black'}` : `${background: '#1976d2'}`}
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <Box sx={{flexGrow: 1}}>
+
+            <AppBar style={choosingTheme ? {background: 'black'} : {background: '#1976d2'}} position="static">
                 <Toolbar>
                     <NavLink
                         onClick={menuSwitchH}
@@ -283,9 +291,9 @@ export const AppMenuBar = () => {
                             edge="start"
                             color="inherit"
                             aria-label="ope§n drawer"
-                            sx={{ mr: 2 }}
+                            sx={{mr: 2}}
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                     </NavLink>
 
@@ -293,29 +301,29 @@ export const AppMenuBar = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{display: {xs: 'none', sm: 'block'}}}
                     >
                         <h1 className={stales.appTitle}>Todo-List App</h1>
                     </Typography>
 
                     <Search>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
+                            inputProps={{'aria-label': 'search'}}
                         />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{flexGrow: 1}}/>
                     <FormControlLabel
                         checked={checked}
                         label={checked ? 'Dark' : 'Light'}
                         control={
-                            <IOSSwitch onChange={handleChange} sx={{ m: 1 }} />
+                            <IOSSwitch onChange={handleChange} sx={{m: 1}}/>
                         }
                     />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton
                             disabled
                             size="large"
@@ -323,7 +331,7 @@ export const AppMenuBar = () => {
                             color="inherit"
                         >
                             <Badge badgeContent={4} color="error">
-                                <MailIcon />
+                                <MailIcon/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -333,7 +341,7 @@ export const AppMenuBar = () => {
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                                <NotificationsIcon/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -345,10 +353,10 @@ export const AppMenuBar = () => {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <BadgeAvatars />
+                            <BadgeAvatars/>
                         </IconButton>
                     </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
                             aria-label="show more"
@@ -357,7 +365,7 @@ export const AppMenuBar = () => {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </Box>
                 </Toolbar>

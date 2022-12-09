@@ -2,9 +2,7 @@ import {TasksStateType} from '../../../../app/App';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {appActions} from '../../../CommanActions/AppActions';
 import {todoListsAPI} from '../../../../api/todoLists-api';
-import {
-    handleAsyncServerNetworkError, handleAsyncServerAppError
-} from '../../../../utils/error-utils';
+import {handleAsyncServerAppError, handleAsyncServerNetworkError} from '../../../../utils/error-utils';
 import {AxiosError} from 'axios';
 import {asyncActions as asyncTodoListsActions} from '../../todoLists-reducer';
 import {AppRootStateType, ThunkError} from '../../../../app/store';

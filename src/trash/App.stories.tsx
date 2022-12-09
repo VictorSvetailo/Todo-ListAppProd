@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { App } from "../app/App";
+import {App} from '../app/App';
 
 import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from './ReduxStoreProviderDecorator';
 
@@ -8,14 +8,14 @@ import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from './ReduxStoreP
 //StoryRouter
 
 export default {
-   title: "TodoList/App",
-   component: App,
-   decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],
+    title: 'TodoList/App',
+    component: App,
+    decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],
 };
 //as ComponentMeta<typeof App>;
 
 export const AppBaseExample = (props: any) => {
-   return <App demo={true} />;
+    return <App/>;
 };
 
 // const Template: ComponentStory<typeof App> = (args) => <App/> ;

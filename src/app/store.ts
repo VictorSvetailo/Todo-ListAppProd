@@ -1,23 +1,13 @@
-import {tasksReducer} from '../features/TodoListsList/TodoList/Task';
-import {todoListsReducer} from '../features/TodoListsList';
-import {combineReducers} from 'redux';
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
-import {appReducer} from '../features/Apllication';
-import {authReducer} from '../features/Auth';
 import {configureStore} from '@reduxjs/toolkit';
 import {FieldErrorType} from '../api/types';
+import {rootReducer} from './reducers';
 
-// объединяя reducer-ы с помощью combineReducers,
-// мы задаём структуру нашего единственного объекта-состояния
-const rootReducer = combineReducers({
-    todoLists: todoListsReducer,
-    tasks: tasksReducer,
-    app: appReducer,
-    auth: authReducer,
-});
 
 export type RootReducerType = typeof rootReducer
-
+//
+// VS important! I took out the creation of root Reducer from the store in order for Hot Module Replacement to work correctly
+//
 // непосредственно создаём store ghb помощи configureStore
 export const store = configureStore({
     reducer: rootReducer,
@@ -43,3 +33,10 @@ window.store = store;
 
 
 export type ThunkError = { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }
+
+
+if (process.env.NODE_ENV === 'development' && module.hot) {
+    module.hot.accept('./reducers', () => {
+        store.replaceReducer(rootReducer)
+    })
+}
