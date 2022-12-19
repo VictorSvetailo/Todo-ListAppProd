@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom'
 
 export const Templates = () => {
     const navigate = useNavigate()
-
     return (
         <div>
             <button

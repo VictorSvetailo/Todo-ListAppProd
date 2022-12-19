@@ -124,6 +124,7 @@ export const Login = () => {
                     <FormGroup>
                         <div className={style.login__block}>
                             <TextField
+                                color={'secondary'}
                                 error={!!formik.errors.email}
                                 className={style.login__input}
                                 label="Email"
@@ -136,6 +137,7 @@ export const Login = () => {
                         </div>
                         <div className={style.login__block}>
                             <TextField
+                                color={'secondary'}
                                 error={!!formik.errors.password}
                                 className={style.login__input}
                                 type="password"
@@ -149,16 +151,18 @@ export const Login = () => {
                         </div>
                         <div className={style.login__checkbox}>
                             <FormControlLabel
+                                color={'secondary'}
                                 label={'Remember me'}
                                 control={
                                     <Checkbox
+                                        color={'secondary'}
                                         {...formik.getFieldProps('rememberMe')}
                                         checked={formik.values.rememberMe}
                                     />
                                 }
                             />
                         </div>
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>
+                        <Button type={'submit'} variant={'contained'} color={'secondary'}>
                             Login
                         </Button>
                     </FormGroup>

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {Navigate, NavLink, useNavigate, useParams, useSearchParams,} from 'react-router-dom'
 import {useActions} from '../../../utils/redux-utils'
 import {authActions} from '../../../features/Auth'
@@ -7,10 +7,15 @@ import Logout from '@mui/icons-material/Logout'
 import MenuItem from '@mui/material/MenuItem'
 import {useSelector} from 'react-redux'
 import {selectIsLoggedIn} from '../../../features/Auth/selectors'
-import style from './Menu.module.scss'
+import styles from './Menu.module.scss'
 
 export const MenuPage = () => {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [isActiveBTN, setIsActiveBTN] = useState('1')
+    const isActiveBTNCB = (value: string) => {
+        setIsActiveBTN(value)
+    }
+
     console.log(searchParams.get('name'))
     console.log(Object.fromEntries(searchParams))
 
@@ -38,50 +43,68 @@ export const MenuPage = () => {
 
     return (
         <div>
-            <div className={style.menu}>
-                <button
-                    onClick={() => {
-                        setSearchParams({
-                            ...Object.fromEntries(searchParams),
-                            age: '2332322',
-                        })
-                    }}
-                >
-                    add age
-                </button>
-                <button onClick={() => {
-                    navigateBack(-1)
-                }}>
-                    {'<-'}
-                </button>
-                <button
-                    onClick={() => {
-                        navigateUp(1)
-                    }}
-                >
-                    {'->'}
-                </button>
-                <h2>Menu Page</h2>
-                <div className={style.menu__body}>
+            <div className={styles.menu}>
+                {/*<button onClick={() => {*/}
+                {/*    setSearchParams({...Object.fromEntries(searchParams), age: '2332322',})*/}
+                {/*}}>add age*/}
+                {/*</button>*/}
+
+                <div className={styles.arrows}>
+                    <button
+                        className={styles.menu__arrows}
+                        onClick={() => {
+                            navigateBack(-1)
+                        }}>
+                        {'<-'}
+                    </button>
+                    <button
+                        className={styles.menu__arrows}
+                        onClick={() => {
+                            navigateUp(1)
+                        }}>{'->'}
+                    </button>
+                </div>
+                <div className={styles.menu__body}>
                     <NavLink to={'/'}>
-                        <button>Home</button>
+                        <button onClick={() => isActiveBTNCB('1')}
+                                className={isActiveBTN === '1' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Home
+                        </button>
                     </NavLink>
                     <NavLink to={'/settings'}>
-                        <button>Settings</button>
+                        <button onClick={() => isActiveBTNCB('2')}
+                                className={isActiveBTN === '2' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Settings
+                        </button>
                     </NavLink>
                     <NavLink to={'/'}>
-                        <button disabled>Boards</button>
+                        <button onClick={() => isActiveBTNCB('3')}
+                                className={isActiveBTN === '3' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}
+                                disabled>Boards
+                        </button>
                     </NavLink>
                     <NavLink to={'/templates'}>
-                        <button>Templates</button>
+                        <button onClick={() => isActiveBTNCB('4')}
+                                className={isActiveBTN === '4' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Templates
+                        </button>
+                    </NavLink>
+                    <NavLink to={'/templates'}>
+                        <button onClick={() => isActiveBTNCB('4')}
+                                className={isActiveBTN === '5' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Workspace
+                        </button>
+                    </NavLink>
+                    <NavLink to={'/templates'}>
+                        <button onClick={() => isActiveBTNCB('4')}
+                                className={isActiveBTN === '6' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Highlights
+                        </button>
+                    </NavLink>
+                    <NavLink to={'/templates'}>
+                        <button onClick={() => isActiveBTNCB('4')}
+                                className={isActiveBTN === '7' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Views
+                        </button>
                     </NavLink>
                     <hr/>
-                    <h3>Workspace</h3>
-                    <div>Highlights</div>
-                    <div>Views</div>
-                    <MenuItem style={{color: 'red'}} onClick={logoutH}>
+                    <MenuItem style={{color: 'red', margin: '0'}} onClick={logoutH}>
                         <ListItemIcon>
-                            <Logout style={{color: 'red'}} fontSize="small"/>
+                            <Logout style={{color: 'red', margin: '0'}} fontSize="small"/>
                         </ListItemIcon>
                         Sign out
                     </MenuItem>

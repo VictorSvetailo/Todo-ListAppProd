@@ -119,7 +119,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                         spacing={0}
                     >
                         <Grid item xs={10}>
-                            <div>
+                            <div className={styles.title}>
                                 <h3
                                     style={{
                                         overflow: 'hidden',

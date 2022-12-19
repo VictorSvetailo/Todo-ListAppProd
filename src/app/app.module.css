@@ -1,13 +1,27 @@
 .app {
     height: 100vh;
-    margin: 0;
+    width: 100%;
+    margin: 0 auto;
     position: relative;
-    /*background: url("../components/Image/AppImage/1.jpeg") 0 / cover no-repeat;*/
+    z-index: 1;
+    overflow: hidden;
 }
 
-.back {
-    background: white;
+.sidebar {
+    width: 200px;
     height: 100vh;
+    position: absolute;
+    top: 60px;
+    left: -200px;
+    z-index: 2;
+    opacity: 1;
+    transition: 0.3s;
+    background: white;
+}
+
+.sidebar.active {
+    left: 0;
+    z-index: 2;
 }
 
 .appTitle {
@@ -16,8 +30,19 @@
     font-size: 15px;
 }
 
+.page__body {
+    margin-left: 0;
+    transition: 0.3s;
+}
+
+.page__body.active {
+    margin-left: 200px;
+}
+
 .wrapper {
-    /*padding: 20px;*/
+    overflow: hidden;
+    width: 100%;
+    background-color: #f8f7fc;
 }
 
 .wrap {
@@ -103,4 +128,8 @@ img {
 h1, h2, h3, h4, h5, h6 {
     font-size: inherit;
     font-weight: 400;
+}
+
+.hui {
+    min-width: 200px;
 }
