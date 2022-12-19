@@ -3,14 +3,14 @@
   "name": "To-do List",
   "builds": [
     {
-      "src": "src/index.ts",
+      "src": "src/index.tsx",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/src/index.ts"
+      "dest": "/src/index.tsx"
     }
   ]
 }
