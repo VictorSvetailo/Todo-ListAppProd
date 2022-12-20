@@ -86,7 +86,7 @@ export const App: React.FC<PropsType> = React.memo(props => {
                     <div className={styles.todolist__wrap}>
                         <div className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
                             <div>
-                                <Menu/>
+                                {isLoggedIn && <MenuPage/>}
                             </div>
                         </div>
                         <div className={isMenuOpen ? `${styles.page__body} ${styles.active}` : `${styles.page__body}`}>
@@ -117,26 +117,26 @@ export const App: React.FC<PropsType> = React.memo(props => {
 })
 
 
-type MenuType = {
-    menuSwitchCB?: () => void
-}
-
-const Menu: FC<MenuType> = ({menuSwitchCB}) => {
-
-
-    return (
-        <div>
-
-            <div>
-                <div>
-                    <div>
-                        <div>
-                        </div>
-                        <MenuPage/>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    )
-}
+// type MenuType = {
+//     menuSwitchCB?: () => void
+// }
+//
+// const Menu: FC<MenuType> = ({menuSwitchCB}) => {
+//
+//
+//     return (
+//         <div>
+//
+//             <div>
+//                 <div>
+//                     <div>
+//                         <div>
+//                         </div>
+//
+//                     </div>
+//                 </div>
+//             </div>
+//
+//         </div>
+//     )
+// }

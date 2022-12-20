@@ -10,37 +10,36 @@ import {selectIsLoggedIn} from '../../../features/Auth/selectors'
 import styles from './Menu.module.scss'
 
 export const MenuPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams()
+    console.log('MenuPage')
+
     const [isActiveBTN, setIsActiveBTN] = useState('1')
     const isActiveBTNCB = (value: string) => {
         setIsActiveBTN(value)
     }
 
-    console.log(searchParams.get('name'))
-    console.log(Object.fromEntries(searchParams))
+    // const isLoggedIn = useSelector(selectIsLoggedIn)
 
-    useEffect(() => {
-        console.log('research...')
-    }, [searchParams])
+    // useEffect(() => {
+    //     console.log(!isLoggedIn)
+    //     if (!isLoggedIn) {
+    //         return
+    //     }
+    // }, [])
 
     const navigateUp = useNavigate()
     const navigateBack = useNavigate()
-
-    const params = useParams<'*'>()
-    const some = params['*']
-    console.log(some)
-
-    const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const {logout} = useActions(authActions)
     const logoutH = useCallback(() => {
         logout()
     }, [])
 
-    if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
-    }
+    console.log(logout)
 
+    // if (!isLoggedIn) {
+    //     console.log(!isLoggedIn)
+    //     return <Navigate to={'/login'}/>
+    // }
     return (
         <div>
             <div className={styles.menu}>
