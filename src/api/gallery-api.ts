@@ -11,12 +11,11 @@ const settings = {
 };
 
 const instance = axios.create({
-    baseURL: 'https://pixabay.com/api/?key=32233879-a5e5e1e253c0e82bd7e930f04',
+    baseURL: 'https://pixabay.com/api?key=32233879-a5e5e1e253c0e82bd7e930f04',
     // ...settings,
 });
-//&q=yellow+flowers&image_type=photo&pretty=true
-// api
-//&per_page=10
+
+
 export const galleryAPI = {
     getPhoto(currentPage: number, perPage: number, searchByColor: string, searchByLetter: string, searchByCategory: string) {
         console.log(searchByCategory)
