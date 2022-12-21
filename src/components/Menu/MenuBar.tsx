@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useState} from 'react'
+import React, {FC, useCallback, useEffect, useState} from 'react'
 import {alpha, styled} from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -18,7 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert'
 import {useSelector} from 'react-redux'
 import {authActions, authSelectors} from '../../features/Auth'
 import stales from '../../app/app.module.scss'
-import {useActions} from '../../utils/redux-utils'
+import {useActions, useAppDispatch} from '../../utils/redux-utils'
 import {BadgeAvatars} from './AvatarButton'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
@@ -27,6 +27,8 @@ import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import {FormControlLabel, Switch, SwitchProps} from '@mui/material'
+import {applicationChangingThemeAC, applicationChangingThemeLocalStorageAC} from '../../BLL/application-reducer';
+import {useAppSelector} from '../../app/store';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -74,17 +76,33 @@ type PropsMenuBar = {
 }
 
 export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) => {
-    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
+    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
     const {logout} = useActions(authActions)
+    console.log(applicationChangingTheme)
+
+    const [choosingTheme, setChoosingTheme] = useState<boolean>(applicationChangingTheme)
+    useEffect(()=>{
+        // dispatch(applicationChangingThemeLocalStorageAC(true))
+    }, [])
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChecked(event.target.checked)
+        setChoosingTheme(event.target.checked)
+        dispatch(applicationChangingThemeAC())
+    }
+
     const logoutH = useCallback(() => {
         logout()
     }, [])
-    ///
-    // const [menuSwitch, setMenuSwitch] = useState(false)
+
+
+
+
+
     const menuSwitchH = () => {
         menuSwitchCB()
     }
-
+    const dispatch = useAppDispatch()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -109,16 +127,8 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
     }
 
     //
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useState(applicationChangingTheme)
 
-
-    const [choosingTheme, setChoosingTheme] = useState<boolean>(false)
-
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked)
-        setChoosingTheme(event.target.checked)
-    }
 
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" {...props} />

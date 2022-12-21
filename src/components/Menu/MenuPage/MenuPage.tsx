@@ -5,8 +5,7 @@ import {authActions} from '../../../features/Auth'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Logout from '@mui/icons-material/Logout'
 import MenuItem from '@mui/material/MenuItem'
-import {useSelector} from 'react-redux'
-import {selectIsLoggedIn} from '../../../features/Auth/selectors'
+
 import styles from './Menu.module.scss'
 
 export const MenuPage = () => {

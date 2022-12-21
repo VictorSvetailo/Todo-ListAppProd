@@ -4,15 +4,18 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 import {App} from './app/App'
 import {Provider} from 'react-redux'
-import {store} from './app/store'
+import {store, persistor} from './app/store'
 import {BrowserRouter} from 'react-router-dom'
+import {PersistGate} from 'redux-persist/integration/react';
 
 
 const rerenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
             <BrowserRouter>
-                <App/>
+                <PersistGate loading={null} persistor={persistor}>
+                    <App/>
+                </PersistGate>
             </BrowserRouter>
         </Provider>, document.getElementById('root')
     )
