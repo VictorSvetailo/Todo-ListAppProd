@@ -1,5 +1,5 @@
 import React, {FC, MouseEvent, useCallback, useEffect} from 'react'
-import styles from './ToDoLIst.module.css'
+import styles from './ToDoLIst.module.scss'
 import {AddItemForm, AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm'
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
 import {useSelector} from 'react-redux'
@@ -112,25 +112,13 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
         <div>
             <Paper elevation={5}>
                 <div className={styles.block_list}>
-                    <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        spacing={0}
-                    >
+                    <Grid container direction="row" alignItems="center" spacing={0}>
                         <Grid item xs={10}>
                             <div className={styles.title}>
-                                <h3
-                                    style={{
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}
-                                >
                                     <EditableSpan
                                         title={props.todoList.title}
                                         onChangeTitle={onChangeTitle}
                                     />
-                                </h3>
                             </div>
                         </Grid>
                         <Grid
@@ -153,7 +141,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                             </IconButton>
                         </Grid>
                         <Grid item xs={12}>
-                            <div style={{position: 'relative'}}>
+                            <div style={{position: 'relative', paddingTop: '10px'}}>
                                 <AddItemForm
                                     placeholder={'Add Task'}
                                     stylesInput={stylesInput}
@@ -173,7 +161,7 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
                             <ul
                                 style={{
                                     listStyleType: 'none',
-                                    padding: '0',
+                                    paddingTop: '10px',
                                     maxHeight: '500px',
                                     overflowY: 'auto'
                                 }}

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Button } from "../../../../stories/Button";
 import {AddItemForm} from "../../../../components/AddItemForm/AddItemForm";
 import { action } from "@storybook/addon-actions";
-import styles from "../ToDoLIst.module.css";
+import styles from "../ToDoLIst.module.scss";
 import { Task } from "./Task";
 import { v1 } from "uuid";
 

@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react'
-import styles from './app.module.css'
+import styles from './app.module.scss'
 import {TodoListsList} from '../features/TodoListsList'
 import {CircularProgress, LinearProgress} from '@mui/material'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
@@ -16,6 +16,7 @@ import {Error} from '../components/Error/Error';
 import {Settings} from '../features/Settings/Settings';
 import {Background} from '../features/Settings/Background/Background';
 import {Templates} from '../components/Menu/Templates/Templates';
+import {Gallery} from '../features/Photo-gallery/Gallery';
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
@@ -30,7 +31,6 @@ export const App: React.FC<PropsType> = React.memo(props => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
-    // const {logout} = useActions(authActions)
     const {isInitializeApp} = useActions(appActions)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -65,8 +65,10 @@ export const App: React.FC<PropsType> = React.memo(props => {
                 <div className={!isLoggedIn ? styles.back : ''}>
                     <ErrorSnackbar/>
                     <div style={{
-                        position: 'relative',
+                        position: 'fixed',
                         width: '100%',
+                        top: '0px',
+                        zIndex: '3'
                     }}>
                         <div>
                             {isLoggedIn && <AppMenuBar menuSwitchCB={menuSwitchCB}/>}
@@ -77,36 +79,33 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                     left: '0',
                                     width: '100%',
                                     height: '5px',
-                                    zIndex: '4'
+                                    zIndex: '2'
                                 }}>
                                 {status === 'loading' && <LinearProgress color="secondary"/>}
                             </div>
                         </div>
                     </div>
-                    <div className={styles.todolist__wrap}>
+                    <div className={styles.main__window_wrap}>
                         <div className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
-                            <div>
                                 {isLoggedIn && <MenuPage/>}
-                            </div>
                         </div>
                         <div className={isMenuOpen ? `${styles.page__body} ${styles.active}` : `${styles.page__body}`}>
-                            <div>
-                                <Routes>
-                                    <Route path={'/menupage/*'} element={<MenuPage/>}/>
-                                    <Route path={'/*'} element={<Error/>}/>
-                                    <Route path={'/settings'} element={
-                                        <div><Settings/><Outlet/></div>}>
-                                        <Route path={'*'} element={<div><Error/></div>}/>
-                                        <Route path={':id'} element={<div>iD</div>}/>
-                                        <Route index element={<div>check iD</div>}/>
-                                        <Route path={'/settings/background'}
-                                               element={<div><Background/></div>}/>
-                                    </Route>
-                                    <Route path={'/templates'} element={<Templates/>}/>
-                                    <Route path={'/'} element={<TodoListsList demo={false}/>}/>
-                                    <Route path={'/login'} element={<Login/>}/>
-                                </Routes>
-                            </div>
+                            <Routes>
+                                <Route path={'/menupage/*'} element={<MenuPage/>}/>
+                                <Route path={'/*'} element={<Error/>}/>
+                                <Route path={'/settings'} element={
+                                    <div><Settings/><Outlet/></div>}>
+                                    <Route path={'*'} element={<div><Error/></div>}/>
+                                    <Route path={':id'} element={<div>iD</div>}/>
+                                    <Route index element={<div>check iD</div>}/>
+                                    <Route path={'/settings/background'}
+                                           element={<div><Background/></div>}/>
+                                </Route>
+                                <Route path={'/templates'} element={<Templates/>}/>
+                                <Route path={'/gallery'} element={<Gallery/>}/>
+                                <Route path={'/'} element={<TodoListsList demo={false}/>}/>
+                                <Route path={'/login'} element={<Login/>}/>
+                            </Routes>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
-import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.css';
+import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.scss';
 import {IconButton, InputAdornment} from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Box from '@mui/material/Box';

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import {AddItemForm} from "./AddItemForm";
 import { action } from "@storybook/addon-actions";
-import styles from "../../features/TodoListsList/TodoList/ToDoLIst.module.css";
+import styles from "../../features/TodoListsList/TodoList/ToDoLIst.module.scss";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

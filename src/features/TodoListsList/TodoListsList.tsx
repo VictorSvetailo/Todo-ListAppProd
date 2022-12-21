@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import {AppRootStateType} from '../../app/store'
 import {TodoListDomainType} from './todoLists-reducer'
 import {TodoList} from './TodoList/TodoList'
-import styles from '../../app/app.module.css'
+import styles from '../../app/app.module.scss'
 import {AddItemForm, AssItemFormSubmitHelperType} from '../../components/AddItemForm/AddItemForm'
 import {Navigate} from 'react-router-dom'
 import {selectIsLoggedIn} from '../Auth/selectors'
@@ -85,49 +85,34 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
     //
     // Component --------------------------------------------------
     return (
-        <>
-            <div className={styles.wrapper}>
-                <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
-                    <Grid container spacing={1}>
-                        <Grid item xs={3}>
-                            <div
-                                style={{
-                                    position: 'relative',
-                                    paddingTop: '15px',
-                                }}>
-                                <AddItemForm
-                                    placeholder={'Add Todo-List'}
-                                    sizeInput={'small'}
-                                    stylesInput={stylesInput}
-                                    stylesButton={stylesButton}
-                                    sizeButton={'large'}
-                                    colorButton={'primary'}
-                                    addItem={addTodoListsCB}
-                                />
-                            </div>
-                        </Grid>
-                        <Grid style={{paddingTop: '0'}} item xs={3}>
-                            <SelectVariants name={'Sort by'}/>
-                        </Grid>
-                        <Grid style={{paddingTop: '0'}} item xs={3}>
-                            <SelectVariants name={'Back...'}/>
-                        </Grid>
-                        <Grid style={{paddingTop: '0'}} item xs={3}>
-                            <SelectVariants name={'Views'}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <div
-                                style={{
-                                    width: '100%',
-                                    overflowX: 'auto',
-                                    height: '100vh',
-                                }}>
-                                <div style={{display: 'flex', gap: '20px'}}>{todoListComponents}</div>
-                            </div>
-                        </Grid>
-                    </Grid>
+        <div className={styles.todo__wrap}>
+            <div className={styles.todo__header}>
+                <div className={styles.todo__header_input}>
+                    <AddItemForm
+                        placeholder={'Add Todo-List'}
+                        sizeInput={'small'}
+                        stylesInput={stylesInput}
+                        stylesButton={stylesButton}
+                        sizeButton={'large'}
+                        colorButton={'primary'}
+                        addItem={addTodoListsCB}
+                    />
+                </div>
+                <div className={styles.todo__header_elements}>
+                    <div>
+                        <SelectVariants name={'Sort by'}/>
+                    </div>
+                    <div>
+                        <SelectVariants name={'Back...'}/>
+                    </div>
+                    <div>
+                        <SelectVariants name={'Views'}/>
+                    </div>
                 </div>
             </div>
-        </>
+            <div className={styles.todo__main}>
+                <div style={{display: 'flex', gap: '20px'}}>{todoListComponents}</div>
+            </div>
+        </div>
     )
 }

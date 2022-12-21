@@ -1,9 +1,6 @@
 .menu {
-  padding: 0px;
+  padding: 0;
   min-width: 200px;
-  position: relative;
-  z-index: 10;
-
   .title {
     font-size: 20px;
   }
@@ -37,6 +34,28 @@
       padding: 10px 10px;
       text-align: left;
       background-color: transparent;
+      position: relative;
+    }
+
+    .menu__btn.active::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translate(0%, -50%);
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #73ff46;
+      animation-name: blinker;
+      animation-iteration-count: infinite;
+      animation-timing-function: cubic-bezier(3.0, 1.0, 1, 1.0);
+      animation-duration: 2s;
+      -webkit-animation-name: blinker;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: cubic-bezier(5.0, 1.0, 0.1, 1.0);
+      -webkit-animation-duration: 3s;
     }
 
     .menu__btn:hover {
@@ -49,5 +68,24 @@
       color: #eaeaea;
 
     }
+  }
+}
+
+
+@keyframes blinker {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0.0;
+  }
+}
+
+@-webkit-keyframes blinker {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0.0;
   }
 }

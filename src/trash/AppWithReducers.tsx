@@ -1,5 +1,5 @@
 import React from 'react'
-// import stales from './app.module.css';
+// import stales from './app.module.scss';
 // import {TaskType, TodoList} from './components/TodoList/TodoList';
 // import {v1} from 'uuid';
 // import AddItemForm from './components/AddItemForm/AddItemForm';

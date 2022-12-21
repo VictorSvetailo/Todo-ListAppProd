@@ -2,6 +2,7 @@ import thunkMiddleware, { ThunkDispatch } from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit'
 import { FieldErrorType } from '../api/types'
 import { rootReducer } from './reducers'
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
 
 export type RootReducerType = typeof rootReducer
 //
@@ -15,11 +16,13 @@ export const store = configureStore({
 
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<RootReducerType>
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 // все типы action lkz всего App
 export type AppActionsType = any
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AppActionsType>
+
 
 // export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 // export type AppDispatch = typeof store.dispatch

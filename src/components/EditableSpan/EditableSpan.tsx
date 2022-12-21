@@ -1,7 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent, FC, useState } from "react";
 import { log } from "util";
 import {TextField} from '@mui/material';
-import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.css';
+import styles from '../../features/TodoListsList/TodoList/ToDoLIst.module.scss';
 
 type EditableSpanType = {
    title: string;
@@ -32,7 +32,7 @@ export const EditableSpan: FC<EditableSpanType> = React.memo((props) => {
 
    return <span >{editMode
        ? <TextField
-           style={{marginTop: '6px'}}
+           style={{marginTop: '15px'}}
            id="outlined-multiline-flexible"
                      label="Print text"
                      multiline

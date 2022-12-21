@@ -3,6 +3,7 @@ import {todoListsReducer} from '../features/TodoListsList';
 import {tasksReducer} from '../features/TodoListsList/TodoList/Task';
 import {appReducer} from '../features/Apllication';
 import {authReducer} from '../features/Auth';
+import {galleryReducer} from '../BLL/gallery-reducer';
 
 
 // important! I took out the creation of root Reducer from the store in order for Hot Module Replacement to work correctly
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
     tasks: tasksReducer,
     app: appReducer,
     auth: authReducer,
+    gallery: galleryReducer,
 });

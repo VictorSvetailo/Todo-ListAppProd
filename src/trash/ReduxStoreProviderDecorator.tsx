@@ -11,12 +11,15 @@ import {configureStore} from '@reduxjs/toolkit';
 import React from 'react';
 import {HashRouter} from 'react-router-dom';
 import {TaskPriorities, TaskStatuses} from '../api/types';
+import {galleryReducer} from '../BLL/gallery-reducer';
+import {ImageType} from '../features/Photo-gallery/types';
 
 const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
     todoLists: todoListsReducer,
     app: appReducer,
-    auth: authReducer
+    auth: authReducer,
+    gallery: galleryReducer
 
 });
 
@@ -101,6 +104,15 @@ const initialGlobalState: AppRootStateType = {
     auth: {
         isLoggedIn: true,
     },
+    gallery:{
+        images: [],
+        imageTotalCount: 0,
+        imageTotalHitsCount: 0,
+        currentPage: 0,
+        perPage: 10,
+        searchByColor: '',
+        searchByLetter: '',
+    }
 };
 
 export const storyBookStore = configureStore({
