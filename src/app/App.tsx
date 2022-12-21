@@ -114,28 +114,3 @@ export const App: React.FC<PropsType> = React.memo(props => {
         </div>
     )
 })
-
-
-// type MenuType = {
-//     menuSwitchCB?: () => void
-// }
-//
-// const Menu: FC<MenuType> = ({menuSwitchCB}) => {
-//
-//
-//     return (
-//         <div>
-//
-//             <div>
-//                 <div>
-//                     <div>
-//                         <div>
-//                         </div>
-//
-//                     </div>
-//                 </div>
-//             </div>
-//
-//         </div>
-//     )
-// }
