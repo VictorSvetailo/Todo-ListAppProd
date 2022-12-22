@@ -76,47 +76,25 @@ type PropsMenuBar = {
 }
 
 export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) => {
-    const applicationChanging = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
-    // const [test, setTest] = useState<boolean>(applicationChanging)
-    // console.log(applicationChanging)
-
-    const testHandler = (e: ChangeEvent<HTMLInputElement>)=>{
-        const check = e.currentTarget.checked
-        console.log(check)
-        dispatch(applicationChangingThemeAC())
-        // setTest(check)
-    }
+    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
     const {logout} = useActions(authActions)
-
-
-
-
-    const [choosingTheme, setChoosingTheme] = useState<boolean>(false)
-    useEffect(()=>{
-        // dispatch(applicationChangingThemeLocalStorageAC(true))
-    }, [])
+    const [choosingTheme, setChoosingTheme] = useState<boolean>(applicationChangingTheme)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked)
         setChoosingTheme(event.target.checked)
         dispatch(applicationChangingThemeAC())
     }
-
     const logoutH = useCallback(() => {
         logout()
     }, [])
 
-
-
-
-
     const menuSwitchH = () => {
         menuSwitchCB()
     }
+
     const dispatch = useAppDispatch()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null)
-
     const isMenuOpen = Boolean(anchorEl)
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
@@ -136,11 +114,6 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget)
     }
-
-    //
-    const [checked, setChecked] = useState(false)
-
-
 
     const IOSSwitch = styled((props: SwitchProps) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" {...props} />
@@ -282,7 +255,6 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
             </MenuItem>
         </Menu>
     )
-    //style={xxx ? `${background: 'black'}` : `${background: '#1976d2'}`}
     return (
         <Box style={{position: 'relative', zIndex: '3'}} sx={{flexGrow: 1}}>
             <AppBar
@@ -315,8 +287,8 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
                     </Search>
                     <Box sx={{flexGrow: 1}}/>
                     <FormControlLabel
-                        checked={checked}
-                        label={checked ? 'Dark' : 'Light'}
+                        checked={choosingTheme}
+                        label={choosingTheme ? 'Dark' : 'Light'}
                         control={<IOSSwitch onChange={handleChange} sx={{m: 1}}/>}
                     />
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
@@ -360,8 +332,6 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-
-            <input onChange={testHandler} checked={applicationChanging} type="checkbox"/>
         </Box>
     )
 }
