@@ -12,10 +12,10 @@ import {applicationReducer} from '../BLL/application-reducer';
 // мы задаём структуру нашего единственного объекта-состояния
 
 export const rootReducer = combineReducers({
-    application: applicationReducer,
     todoLists: todoListsReducer,
     tasks: tasksReducer,
     app: appReducer,
     auth: authReducer,
     gallery: galleryReducer,
+    application: applicationReducer,
 });

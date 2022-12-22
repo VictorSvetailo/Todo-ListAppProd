@@ -17,6 +17,7 @@ import {Settings} from '../features/Settings/Settings';
 import {Background} from '../features/Settings/Background/Background';
 import {Templates} from '../components/Menu/Templates/Templates';
 import {Gallery} from '../features/Photo-gallery/Gallery';
+import {useAppSelector} from './store';
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
@@ -28,16 +29,16 @@ type PropsType = {
 
 
 export const App: React.FC<PropsType> = React.memo(props => {
+
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
     const {isInitializeApp} = useActions(appActions)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
     const menuSwitchCB = () => {
         setIsMenuOpen(!isMenuOpen)
     }
-
     useEffect(() => {
         if (!isInitialized) {
             isInitializeApp()
@@ -61,7 +62,7 @@ export const App: React.FC<PropsType> = React.memo(props => {
 
     return (
         <div>
-            <div className={styles.app}>
+            <div className={applicationChangingTheme ? `${styles.app} ${styles.active}` : `${styles.app}`}>
                 <div className={!isLoggedIn ? styles.back : ''}>
                     <ErrorSnackbar/>
                     <div style={{
@@ -86,7 +87,8 @@ export const App: React.FC<PropsType> = React.memo(props => {
                         </div>
                     </div>
                     <div className={styles.main__window_wrap}>
-                        <div className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
+
+                        <div  style={applicationChangingTheme ? {background: 'black'} : {background: 'white'}} className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
                                 {isLoggedIn && <MenuPage/>}
                         </div>
                         <div className={isMenuOpen ? `${styles.page__body} ${styles.active}` : `${styles.page__body}`}>
@@ -103,7 +105,9 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                 </Route>
                                 <Route path={'/templates'} element={<Templates/>}/>
                                 <Route path={'/gallery'} element={<Gallery/>}/>
-                                <Route path={'/'} element={<TodoListsList demo={false}/>}/>
+                                <Route path={'/'}
+                                       element={<TodoListsList applicationChangingTheme={applicationChangingTheme}
+                                                               demo={false}/>}/>
                                 <Route path={'/login'} element={<Login/>}/>
                             </Routes>
                         </div>

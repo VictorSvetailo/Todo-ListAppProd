@@ -62,6 +62,7 @@ export const AddItemForm: FC<AddItemFormPropsType> = React.memo(({
                  autoComplete="off">
                 <div style={{paddingRight: '20px'}}>
                     <TextField
+                        // style={{color: 'white'}}
                         id="outlined-multiline-flexible"
                         label={placeholder}
                         multiline

@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../app/store'
+import {AppRootStateType, useAppSelector} from '../../app/store'
 import {TodoListDomainType} from './todoLists-reducer'
 import {TodoList} from './TodoList/TodoList'
 import styles from '../../app/app.module.scss'
@@ -9,17 +9,19 @@ import {Navigate} from 'react-router-dom'
 import {selectIsLoggedIn} from '../Auth/selectors'
 import {todoListsActions} from './index'
 import {useActions, useAppDispatch} from '../../utils/redux-utils'
-import {Grid} from '@mui/material'
 import {SelectVariants} from '../../components/All/Select/SelectSort'
 
 type TodoListsListPropsType = {
     demo?: boolean
+    applicationChangingTheme: boolean
 }
 
-export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) => {
+export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChangingTheme,demo = false}) => {
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>(
         state => state.todoLists
     )
+
+
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const {fetchTodoListTC} = useActions(todoListsActions)
     const dispatch = useAppDispatch()
@@ -33,6 +35,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
             fetchTodoListTC()
         }
     }, [])
+
+
 
     const addTodoListsCB = useCallback(
         async (title: string, helper: AssItemFormSubmitHelperType) => {
@@ -57,7 +61,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({demo = false}) 
         return (
             <div key={tl.id}>
                 <div style={{width: '300px'}}>
-                    <TodoList key={tl.id} todoList={tl} demo={demo}/>
+                    <TodoList key={tl.id} todoList={tl} applicationChangingTheme={applicationChangingTheme} demo={demo}/>
                 </div>
             </div>
         )

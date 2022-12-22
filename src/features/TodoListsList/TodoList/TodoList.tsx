@@ -3,7 +3,7 @@ import styles from './ToDoLIst.module.scss'
 import {AddItemForm, AssItemFormSubmitHelperType} from '../../../components/AddItemForm/AddItemForm'
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../../app/store'
+import {AppRootStateType, useAppSelector} from '../../../app/store'
 import {TodoListDomainType} from '../todoLists-reducer'
 import {Task} from './Task/Task'
 import {tasksActions} from './Task'
@@ -16,13 +16,14 @@ import DeleteIcon from '@mui/icons-material/Delete'
 export type ToDoListPropsType = {
     todoList: TodoListDomainType
     demo?: boolean
+    applicationChangingTheme:boolean
 }
 
-export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
+export const TodoList: FC<ToDoListPropsType> = React.memo(({applicationChangingTheme, ...props}) => {
+
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(
         (state) => state.tasks[props.todoList.id]
     )
-    console.log('dcsdcddcdcds')
     const dispatch = useAppDispatch()
     const {removeTodoListTC, changeTodoListTitleTC} =
         useActions(todoListsActions)
@@ -111,10 +112,10 @@ export const TodoList: FC<ToDoListPropsType> = React.memo((props) => {
     return (
         <div>
             <Paper elevation={5}>
-                <div className={styles.block_list}>
+                <div className={applicationChangingTheme ? `${styles.block_list} ${styles.active}` : `${styles.block_list}`}>
                     <Grid container direction="row" alignItems="center" spacing={0}>
                         <Grid item xs={10}>
-                            <div className={styles.title}>
+                            <div className={applicationChangingTheme ? `${styles.title} ${styles.active}` : `${styles.title }`}>
                                     <EditableSpan
                                         title={props.todoList.title}
                                         onChangeTitle={onChangeTitle}

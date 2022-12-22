@@ -7,9 +7,10 @@ import Logout from '@mui/icons-material/Logout'
 import MenuItem from '@mui/material/MenuItem'
 
 import styles from './Menu.module.scss'
+import {useAppSelector} from '../../../app/store';
 
 export const MenuPage = () => {
-
+    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
     const [isActiveBTN, setIsActiveBTN] = useState('1')
     const isActiveBTNCB = (value: string) => {
         setIsActiveBTN(value)
