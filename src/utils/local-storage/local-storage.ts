@@ -1,4 +1,4 @@
-import {AppStateType} from '../../BLL/application-reducer';
+import {AppRootStateType} from '../../app/store';
 //
 // export const loadState = () => {
 //     try {
@@ -13,7 +13,7 @@ import {AppStateType} from '../../BLL/application-reducer';
 // }
 //
 //
-// export const saveState = (state: AppStateType) => {
+// export const saveState = (state: AppRootStateType) => {
 //     try {
 //         const serializedState = JSON.stringify(state);
 //         localStorage.setItem('application-state', serializedState);

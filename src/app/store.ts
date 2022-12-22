@@ -3,16 +3,17 @@ import {configureStore, current} from '@reduxjs/toolkit'
 import {FieldErrorType} from '../api/types'
 import {rootReducer} from './reducers'
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import {
-    persistStore, persistReducer,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+// import {loadState, saveState} from '../utils/local-storage/local-storage';
+// import {
+//     persistStore, persistReducer,
+//     FLUSH,
+//     REHYDRATE,
+//     PAUSE,
+//     PERSIST,
+//     PURGE,
+//     REGISTER,
+// } from 'redux-persist'
+// import storage from 'redux-persist/lib/storage'
 
 export type RootReducerType = typeof rootReducer
 //
@@ -21,36 +22,49 @@ export type RootReducerType = typeof rootReducer
 // непосредственно создаём store ghb помощи configureStore
 
 
-// let preloadedState
-// const persistedTodosString = localStorage.getItem('application-state')
-// if (persistedTodosString){
-//   preloadedState = JSON.parse(persistedTodosString)
+
+
+// const persistConfig = {
+//     key: 'root',
+//     storage,
 // }
+// const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const persistConfig = {
-    key: 'root',
-    storage,
+
+
+
+let preloadedState
+const persistedTodosString = localStorage.getItem('application-state')
+if (persistedTodosString) {
+    preloadedState = JSON.parse(persistedTodosString)
 }
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-
-console.log()
-
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    // @ts-ignore
+    reducer: rootReducer,
+    preloadedState: {
+        application: {
+            applicationChangingTheme: false
+        }
+    },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
+        // serializableCheck: {
+        //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        // },
     }).prepend(thunkMiddleware)
 
 })
+store.subscribe(() => {
+    // saveState({
+    //     application: store.getState().application.applicationChangingTheme
+    // })
+    localStorage.setItem('application-state', JSON.stringify(store.getState().application.applicationChangingTheme))
+})
 
-export const persistor = persistStore(store)
 
-export default store
+
+// export const persistor = persistStore(store)
+
+// export default store
 
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<RootReducerType>
@@ -67,9 +81,7 @@ window.store = store
 
 // export type AppDispatchType = type store.dispatch
 
-// store.subscribe(()=>{
-//     localStorage.setItem('application-state', JSON.stringify(store.getState().application.applicationChangingTheme))
-// })
+
 
 export type ThunkError = {
     rejectValue: { errors: Array<string>; fieldsErrors?: Array<FieldErrorType> }
@@ -77,6 +89,6 @@ export type ThunkError = {
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('./reducers', () => {
-        store.replaceReducer(persistedReducer)
+        store.replaceReducer(rootReducer)
     })
 }

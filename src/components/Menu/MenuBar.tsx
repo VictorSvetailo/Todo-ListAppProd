@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, useCallback, useEffect, useState} from 'react'
 import {alpha, styled} from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -27,7 +27,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import {FormControlLabel, Switch, SwitchProps} from '@mui/material'
-import {applicationChangingThemeAC, applicationChangingThemeLocalStorageAC} from '../../BLL/application-reducer';
+import {applicationChangingThemeAC} from '../../BLL/application-reducer';
 import {useAppSelector} from '../../app/store';
 
 const Search = styled('div')(({theme}) => ({
@@ -76,11 +76,22 @@ type PropsMenuBar = {
 }
 
 export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) => {
-    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
-    const {logout} = useActions(authActions)
-    console.log(applicationChangingTheme)
+    const applicationChanging = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
+    // const [test, setTest] = useState<boolean>(applicationChanging)
+    // console.log(applicationChanging)
 
-    const [choosingTheme, setChoosingTheme] = useState<boolean>(applicationChangingTheme)
+    const testHandler = (e: ChangeEvent<HTMLInputElement>)=>{
+        const check = e.currentTarget.checked
+        console.log(check)
+        dispatch(applicationChangingThemeAC())
+        // setTest(check)
+    }
+    const {logout} = useActions(authActions)
+
+
+
+
+    const [choosingTheme, setChoosingTheme] = useState<boolean>(false)
     useEffect(()=>{
         // dispatch(applicationChangingThemeLocalStorageAC(true))
     }, [])
@@ -127,7 +138,8 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
     }
 
     //
-    const [checked, setChecked] = useState(applicationChangingTheme)
+    const [checked, setChecked] = useState(false)
+
 
 
     const IOSSwitch = styled((props: SwitchProps) => (
@@ -348,6 +360,8 @@ export const AppMenuBar: FC<PropsMenuBar> = ({choosingThemeCB, menuSwitchCB}) =>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+
+            <input onChange={testHandler} checked={applicationChanging} type="checkbox"/>
         </Box>
     )
 }
