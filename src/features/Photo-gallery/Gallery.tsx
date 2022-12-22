@@ -9,6 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
+import {Navigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {selectIsLoggedIn} from '../Auth/selectors';
 
 export const Gallery = () => {
     const imageTotalCount = useAppSelector<number>(state => state.gallery.imageTotalCount)
@@ -18,7 +21,7 @@ export const Gallery = () => {
     const perPage = useAppSelector<number>(state => state.gallery.perPage)
     const searchLetter = useAppSelector<string>(state => state.gallery.searchByLetter)
     const pagesCount = Math.ceil(imageTotalCount / perPage)
-
+    const isLoggedIn = useSelector(selectIsLoggedIn)
     const pages: Array<number> = []
     createPages(pages, pagesCount, currentPage)
 
@@ -69,6 +72,11 @@ export const Gallery = () => {
             </div>
         )
     })
+
+    if (!isLoggedIn) {
+        console.log(isLoggedIn)
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <div className={styles.gallery__wrap}>

@@ -10,56 +10,40 @@ import styles from './Menu.module.scss'
 import {useAppSelector} from '../../../app/store';
 
 export const MenuPage = () => {
-    const applicationChangingTheme = useAppSelector<boolean>(state => state.application.applicationChangingTheme)
     const [isActiveBTN, setIsActiveBTN] = useState('1')
     const isActiveBTNCB = (value: string) => {
         setIsActiveBTN(value)
     }
 
-    // const isLoggedIn = useSelector(selectIsLoggedIn)
-
-    // useEffect(() => {
-    //     console.log(!isLoggedIn)
-    //     if (!isLoggedIn) {
-    //         return
-    //     }
-    // }, [])
-
-    const navigateUp = useNavigate()
-    const navigateBack = useNavigate()
+    // const navigateUp = useNavigate()
+    // const navigateBack = useNavigate()
 
     const {logout} = useActions(authActions)
     const logoutH = useCallback(() => {
         logout()
     }, [])
 
-
-    // if (!isLoggedIn) {
-    //     console.log(!isLoggedIn)
-    //     return <Navigate to={'/login'}/>
-    // }
     return (
         <div className={styles.menu}>
             {/*<button onClick={() => {*/}
             {/*    setSearchParams({...Object.fromEntries(searchParams), age: '2332322',})*/}
             {/*}}>add age*/}
             {/*</button>*/}
-
-            <div className={styles.arrows}>
-                <button
-                    className={styles.menu__arrows}
-                    onClick={() => {
-                        navigateBack(-1)
-                    }}>
-                    {'<-'}
-                </button>
-                <button
-                    className={styles.menu__arrows}
-                    onClick={() => {
-                        navigateUp(1)
-                    }}>{'->'}
-                </button>
-            </div>
+            {/*<div className={styles.arrows}>*/}
+            {/*    <button*/}
+            {/*        className={styles.menu__arrows}*/}
+            {/*        onClick={() => {*/}
+            {/*            navigateBack(-1)*/}
+            {/*        }}>*/}
+            {/*        {'<-'}*/}
+            {/*    </button>*/}
+            {/*    <button*/}
+            {/*        className={styles.menu__arrows}*/}
+            {/*        onClick={() => {*/}
+            {/*            navigateUp(1)*/}
+            {/*        }}>{'->'}*/}
+            {/*    </button>*/}
+            {/*</div>*/}
             <div className={styles.menu__body}>
                 <NavLink to={'/'}>
                     <div>
