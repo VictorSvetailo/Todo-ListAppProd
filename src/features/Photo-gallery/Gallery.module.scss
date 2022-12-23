@@ -3,19 +3,16 @@
 .gallery__wrap {
   background-color: #d2f8ba;
   width: 100%;
-  height: 110vh;
-  padding: 10px;
-  border: 5px solid black;
-  display: flex;
-  flex-direction: column;
-  row-gap: 50px;
-  position: relative;
+  height: 100vh;
+  padding: 30px 10px 70px 10px;
 }
 
 .gallery__wrap2{
-  overflow: auto;
+  min-height: 100%;
+  //overflow: auto;
   width: 100%;
-  height: 110%;
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery__header {
@@ -31,10 +28,21 @@
     .gallery__menu_search{
       border: 1px solid black;
       border-radius: 10px;
+
     }
   }
 }
 
+.gallery__main{
+  flex: 1 1 auto;
+}
+
+.gallery__footer{
+  margin-top: 10px;
+  font-weight: 900;
+  padding: 10px;
+  background-color: #2f197c;
+}
 
 .parent {
   display: grid;

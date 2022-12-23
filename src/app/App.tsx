@@ -100,14 +100,11 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                     <Route path={'*'} element={<div><Error/></div>}/>
                                     <Route path={':id'} element={<div>iD</div>}/>
                                     <Route index element={<div>check iD</div>}/>
-                                    <Route path={'/settings/background'}
-                                           element={<div><Background/></div>}/>
+                                    <Route path={'/settings/background'} element={<div><Background/></div>}/>
                                 </Route>
                                 <Route path={'/templates'} element={<Templates/>}/>
                                 <Route path={'/gallery'} element={<Gallery/>}/>
-                                <Route path={'/'}
-                                       element={<TodoListsList applicationChangingTheme={applicationChangingTheme}
-                                                               demo={false}/>}/>
+                                <Route path={'/'} element={<TodoListsList applicationChangingTheme={applicationChangingTheme} demo={false}/>}/>
                                 <Route path={'/login'} element={<Login/>}/>
                             </Routes>
                         </div>

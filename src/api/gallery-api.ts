@@ -3,23 +3,25 @@ import {GetTaskResponse, LoginParamsType, ResponseType, TaskType, TodoListType, 
 import {ImageType} from '../features/Photo-gallery/types';
 import {GetGalleryType} from './types-gallery';
 
-const settings = {
-    withCredentials: true,
-    headers: {
-        // 'API-KEY': '32233879-a5e5e1e253c0e82bd7e930f04',
-    },
-};
-
 const instance = axios.create({
-    baseURL: 'https://pixabay.com/api?key=32233879-a5e5e1e253c0e82bd7e930f04',
-
+    baseURL: 'https://pixabay.com/api',
 });
 
-// ...settings,
+
+
 export const galleryAPI = {
     getPhoto(currentPage: number, perPage: number, searchByColor: string, searchByLetter: string, searchByCategory: string) {
         console.log(searchByCategory)
-        return instance.get<GetGalleryType>(`&q=${searchByColor}+${searchByLetter}&page=${currentPage}&per_page=${perPage}&image_type=all&category=${searchByCategory}`);
+        return instance.get<GetGalleryType>('/', {
+            params: {
+                q: `${searchByColor}+${searchByLetter}`,
+                key: '32233879-a5e5e1e253c0e82bd7e930f04',
+                page: currentPage,
+                per_page: perPage,
+                image_type: 'all',
+                category: searchByCategory
+            }
+        })
     },
     // createTodoLists(title: string) {
     //     return instance.post<ResponseType<{

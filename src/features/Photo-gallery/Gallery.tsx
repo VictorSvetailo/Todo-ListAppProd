@@ -155,7 +155,6 @@ export const Gallery = () => {
                     <div className={styles.image__wrap}>
                         {image}
                     </div>
-
                 </div>
                 <div className={styles.gallery__footer}>
                     <div className={styles.pageBTN__wrap}>

@@ -6,12 +6,10 @@ const settings = {
     headers: {
         'API-KEY': 'c6150b07-be78-48c2-be1a-83b0f879593c',
     },
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/'
 };
 
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    ...settings,
-});
+const instance = axios.create(settings);
 
 // api
 export const todoListsAPI = {
@@ -28,6 +26,9 @@ export const todoListsAPI = {
     },
     updateTodoLists(id: string, title: string) {
         return instance.put<ResponseType>(`todo-lists/${id}`, {title: title,});
+    },
+    updateReorderTodoLists(id: string, order: string) {
+        return instance.put<ResponseType>(`todo-lists/${id}`, {order: order,});
     },
     getTasks(todoListID: string) {
         return instance.get<GetTaskResponse>(`todo-lists/${todoListID}/tasks`);

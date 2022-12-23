@@ -1,6 +1,8 @@
 import {galleryAPI} from '../api/gallery-api';
 import {ImageType} from '../features/Photo-gallery/types';
+import {appActions} from '../features/CommanActions/AppActions';
 
+const {setAppStatus} = appActions
 export const imageInitState = {
     imageTotalCount: 0,
     imageTotalHitsCount: 0,
@@ -9,29 +11,6 @@ export const imageInitState = {
     perPage: 10,
     searchByColor: '',
     searchByLetter: '',
-    // page: 1,
-    // pageCount: 10,
-    // packUserId: '',
-    // error: null as null | string,
-    // maxGrade: 10,
-    // minGrade: 0,
-
-    // currentCard: {
-    //     _id: '',
-    //     answer: '',
-    //     question: '',
-    // },
-
-    // cardsParams: {
-    //     cardAnswer: '',
-    //     cardQuestion: '',
-    //     cardsPack_id: '',
-    //     min: 0,
-    //     max: 0,
-    //     sortCards: '0grade',
-    //     page: 1,
-    //     pageCount: 8,
-    // },
 };
 
 export type ImageStateType = {
@@ -47,44 +26,52 @@ export type ImageStateType = {
 export const galleryReducer = (state: ImageStateType = imageInitState, action: ImageActionsType,): ImageStateType => {
     switch (action.type) {
         case 'TOTAL_IMAGE':
-            return { ...state, imageTotalCount: action.imageTotalCount};
+            return {...state, imageTotalCount: action.imageTotalCount};
         case 'TOTAL_HITS_IMAGE':
-            return { ...state, imageTotalHitsCount: action.imageTotalHitsCount};
+            return {...state, imageTotalHitsCount: action.imageTotalHitsCount};
         case 'FETCH_IMAGE':
-            return { ...state, images: action.images};
+            return {...state, images: action.images};
         case 'CURRENT_PAGE':
-            return { ...state, currentPage: action.currentPage};
+            return {...state, currentPage: action.currentPage};
         case 'SEARCH_COLOR':
-            return { ...state, searchByColor: action.searchByColor};
+            return {...state, searchByColor: action.searchByColor};
         case 'SEARCH_LETTER':
-            return { ...state, searchByLetter: action.searchByLetter};
+            return {...state, searchByLetter: action.searchByLetter};
         default:
             return state;
     }
 };
 
 export const totalImageAC = (imageTotalCount: number) =>
-    ({ type: 'TOTAL_IMAGE', imageTotalCount } as const);
+    ({type: 'TOTAL_IMAGE', imageTotalCount} as const);
 export const totalHitsImageAC = (imageTotalHitsCount: number) =>
-    ({ type: 'TOTAL_HITS_IMAGE', imageTotalHitsCount } as const);
+    ({type: 'TOTAL_HITS_IMAGE', imageTotalHitsCount} as const);
 export const fetchImageAC = (images: Array<ImageType>) =>
-    ({ type: 'FETCH_IMAGE', images } as const);
+    ({type: 'FETCH_IMAGE', images} as const);
 export const currentPageAC = (currentPage: number) =>
-    ({ type: 'CURRENT_PAGE', currentPage } as const);
+    ({type: 'CURRENT_PAGE', currentPage} as const);
 export const searchByLetterAC = (searchByLetter: string) =>
-    ({ type: 'SEARCH_LETTER', searchByLetter } as const);
+    ({type: 'SEARCH_LETTER', searchByLetter} as const);
 export const searchByColorAC = (searchByColor: string) =>
-    ({ type: 'SEARCH_COLOR', searchByColor } as const);
+    ({type: 'SEARCH_COLOR', searchByColor} as const);
 
 export const fetchImageTC = (currentPage: number, perPage: number,
                              searchByColor: string, searchByLetter: string, searchByCategory: string) => (dispatch: any): any => {
     galleryAPI.getPhoto(currentPage, perPage, searchByColor, searchByLetter, searchByCategory)
-        .then((res)=>{
+        .then((res) => {
+            dispatch(setAppStatus({status: 'loading'}))
             dispatch(totalImageAC(res.data.total))
             dispatch(totalHitsImageAC(res.data.totalHits))
             dispatch(fetchImageAC(res.data.hits))
+            if (res.data.hits.length){
+                setTimeout(()=>{
+                    dispatch(setAppStatus({ status: 'succeeded' }))
+                },2000)
+            }
         })
+
 };
+
 
 export type ImageActionsType =
     | ReturnType<typeof totalImageAC>
