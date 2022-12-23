@@ -10,17 +10,18 @@ import {selectIsLoggedIn} from '../Auth/selectors'
 import {todoListsActions} from './index'
 import {useActions, useAppDispatch} from '../../utils/redux-utils'
 import {SelectVariants} from '../../components/All/Select/SelectSort'
+import {todoListsAPI} from '../../api/todoLists-api';
 
 type TodoListsListPropsType = {
     demo?: boolean
     applicationChangingTheme: boolean
 }
 
-export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChangingTheme,demo = false}) => {
+export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChangingTheme, demo = false}) => {
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>(
         state => state.todoLists
     )
-
+    const {changeTodoListOrderTC} = useActions(todoListsActions)
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const {fetchTodoListTC} = useActions(todoListsActions)
@@ -35,7 +36,6 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
             fetchTodoListTC()
         }
     }, [])
-
 
 
     const addTodoListsCB = useCallback(
@@ -67,39 +67,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
     //     }
     // }
 
-    function dragStartHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
-        console.log('drag', tl)
-        setCurrentCard(tl)
-    }
 
-    function dragEndHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
-        e.currentTarget.style.background = 'white'
-    }
-
-    function dragOverHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
-        e.preventDefault()
-        e.currentTarget.style.background = 'green'
-    }
-
-    function onDropHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
-        e.preventDefault()
-        console.log('drop', tl)
-        todoList.map((c: any) => {
-            if (c.id === tl.id){
-                // @ts-ignore
-                return  {...c, order: currentCard.order}
-            }
-            // @ts-ignore
-            if (c.id === currentCard.id){
-                return  {...c, order: tl.order}
-            }
-            return c
-        })
-        e.currentTarget.style.background = 'white'
-    }
-    function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>, tl: any) {
-
-    }
 
     // const onChangeOrder = useCallback(
     //     (title: string) => {
@@ -108,8 +76,35 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
     //     [props.todoList.id]
     // )
 
+    const [toDoListID, setTodoListId] = useState('')
+    const [newOrder, setNewOrder] = useState('')
+
 
     const todoListComponents = todoList.map(tl => {
+        function dragStartHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
+            setTodoListId(tl.id)
+        }
+
+        function onDropHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
+            e.preventDefault()
+            setNewOrder(tl.id)
+            e.currentTarget.style.background = 'white'
+        }
+
+        function dragEndHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
+            e.currentTarget.style.background = 'white'
+            changeTodoListOrderTC({toDoListID, newOrder})
+            console.log(toDoListID, newOrder)
+        }
+
+        function dragOverHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
+            e.preventDefault()
+            e.currentTarget.style.background = 'green'
+        }
+
+        function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {}
+
+
         return (
             <div
                 onDragStart={(e) => dragStartHandler(e, tl)}
@@ -120,7 +115,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
                 draggable={true}
                 key={tl.id}>
                 <div style={{width: '300px'}}>
-                    <TodoList key={tl.id} todoList={tl} applicationChangingTheme={applicationChangingTheme} demo={demo}/>
+                    <TodoList key={tl.id} todoList={tl} applicationChangingTheme={applicationChangingTheme}
+                              demo={demo}/>
                 </div>
             </div>
         )
@@ -174,6 +170,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
             <div className={styles.todo__main}>
                 <div style={{display: 'flex', gap: '20px'}}>{todoListComponents}</div>
             </div>
+
+
         </div>
     )
 }

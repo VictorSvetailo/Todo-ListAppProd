@@ -86,15 +86,16 @@ export const changeTodoListTitleTC = createAsyncThunk(
 
 export const changeTodoListOrderTC = createAsyncThunk(
     'todoLists/changeTodoListOrder',
-    async (param: { toDoListID: string; order: string }, thunkAPI) => {
+    async (param: { toDoListID: string; newOrder: string }, thunkAPI) => {
+        console.log('changeTodoListOrder')
         try {
             const res = await todoListsAPI.updateReorderTodoLists(
                 param.toDoListID,
-                param.order
+                param.newOrder
             )
             if (res.data.resultCode === 0) {
                 thunkAPI.dispatch(setAppStatus({ status: 'succeeded' }))
-                return { toDoListID: param.toDoListID, title: param.order }
+                return { toDoListID: param.toDoListID, newOrder: param.newOrder }
             } else {
                 return handleAsyncServerAppError(res.data, thunkAPI)
             }
@@ -167,10 +168,7 @@ export const slice = createSlice({
                 state[index].title = action.payload.title
             })
             .addCase(changeTodoListOrderTC.fulfilled, (state, action) => {
-                const index = state.findIndex(
-                    (tl) => tl.id === action.payload.toDoListID
-                )
-                state[index].order = action.payload.order
+                console.log('hello')
             })
     }
 })
