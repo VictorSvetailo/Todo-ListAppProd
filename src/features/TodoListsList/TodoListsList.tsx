@@ -93,7 +93,7 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
 
         function dragEndHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
             e.currentTarget.style.background = 'white'
-            changeTodoListOrderTC({toDoListID, newOrder})
+            changeTodoListOrderTC({todoList, toDoListID, newOrder})
             console.log(toDoListID, newOrder)
         }
 

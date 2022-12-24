@@ -12,10 +12,7 @@ import { ThunkError } from '../../app/store'
 
 const { setAppStatus } = appActions
 
-export const fetchTodoListTC = createAsyncThunk<
-    { todoLists: TodoListType[] },
-    undefined,
-    ThunkError
+export const fetchTodoListTC = createAsyncThunk<{ todoLists: TodoListType[] }, undefined, ThunkError
 >('todoLists/fetchTodoList', async (param, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({ status: 'loading' }))
     try {
@@ -84,10 +81,8 @@ export const changeTodoListTitleTC = createAsyncThunk(
     }
 )
 
-export const changeTodoListOrderTC = createAsyncThunk(
-    'todoLists/changeTodoListOrder',
-    async (param: { toDoListID: string; newOrder: string }, thunkAPI) => {
-        console.log('changeTodoListOrder')
+export const changeTodoListOrderTC = createAsyncThunk('todoLists/changeTodoListOrder',
+    async (param: {todoList: TodoListType[], toDoListID: string; newOrder: string }, thunkAPI) => {
         try {
             const res = await todoListsAPI.updateReorderTodoLists(
                 param.toDoListID,
@@ -95,7 +90,7 @@ export const changeTodoListOrderTC = createAsyncThunk(
             )
             if (res.data.resultCode === 0) {
                 thunkAPI.dispatch(setAppStatus({ status: 'succeeded' }))
-                return { toDoListID: param.toDoListID, newOrder: param.newOrder }
+                return {todoList: param.todoList, toDoListID: param.toDoListID, newOrder: param.newOrder }
             } else {
                 return handleAsyncServerAppError(res.data, thunkAPI)
             }
@@ -167,9 +162,11 @@ export const slice = createSlice({
                 )
                 state[index].title = action.payload.title
             })
-            .addCase(changeTodoListOrderTC.fulfilled, (state, action) => {
-                console.log('hello')
-            })
+            // .addCase(changeTodoListOrderTC.fulfilled, (state, action) => {
+            //     // console.log(action.payload.todoList)
+            //
+            //     });
+            // })
     }
 })
 
