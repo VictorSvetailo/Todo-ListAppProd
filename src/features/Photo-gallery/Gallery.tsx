@@ -12,11 +12,12 @@ import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {selectIsLoggedIn} from '../Auth/selectors';
+import Masonry from "react-responsive-masonry"
 
 export const Gallery = () => {
     const imageTotalCount = useAppSelector<number>(state => state.gallery.imageTotalCount)
     const imageTotalHitsCount = useAppSelector<number>(state => state.gallery.imageTotalHitsCount)
-    const images = useAppSelector<Array<ImageType>>(state => state.gallery.images)
+
     const currentPage = useAppSelector<number>(state => state.gallery.currentPage)
     const perPage = useAppSelector<number>(state => state.gallery.perPage)
     const searchLetter = useAppSelector<string>(state => state.gallery.searchByLetter)
@@ -55,14 +56,6 @@ export const Gallery = () => {
         dispatch(fetchImageTC(currentPage, perPage, searchByColor, searchByLetter, searchByCategory))
     }, [currentPage, searchByColor, searchByLetter, searchByCategory]);
 
-    const image = images.map((p: ImageType) => {
-        return (
-            <div key={p.id}>
-                <img width={'200px'} src={p.largeImageURL} alt=""/>
-                <div>{p.comments} - Like{p.likes}</div>
-            </div>
-        )
-    })
 
     const page = pages.map((p, index) => {
         return (
@@ -152,9 +145,7 @@ export const Gallery = () => {
                     </div>
                 </div>
                 <div className={styles.gallery__main}>
-                    <div className={styles.image__wrap}>
-                        {image}
-                    </div>
+                    <Image/>
                 </div>
                 <div className={styles.gallery__footer}>
                     <div className={styles.pageBTN__wrap}>
@@ -165,3 +156,53 @@ export const Gallery = () => {
         </div>
     );
 };
+
+
+export const Image = () => {
+
+    const images = useAppSelector<Array<ImageType>>(state => state.gallery.images)
+
+    const [data, setData] = useState({img: '', imgId: 0});
+
+
+    const viewImage = (img: string, imgId: number) => {
+        // @ts-ignore
+        console.log(img, imgId)
+        // @ts-ignore
+        setData({img, imgId})
+    }
+
+    return (
+        <div>
+            {
+                data.img &&
+                <div  style={{
+                    width: "100%",
+                    top: '0',
+                    left: '0',
+                    bottom: '0',
+                    height: "100%",
+                    background: 'black',
+                    position: 'absolute',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                }}>
+                    <button  onClick={()=>setData({img: '', imgId: 0})} style={{position: 'absolute',  top: '100px', right: '40px', width: "30px",  zIndex: '3'}}>X</button>
+                    <img src={data.img} alt="" style={{width: "auto", maxWidth: "90%", maxHeight: '90%', zIndex: '2'}}/>
+                </div>
+            }
+            <Masonry columnsCount={3} gutter="10px">
+                {images.map((image) => (
+                    <img
+                        key={image.id}
+                        src={image.largeImageURL}
+                        style={{width: "100%", display: "block", cursor: 'pointer'}}
+                        onClick={()=>viewImage(image.largeImageURL, image.id)}
+                    />
+                ))}
+            </Masonry>
+        </div>
+    );
+}
