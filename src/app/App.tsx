@@ -29,7 +29,6 @@ type PropsType = {
 
 
 export const App: React.FC<PropsType> = React.memo(props => {
-
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)

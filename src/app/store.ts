@@ -3,7 +3,12 @@ import {configureStore, current} from '@reduxjs/toolkit'
 import {FieldErrorType} from '../api/types'
 import {rootReducer} from './reducers'
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import {loadState, saveState} from '../utils/local-storage/local-storage';
+import {
+    loadState1,
+    loadState2,
+    saveState1,
+    saveState2
+} from '../utils/local-storage/local-storage';
 
 export type RootReducerType = typeof rootReducer
 //
@@ -15,7 +20,8 @@ export const store = configureStore({
     reducer: rootReducer,
     preloadedState: {
         application: {
-            applicationChangingTheme: loadState()
+            applicationChangingTheme: loadState1(),
+            currentWindow: loadState2()
             // applicationChangingTheme: JSON.parse(localStorage.getItem("application-state") as string)
         }
     },
@@ -25,7 +31,9 @@ export const store = configureStore({
 })
 store.subscribe(() => {
     // @ts-ignore
-    saveState(store.getState().application.applicationChangingTheme)
+    saveState1(store.getState().application.applicationChangingTheme)
+    // @ts-ignore
+    saveState2(store.getState().application.currentWindow)
     // localStorage.setItem('application-state', JSON.stringify(store.getState().application.applicationChangingTheme))
 })
 

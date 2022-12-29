@@ -116,7 +116,8 @@ const initialGlobalState: AppRootStateType = {
         searchByLetter: '',
     },
     application: {
-        applicationChangingTheme: false
+        applicationChangingTheme: false,
+        currentWindow: 'svs',
     }
 };
 

@@ -1,17 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {Navigate, NavLink, useNavigate, useParams, useSearchParams,} from 'react-router-dom'
-import {useActions} from '../../../utils/redux-utils'
+import {useActions, useAppDispatch} from '../../../utils/redux-utils'
 import {authActions} from '../../../features/Auth'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import Logout from '@mui/icons-material/Logout'
 import MenuItem from '@mui/material/MenuItem'
 
 import styles from './Menu.module.scss'
-import {useAppSelector} from '../../../app/store';
+import {currentWindowAC} from '../../../BLL/application-reducer';
 
 export const MenuPage = () => {
-    const [isActiveBTN, setIsActiveBTN] = useState('1')
+    let location = document.location;
+    useEffect(()=> {
+        dispatch(currentWindowAC(location.pathname))
+    }, [])
+    const dispatch = useAppDispatch()
+    const [isActiveBTN, setIsActiveBTN] = useState(location.pathname)
     const isActiveBTNCB = (value: string) => {
+        dispatch(currentWindowAC(value))
         setIsActiveBTN(value)
     }
 
@@ -46,41 +52,39 @@ export const MenuPage = () => {
             {/*</div>*/}
             <div className={styles.menu__body}>
                 <NavLink to={'/'}>
-                    <div>
-                    </div>
-                    <button onClick={() => isActiveBTNCB('1')}
-                            className={isActiveBTN === '1' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Home
+                    <button onClick={() => isActiveBTNCB('/')}
+                            className={isActiveBTN === '/' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Home
                     </button>
                 </NavLink>
                 <NavLink to={'/settings'}>
-                    <button onClick={() => isActiveBTNCB('2')}
-                            className={isActiveBTN === '2' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Settings
+                    <button onClick={() => isActiveBTNCB('/settings')}
+                            className={isActiveBTN === '/settings' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Settings
                     </button>
                 </NavLink>
-                <NavLink to={'/'}>
-                    <button onClick={() => isActiveBTNCB('3')}
-                            className={isActiveBTN === '3' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}
+                <NavLink to={'/boards'}>
+                    <button onClick={() => isActiveBTNCB('/boards')}
+                            className={isActiveBTN === '/boards' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}
                             disabled>Boards
                     </button>
                 </NavLink>
                 <NavLink to={'/templates'}>
-                    <button onClick={() => isActiveBTNCB('4')}
-                            className={isActiveBTN === '4' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Templates
+                    <button onClick={() => isActiveBTNCB('/templates')}
+                            className={isActiveBTN === '/templates' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Templates
                     </button>
                 </NavLink>
                 <NavLink to={'/gallery'}>
-                    <button onClick={() => isActiveBTNCB('5')}
-                            className={isActiveBTN === '5' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Gallery
+                    <button onClick={() => isActiveBTNCB('/gallery')}
+                            className={isActiveBTN === '/gallery' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Gallery
                     </button>
                 </NavLink>
-                <NavLink to={'/templates'}>
-                    <button onClick={() => isActiveBTNCB('6')}
-                            className={isActiveBTN === '6' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Highlights
+                <NavLink to={'/highlights'}>
+                    <button onClick={() => isActiveBTNCB('/highlights')}
+                            className={isActiveBTN === '/highlights' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Highlights
                     </button>
                 </NavLink>
-                <NavLink to={'/templates'}>
-                    <button onClick={() => isActiveBTNCB('7')}
-                            className={isActiveBTN === '7' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Views
+                <NavLink to={'/views'}>
+                    <button onClick={() => isActiveBTNCB('/views')}
+                            className={isActiveBTN === '/views' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Views
                     </button>
                 </NavLink>
                 <hr/>

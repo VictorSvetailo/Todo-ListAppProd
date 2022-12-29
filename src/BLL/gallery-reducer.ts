@@ -8,7 +8,7 @@ export const imageInitState = {
     imageTotalHitsCount: 0,
     images: [],
     currentPage: 1,
-    perPage: 10,
+    perPage: 20,
     searchByColor: '',
     searchByLetter: '',
 };
