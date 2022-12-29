@@ -29,6 +29,7 @@ type PropsType = {
 
 
 export const App: React.FC<PropsType> = React.memo(props => {
+    let location = document.location.pathname;
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -86,13 +87,15 @@ export const App: React.FC<PropsType> = React.memo(props => {
                         </div>
                     </div>
                     <div className={styles.main__window_wrap}>
-
-                        <div  style={applicationChangingTheme ? {background: 'black'} : {background: 'white'}} className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
-                                {isLoggedIn && <MenuPage/>}
-                        </div>
+                        {isLoggedIn &&
+                            <div style={applicationChangingTheme ? {background: 'black'} : {background: 'white'}}
+                                 className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
+                                <MenuPage location={location}/>
+                            </div>
+                        }
                         <div className={isMenuOpen ? `${styles.page__body} ${styles.active}` : `${styles.page__body}`}>
                             <Routes>
-                                <Route path={'/menupage/*'} element={<MenuPage/>}/>
+                                {/*<Route path={'/menupage/*'} element={<MenuPage/>}/>*/}
                                 <Route path={'/*'} element={<Error/>}/>
                                 <Route path={'/settings'} element={
                                     <div><Settings/><Outlet/></div>}>
@@ -103,7 +106,9 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                 </Route>
                                 <Route path={'/templates'} element={<Templates/>}/>
                                 <Route path={'/gallery'} element={<Gallery/>}/>
-                                <Route path={'/'} element={<TodoListsList applicationChangingTheme={applicationChangingTheme} demo={false}/>}/>
+                                <Route path={'/'}
+                                       element={<TodoListsList applicationChangingTheme={applicationChangingTheme}
+                                                               demo={false}/>}/>
                                 <Route path={'/login'} element={<Login/>}/>
                             </Routes>
                         </div>

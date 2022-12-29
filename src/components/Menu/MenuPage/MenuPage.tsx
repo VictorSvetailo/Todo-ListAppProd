@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {FC, useCallback, useEffect, useState} from 'react'
 import {Navigate, NavLink, useNavigate, useParams, useSearchParams,} from 'react-router-dom'
 import {useActions, useAppDispatch} from '../../../utils/redux-utils'
 import {authActions} from '../../../features/Auth'
@@ -9,13 +9,20 @@ import MenuItem from '@mui/material/MenuItem'
 import styles from './Menu.module.scss'
 import {currentWindowAC} from '../../../BLL/application-reducer';
 
-export const MenuPage = () => {
-    let location = document.location;
-    useEffect(()=> {
-        dispatch(currentWindowAC(location.pathname))
-    }, [])
+type MenuPropsType = {
+    location: string
+}
+
+export const MenuPage: FC<MenuPropsType> = ({location}) => {
+    // console.log(location)
+    // useEffect(()=> {
+    //     dispatch(currentWindowAC(location))
+    //     setIsActiveBTN('/')
+    // }, [location])
     const dispatch = useAppDispatch()
-    const [isActiveBTN, setIsActiveBTN] = useState(location.pathname)
+
+    const [isActiveBTN, setIsActiveBTN] = useState(location)
+    // console.log(location)
     const isActiveBTNCB = (value: string) => {
         dispatch(currentWindowAC(value))
         setIsActiveBTN(value)
