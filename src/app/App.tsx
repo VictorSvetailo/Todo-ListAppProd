@@ -29,7 +29,6 @@ type PropsType = {
 
 
 export const App: React.FC<PropsType> = React.memo(props => {
-    let location = document.location.pathname;
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -90,7 +89,7 @@ export const App: React.FC<PropsType> = React.memo(props => {
                         {isLoggedIn &&
                             <div style={applicationChangingTheme ? {background: 'black'} : {background: 'white'}}
                                  className={isMenuOpen ? `${styles.sidebar} ${styles.active}` : `${styles.sidebar}`}>
-                                <MenuPage location={location}/>
+                                <MenuPage/>
                             </div>
                         }
                         <div className={isMenuOpen ? `${styles.page__body} ${styles.active}` : `${styles.page__body}`}>

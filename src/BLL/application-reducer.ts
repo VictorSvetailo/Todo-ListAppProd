@@ -1,5 +1,5 @@
 export const initialState: InitialStateType = {
-    currentWindow: 'svs',
+    currentWindow: '/',
     applicationChangingTheme: false,
 };
 
@@ -24,8 +24,11 @@ export const applicationChangingThemeAC = () =>
 export const currentWindowAC = (value: string) =>
     ({ type: 'CURRENT_WINDOW', value} as const);
 
-// export const applicationChangingThemeLocalStorageAC = (applicationChangingTheme: boolean) =>
-//     ({ type: 'APP_SET_CHANGING_THEME_LOCAL_STORAGE', applicationChangingTheme } as const);
+
+export const currentWindowTC = () => (dispatch: any) => {
+    let location = document.location.pathname;
+    dispatch(currentWindowAC(location))
+}
 
 export type AppActionsType =
     | ReturnType<typeof applicationChangingThemeAC>

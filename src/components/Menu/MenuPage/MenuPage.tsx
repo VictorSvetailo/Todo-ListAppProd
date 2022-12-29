@@ -7,24 +7,27 @@ import Logout from '@mui/icons-material/Logout'
 import MenuItem from '@mui/material/MenuItem'
 
 import styles from './Menu.module.scss'
-import {currentWindowAC} from '../../../BLL/application-reducer';
+import {currentWindowAC, currentWindowTC} from '../../../BLL/application-reducer';
+import {useAppSelector} from '../../../app/store';
 
 type MenuPropsType = {
-    location: string
+    // location: string
 }
 
-export const MenuPage: FC<MenuPropsType> = ({location}) => {
-    // useEffect(()=> {
-    //     dispatch(currentWindowAC(location))
-    //     setIsActiveBTN('/')
-    // }, [location])
-    const dispatch = useAppDispatch()
+export const MenuPage: FC<MenuPropsType> = (props) => {
+    const currentWindow = useAppSelector<string>(state => state.application.currentWindow)
+    console.log(currentWindow)
+    useEffect(()=> {
+        dispatch(currentWindowTC())
+        setIsActiveBTN(currentWindow)
+    }, [currentWindow])
 
-    const [isActiveBTN, setIsActiveBTN] = useState(location)
+    const dispatch = useAppDispatch()
+    const [isActiveBTN, setIsActiveBTN] = useState(currentWindow)
     // console.log(location)
     const isActiveBTNCB = (value: string) => {
         dispatch(currentWindowAC(value))
-        setIsActiveBTN(value)
+        // setIsActiveBTN(value)
     }
 
     // const navigateUp = useNavigate()
@@ -37,25 +40,7 @@ export const MenuPage: FC<MenuPropsType> = ({location}) => {
 
     return (
         <div className={styles.menu}>
-            {/*<button onClick={() => {*/}
-            {/*    setSearchParams({...Object.fromEntries(searchParams), age: '2332322',})*/}
-            {/*}}>add age*/}
-            {/*</button>*/}
-            {/*<div className={styles.arrows}>*/}
-            {/*    <button*/}
-            {/*        className={styles.menu__arrows}*/}
-            {/*        onClick={() => {*/}
-            {/*            navigateBack(-1)*/}
-            {/*        }}>*/}
-            {/*        {'<-'}*/}
-            {/*    </button>*/}
-            {/*    <button*/}
-            {/*        className={styles.menu__arrows}*/}
-            {/*        onClick={() => {*/}
-            {/*            navigateUp(1)*/}
-            {/*        }}>{'->'}*/}
-            {/*    </button>*/}
-            {/*</div>*/}
+
             <div className={styles.menu__body}>
                 <NavLink to={'/'}>
                     <button onClick={() => isActiveBTNCB('/')}
