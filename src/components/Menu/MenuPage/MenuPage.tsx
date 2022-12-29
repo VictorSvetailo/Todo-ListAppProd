@@ -14,7 +14,6 @@ type MenuPropsType = {
 }
 
 export const MenuPage: FC<MenuPropsType> = ({location}) => {
-    // console.log(location)
     // useEffect(()=> {
     //     dispatch(currentWindowAC(location))
     //     setIsActiveBTN('/')
