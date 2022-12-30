@@ -27,9 +27,9 @@ export const todoListsAPI = {
     updateTodoLists(id: string, title: string) {
         return instance.put<ResponseType>(`todo-lists/${id}`, {title: title,});
     },
-    updateReorderTodoLists(toDoListID: string, newOrder: string) {
-        console.log(toDoListID, newOrder)
-        return instance.put<ResponseType>(`todo-lists/${toDoListID}/reorder`, {putAfterItemId: newOrder});
+    updateReorderTodoLists(toDoListID1: string, putAfterItemId: string) {
+        console.log(toDoListID1, putAfterItemId)
+        return instance.put<ResponseType>(`todo-lists/${toDoListID1}/reorder`, {putAfterItemId});
     },
     getTasks(todoListID: string) {
         return instance.get<GetTaskResponse>(`todo-lists/${todoListID}/tasks`);

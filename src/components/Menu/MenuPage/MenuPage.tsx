@@ -27,7 +27,6 @@ export const MenuPage: FC<MenuPropsType> = (props) => {
     // console.log(location)
     const isActiveBTNCB = (value: string) => {
         dispatch(currentWindowAC(value))
-        // setIsActiveBTN(value)
     }
 
     // const navigateUp = useNavigate()

@@ -10,7 +10,6 @@ import {selectIsLoggedIn} from '../Auth/selectors'
 import {todoListsActions} from './index'
 import {useActions, useAppDispatch} from '../../utils/redux-utils'
 import {SelectVariants} from '../../components/All/Select/SelectSort'
-import {todoListsAPI} from '../../api/todoLists-api';
 
 type TodoListsListPropsType = {
     demo?: boolean
@@ -21,12 +20,12 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
     const todoList = useSelector<AppRootStateType, Array<TodoListDomainType>>(
         state => state.todoLists
     )
-    const {changeTodoListOrderTC} = useActions(todoListsActions)
+
 
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const {fetchTodoListTC} = useActions(todoListsActions)
     const dispatch = useAppDispatch()
-
+    const [currentCard, setCurrentCard] = useState(true)
     // componentDidMount
     useEffect(() => {
         if (demo || !isLoggedIn) {
@@ -36,6 +35,11 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
             fetchTodoListTC()
         }
     }, [])
+
+    useEffect(() => {
+            fetchTodoListTC()
+            console.log('rerender')
+    }, [currentCard])
 
 
     const addTodoListsCB = useCallback(
@@ -56,45 +60,29 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
         },
         []
     )
-    const [currentCard, setCurrentCard] = useState(null)
-
-    // const sortCards = (a: any, b: any) => {
-    //     if (a.order > b.order){
-    //         console.log('hello')
-    //         return -1
-    //     } else {
-    //         return 1
-    //     }
-    // }
 
 
-
-    // const onChangeOrder = useCallback(
-    //     (title: string) => {
-    //         changeTodoListOrderTC({toDoListID: props.todoList.id, order})
-    //     },
-    //     [props.todoList.id]
-    // )
-
-    const [toDoListID, setTodoListId] = useState('')
-    const [newOrder, setNewOrder] = useState('')
+    const [toDoListID1, setToDoListID1] = useState('')
+    const [toDoListID2, setToDoListID2] = useState('')
 
 
     const todoListComponents = todoList.map(tl => {
         function dragStartHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
-            setTodoListId(tl.id)
+            setToDoListID1(tl.id)
         }
 
         function onDropHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
             e.preventDefault()
-            setNewOrder(tl.id)
+            setToDoListID2(tl.id)
             e.currentTarget.style.background = 'white'
         }
 
         function dragEndHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
             e.currentTarget.style.background = 'white'
-            changeTodoListOrderTC({todoList, toDoListID, newOrder})
-            console.log(toDoListID, newOrder)
+            dispatch(changeTodoListOrderTC({todoList, toDoListID1, toDoListID2}));
+            setTimeout(()=>{
+                setCurrentCard(!currentCard)
+            },200)
         }
 
         function dragOverHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
@@ -102,7 +90,8 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
             e.currentTarget.style.background = 'green'
         }
 
-        function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {}
+        function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>, tl: TodoListDomainType) {
+        }
 
 
         return (
