@@ -32,7 +32,6 @@ export const currentWindowAC = (value: string) =>
 
 export const currentWindowTC = () => (dispatch: any) => {
     let location = document.location.pathname;
-    console.log('/'+ location.split('/')[1])
     dispatch(currentWindowAC('/'+ location.split('/')[1]))
 }
 

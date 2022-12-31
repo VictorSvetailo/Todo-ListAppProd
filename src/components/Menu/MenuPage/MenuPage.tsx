@@ -16,7 +16,6 @@ type MenuPropsType = {
 
 export const MenuPage: FC<MenuPropsType> = (props) => {
     const currentWindow = useAppSelector<string>(state => state.application.currentWindow)
-    console.log(currentWindow)
     useEffect(()=> {
         dispatch(currentWindowTC())
         setIsActiveBTN(currentWindow)

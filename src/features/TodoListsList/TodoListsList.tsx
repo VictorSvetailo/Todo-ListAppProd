@@ -38,7 +38,6 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({applicationChan
 
     useEffect(() => {
             fetchTodoListTC()
-            console.log('rerender')
     }, [currentCard])
 
 

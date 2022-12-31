@@ -7,7 +7,6 @@ const galleryInstance = axios.create({
 
 export const galleryAPI = {
     getPhoto(currentPage: number, perPage: number, searchByColor: string, searchByLetter: string, searchByCategory: string) {
-        console.log(searchByCategory)
         return galleryInstance.get<GetGalleryType>('/', {
             params: {
                 q: `${searchByColor}+${searchByLetter}`,

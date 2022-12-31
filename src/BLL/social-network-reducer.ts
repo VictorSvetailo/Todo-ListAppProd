@@ -36,8 +36,6 @@ export const fetchUsersTC = () => (dispatch: any) => {
         .then(res => {
             // @ts-ignore
             dispatch(fetchUsersAC(res.data.items))
-            // @ts-ignore
-            console.log(res.data.items)
         })
 }
 

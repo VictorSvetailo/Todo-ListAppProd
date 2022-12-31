@@ -36,14 +36,3 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
         rerenderEntireTree()
     })
 }
-
-
-////  "max-len": [
-////    "error",
-////    200,
-////    2
-////  ],
-// "tabWidth": 4
-//"tabWidth": 4,
-//"useTabs": false
-//  "arrowParens": "always"

@@ -158,7 +158,6 @@ export const slice = createSlice({
                 state[index].title = action.payload.title
             })
             .addCase(changeTodoListOrderTC.fulfilled, (state, action) => {
-                console.log(action.payload.todoList)
 
             });
     }

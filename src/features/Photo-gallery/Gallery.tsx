@@ -35,7 +35,6 @@ export const Gallery = () => {
     const pages: Array<number> = []
     createPages(pages, pagesCount, currentPage)
 
-    console.log(currentPage-1)
 
     const dispatch = useAppDispatch()
 
@@ -46,10 +45,8 @@ export const Gallery = () => {
 
     const pageArrowSwitchingH = (value: number) => {
         if (value === 1){
-            console.log(currentPage + 1)
             dispatch(currentPageAC(currentPage + 1))
         } else {
-            console.log(currentPage - 1)
             dispatch(currentPageAC(currentPage - 1))
         }
     }
@@ -59,7 +56,6 @@ export const Gallery = () => {
     }
 
     const searchByLetterH = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
         let searchByLetter = e.currentTarget.value
         setSearchByLetter(searchByLetter)
     }
@@ -68,14 +64,12 @@ export const Gallery = () => {
 
     const handleChange = (event: SelectChangeEvent) => {
         setSearchByColor(event.target.value);
-        console.log(event.target.value)
     };
 
     const [searchByCategory, setSearchByCategory] = React.useState('sports');
 
     const searchByCategoryH = (event: SelectChangeEvent) => {
         setSearchByCategory(event.target.value);
-        console.log(event.target.value)
     };
 
 
@@ -200,8 +194,6 @@ export const Image = () => {
 
 
     const viewImage = (img: string, imgId: number) => {
-        // @ts-ignore
-        console.log(img, imgId)
         // @ts-ignore
         setData({img, imgId})
     }
