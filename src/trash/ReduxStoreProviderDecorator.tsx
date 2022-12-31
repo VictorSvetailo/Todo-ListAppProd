@@ -14,6 +14,7 @@ import {TaskPriorities, TaskStatuses} from '../api/types';
 import {galleryReducer} from '../BLL/gallery-reducer';
 import {ImageType} from '../features/Photo-gallery/types';
 import {applicationReducer} from '../BLL/application-reducer';
+import {ProfileItemsType, socialNetworkReducer} from '../BLL/social-network-reducer';
 
 const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
@@ -21,7 +22,8 @@ const rootReducer: RootReducerType = combineReducers({
     app: appReducer,
     auth: authReducer,
     gallery: galleryReducer,
-    application: applicationReducer
+    application: applicationReducer,
+    socialNetwork: socialNetworkReducer
 
 });
 
@@ -106,7 +108,7 @@ const initialGlobalState: AppRootStateType = {
     auth: {
         isLoggedIn: true,
     },
-    gallery:{
+    gallery: {
         images: [],
         imageTotalCount: 0,
         imageTotalHitsCount: 0,
@@ -118,6 +120,10 @@ const initialGlobalState: AppRootStateType = {
     application: {
         applicationChangingTheme: false,
         currentWindow: 'svs',
+    },
+    socialNetwork: {
+        users: [],
+        profile: null as ProfileItemsType | null,
     }
 };
 

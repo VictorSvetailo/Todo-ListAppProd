@@ -18,6 +18,7 @@ import {Background} from '../features/Settings/Background/Background';
 import {Templates} from '../components/Menu/Templates/Templates';
 import {Gallery} from '../features/Photo-gallery/Gallery';
 import {useAppSelector} from './store';
+import {SocialNetwork} from '../features/Social-Network/Social-Network';
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
@@ -96,6 +97,8 @@ export const App: React.FC<PropsType> = React.memo(props => {
                             <Routes>
                                 {/*<Route path={'/menupage/*'} element={<MenuPage/>}/>*/}
                                 <Route path={'/*'} element={<Error/>}/>
+                                <Route path={'/gallery'} element={<Gallery/>}/>
+                                <Route path={'/social-network'} element={<SocialNetwork/>}/>
                                 <Route path={'/settings'} element={
                                     <div><Settings/><Outlet/></div>}>
                                     <Route path={'*'} element={<div><Error/></div>}/>
@@ -104,7 +107,6 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                     <Route path={'/settings/background'} element={<div><Background/></div>}/>
                                 </Route>
                                 <Route path={'/templates'} element={<Templates/>}/>
-                                <Route path={'/gallery'} element={<Gallery/>}/>
                                 <Route path={'/'}
                                        element={<TodoListsList applicationChangingTheme={applicationChangingTheme}
                                                                demo={false}/>}/>

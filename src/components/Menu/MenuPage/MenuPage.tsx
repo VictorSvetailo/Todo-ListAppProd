@@ -46,6 +46,16 @@ export const MenuPage: FC<MenuPropsType> = (props) => {
                             className={isActiveBTN === '/' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Home
                     </button>
                 </NavLink>
+                <NavLink to={'/gallery'}>
+                    <button onClick={() => isActiveBTNCB('/gallery')}
+                            className={isActiveBTN === '/gallery' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Gallery
+                    </button>
+                </NavLink>
+                <NavLink to={'/social-network'}>
+                    <button onClick={() => isActiveBTNCB('/social-network')}
+                            className={isActiveBTN === '/social-network' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Social-network
+                    </button>
+                </NavLink>
                 <NavLink to={'/settings'}>
                     <button onClick={() => isActiveBTNCB('/settings')}
                             className={isActiveBTN === '/settings' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Settings
@@ -60,11 +70,6 @@ export const MenuPage: FC<MenuPropsType> = (props) => {
                 <NavLink to={'/templates'}>
                     <button onClick={() => isActiveBTNCB('/templates')}
                             className={isActiveBTN === '/templates' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Templates
-                    </button>
-                </NavLink>
-                <NavLink to={'/gallery'}>
-                    <button onClick={() => isActiveBTNCB('/gallery')}
-                            className={isActiveBTN === '/gallery' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Gallery
                     </button>
                 </NavLink>
                 <NavLink to={'/highlights'}>
