@@ -36,3 +36,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
         rerenderEntireTree()
     })
 }
+
+
+// я сделал всё что было в моих силах в 2022 году!
