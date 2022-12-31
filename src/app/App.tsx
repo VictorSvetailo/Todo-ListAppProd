@@ -9,7 +9,7 @@ import {Outlet, Route, Routes} from 'react-router-dom'
 import {selectIsInitialized, selectStatus} from '../features/Apllication/selectors'
 import {appActions} from '../features/Apllication'
 import {useActions} from '../utils/redux-utils'
-import {TaskType} from '../api/types'
+import {TaskType} from '../DAL/Todo-List-DAL/types'
 import {AppMenuBar} from '../components/Menu/MenuBar'
 import {MenuPage} from '../components/Menu/MenuPage/MenuPage'
 import {Error} from '../components/Error/Error';

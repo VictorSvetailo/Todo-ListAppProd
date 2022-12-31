@@ -1,4 +1,4 @@
-import { authAPI } from '../../api/todoLists-api'
+import { authAPI } from '../../DAL/Todo-List-DAL/todoLists-api'
 import { authActions } from '../Auth'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { appActions } from '../CommanActions/AppActions'

@@ -11,7 +11,7 @@ import {
 import {v1} from 'uuid';
 import {RequestStatusType} from '../Apllication/application-reducer';
 import {todoListsReducer} from './index';
-import {TodoListType} from '../../api/types';
+import {TodoListType} from '../../DAL/Todo-List-DAL/types';
 
 let todolistId1 = v1();
 let todolistId2 = v1();

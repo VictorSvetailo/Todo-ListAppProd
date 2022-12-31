@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, MouseEvent, useCallback } from 'react'
 import { EditableSpan } from '../../../../components/EditableSpan/EditableSpan'
 import { tasksActions } from './index'
 import { useActions } from '../../../../utils/redux-utils'
-import { TaskStatuses, TaskType } from '../../../../api/types'
+import { TaskStatuses, TaskType } from '../../../../DAL/Todo-List-DAL/types'
 import { Box, Checkbox, Grid, IconButton } from '@mui/material'
 import ClearIcon from '@mui/icons-material/Clear'
 

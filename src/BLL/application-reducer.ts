@@ -1,7 +1,7 @@
-import {TodoListType} from '../api/types';
+import {TodoListType} from '../DAL/Todo-List-DAL/types';
 import {AppRootStateType} from '../app/store';
 import {TodoListDomainType} from '../features/TodoListsList/todoLists-reducer';
-import {todoListsAPI} from '../api/todoLists-api';
+import {todoListsAPI} from '../DAL/Todo-List-DAL/todoLists-api';
 
 export const initialState: InitialStateType = {
     currentWindow: '/',

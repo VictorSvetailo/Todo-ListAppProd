@@ -1,6 +1,6 @@
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk'
 import {configureStore, current} from '@reduxjs/toolkit'
-import {FieldErrorType} from '../api/types'
+import {FieldErrorType} from '../DAL/Todo-List-DAL/types'
 import {rootReducer} from './reducers'
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {

@@ -1,8 +1,8 @@
-import {authAPI} from '../../api/todoLists-api';
+import {authAPI} from '../../DAL/Todo-List-DAL/todoLists-api';
 import {handleAsyncServerAppError, handleAsyncServerNetworkError} from '../../utils/error-utils';
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AxiosError} from 'axios';
-import {FieldErrorType, LoginParamsType, TaskStatuses} from '../../api/types';
+import {FieldErrorType, LoginParamsType, TaskStatuses} from '../../DAL/Todo-List-DAL/types';
 import {appActions} from '../CommanActions/AppActions';
 
 

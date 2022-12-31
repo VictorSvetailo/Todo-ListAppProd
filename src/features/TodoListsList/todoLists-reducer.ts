@@ -1,4 +1,4 @@
-import {todoListsAPI} from '../../api/todoLists-api'
+import {todoListsAPI} from '../../DAL/Todo-List-DAL/todoLists-api'
 import {RequestStatusType} from '../Apllication'
 import {appActions} from '../CommanActions/AppActions'
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
@@ -7,7 +7,7 @@ import {
     handleAsyncServerAppError,
     handleAsyncServerNetworkError
 } from '../../utils/error-utils'
-import {TodoListType} from '../../api/types'
+import {TodoListType} from '../../DAL/Todo-List-DAL/types'
 import {ThunkError} from '../../app/store'
 
 const {setAppStatus} = appActions

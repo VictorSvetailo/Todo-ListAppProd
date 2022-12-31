@@ -9,10 +9,10 @@ import {Task} from './Task/Task'
 import {tasksActions} from './Task'
 import {todoListsActions} from '../index'
 import {useActions, useAppDispatch} from '../../../utils/redux-utils'
-import {TaskStatuses, TaskType} from '../../../api/types'
+import {TaskStatuses, TaskType} from '../../../DAL/Todo-List-DAL/types'
 import {Button, Grid, IconButton, Paper} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import {todoListsAPI} from '../../../api/todoLists-api';
+import {todoListsAPI} from '../../../DAL/Todo-List-DAL/todoLists-api';
 
 export type ToDoListPropsType = {
     todoList: TodoListDomainType

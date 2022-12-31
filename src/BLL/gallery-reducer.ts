@@ -1,4 +1,4 @@
-import {galleryAPI} from '../api/gallery-api';
+import {galleryAPI} from '../DAL/Gallery-DAL/gallery-api';
 import {ImageType} from '../features/Photo-gallery/types';
 import {appActions} from '../features/CommanActions/AppActions';
 

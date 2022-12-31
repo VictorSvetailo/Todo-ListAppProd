@@ -10,7 +10,7 @@ import {authReducer} from '../features/Auth';
 import {configureStore} from '@reduxjs/toolkit';
 import React from 'react';
 import {HashRouter} from 'react-router-dom';
-import {TaskPriorities, TaskStatuses} from '../api/types';
+import {TaskPriorities, TaskStatuses} from '../DAL/Todo-List-DAL/types';
 import {galleryReducer} from '../BLL/gallery-reducer';
 import {ImageType} from '../features/Photo-gallery/types';
 import {applicationReducer} from '../BLL/application-reducer';

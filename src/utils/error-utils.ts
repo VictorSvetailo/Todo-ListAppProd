@@ -1,7 +1,7 @@
 import {appActions} from '../features/CommanActions/AppActions';
 
 import {ThunkAPIType} from './types';
-import {ResponseType} from '../api/types';
+import {ResponseType} from '../DAL/Todo-List-DAL/types';
 
 const {setAppStatus, setAppError} = appActions
 // Async

@@ -11,7 +11,7 @@ const settings = {
 
 const instance = axios.create(settings);
 
-// api
+// DAL
 export const todoListsAPI = {
     getTodoLists() {
         return instance.get<TodoListType[]>('todo-lists');

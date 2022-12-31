@@ -1,4 +1,4 @@
-import {socialNetworkAPI} from '../api/social-network';
+import {socialNetworkAPI} from '../DAL/Social-network-DAL/social-network';
 
 export const initialState: InitialStateType = {
     users: [],

@@ -1,12 +1,12 @@
 import {TasksStateType} from '../../../../app/App';
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {appActions} from '../../../CommanActions/AppActions';
-import {todoListsAPI} from '../../../../api/todoLists-api';
+import {todoListsAPI} from '../../../../DAL/Todo-List-DAL/todoLists-api';
 import {handleAsyncServerAppError, handleAsyncServerNetworkError} from '../../../../utils/error-utils';
 import {AxiosError} from 'axios';
 import {asyncActions as asyncTodoListsActions} from '../../todoLists-reducer';
 import {AppRootStateType, ThunkError} from '../../../../app/store';
-import {TaskStatuses, TaskType, UpdateTaskModelType} from '../../../../api/types';
+import {TaskStatuses, TaskType, UpdateTaskModelType} from '../../../../DAL/Todo-List-DAL/types';
 
 const initialState: TasksStateType = {};
 

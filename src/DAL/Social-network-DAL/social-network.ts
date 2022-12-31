@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {GetTaskResponse, ResponseType, TaskType, TodoListType, UpdateTaskModelType} from './types';
-import {ProfileItemsType} from '../BLL/social-network-reducer';
+import {GetTaskResponse, ResponseType, TaskType, TodoListType, UpdateTaskModelType} from '../Todo-List-DAL/types';
+import {ProfileItemsType} from '../../BLL/social-network-reducer';
 
 const settings = {
     withCredentials: true,
@@ -12,7 +12,7 @@ const settings = {
 
 const instance = axios.create(settings);
 
-// api
+// DAL
 export const socialNetworkAPI = {
     getUsers() {
         return instance.get<Array<any>>('users');

@@ -2,7 +2,7 @@ import {addTask, fetchTasks, removeTask, updateTask} from './tasks-reducer';
 import {TasksStateType} from '../../../../app/App';
 import {addTodoListsTC, removeTodoListTC} from '../../todoLists-reducer';
 import {tasksReducer} from './index';
-import {TaskPriorities, TaskStatuses} from '../../../../api/types';
+import {TaskPriorities, TaskStatuses} from '../../../../DAL/Todo-List-DAL/types';
 
 
 let startState: TasksStateType = {}

@@ -1,4 +1,4 @@
-import {ImageType} from '../features/Photo-gallery/types';
+import {ImageType} from '../../features/Photo-gallery/types';
 
 export type GetGalleryType = {
     "total": number,
