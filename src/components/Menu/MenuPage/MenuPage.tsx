@@ -51,7 +51,7 @@ export const MenuPage: FC<MenuPropsType> = (props) => {
                             className={isActiveBTN === '/gallery' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Gallery
                     </button>
                 </NavLink>
-                <NavLink to={'/social-network'}>
+                <NavLink to={'social-network/posts'}>
                     <button onClick={() => isActiveBTNCB('/social-network')}
                             className={isActiveBTN === '/social-network' ? `${styles.menu__btn} ${styles.active}` : `${styles.menu__btn}`}>Social-network
                     </button>

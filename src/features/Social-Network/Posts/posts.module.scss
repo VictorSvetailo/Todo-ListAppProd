@@ -1,0 +1,217 @@
+//  background-color: #f0f2f5;
+
+
+.posts {
+
+}
+
+.posts__wrap {
+  padding: 0 20px 10px 20px;
+  margin-top: 20px;
+  background-color: #f0f2f5;
+}
+
+.posts__slider_wrap {
+
+}
+
+.posts__slider_body {
+  background-color: #fff;
+  padding: 10px 10px 0px 10px;
+  border-radius: 10px;
+
+  .posts__slider_title {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .posts__slider {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .posts__slider_scroll {
+      display: flex;
+      gap: 10px;
+      overflow: scroll;
+      height: 340px;
+
+      .posts__slider_item {
+        width: 210px;
+        height: 320px;
+        box-shadow: 2px 1px 5px #999;
+        border-radius: 10px;
+
+        .slider__item_image {
+          width: 100%;
+          height: 210px;
+          border-radius: 10px;
+
+          img {
+            width: 100%;
+            height: 210px;
+            border-radius: 10px;
+          }
+        }
+
+        .slider__item_name {
+
+        }
+
+        .slider__item_subscription {
+          width: 100%;
+        }
+      }
+    }
+
+  }
+
+}
+
+.slider__items {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+
+.posts__data {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  .posts__info_title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .posts__info_body {
+    width: 40%;
+    .posts__info_info {
+      .posts__info {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+
+        .posts__info_items {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+          .posts__info_addbio {
+
+
+          }
+
+          .posts__info_ditdetails {
+
+          }
+
+          .posts__info_addhobbies {
+
+          }
+
+          .posts__info_addfeatured {
+
+          }
+          .posts__info_btn{
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 10px;
+            background-color: #e4e6eb;
+            transition: 0.3s;
+            &:hover {
+              background-color: #c5c5c5;
+            }
+          }
+        }
+
+      }
+    }
+    .posts__info_box{
+      margin-top: 20px;
+      padding: 15px 10px;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 10px;
+      h2:hover{
+        text-decoration: underline;
+      }
+      button{
+        font-size: 15px;
+        color: #4a88e2;
+        background-color: transparent;
+        border-radius: 5px;
+        padding: 8px 10px;
+        transition: 0.2s;
+        &:hover{
+          background-color: #e7e7e7;
+        }
+      }
+    }
+  }
+
+
+  .posts__data_message {
+    width: 60%;
+
+    .posts__data_message_create_body{
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10px;
+      gap: 20px;
+      .posts__data_message_create{
+        width: 100%;
+        input{
+          padding: 10px;
+          border-radius: 100px;
+          width: 100%;
+          background-color: #f0f2f5;
+        }
+      }
+      .posts__data_message_button{
+        text-align: center;
+      }
+    }
+    .posts__data_posts{
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 10px;
+        .posts__data_box{
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+    }
+  }
+  .posts__data_message_create_avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #999;
+    img{
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+

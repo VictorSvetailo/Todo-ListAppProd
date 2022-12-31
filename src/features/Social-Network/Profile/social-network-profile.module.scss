@@ -1,0 +1,147 @@
+
+.social__wrap {
+  background-color: #fff;
+  padding: 0 10px 0 10px;
+  .social__header {
+    .social__cover {
+      margin-top: -50px;
+      padding-top: 50px;
+      width: 100%;
+      height: 400px;
+      background: rgb(108, 109, 110);
+      background: linear-gradient(0deg, rgba(108, 109, 110, 1) 0%, rgba(212, 214, 217, 1) 18%, rgba(240, 242, 245, 1) 100%);
+      border-radius: 0 0 10px 10px;
+      position: relative;
+
+      .social__cover_button{
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+      }
+      .social__cover_image {
+        width: 100%;
+        height: 100%;
+        border-radius: 0 0 10px 10px;
+      }
+    }
+
+    .social__personal__settings {
+      width: 100%;
+      padding: 0 30px 0 30px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      gap: 20px;
+      //border-bottom: 1px solid #ccced2;
+      &::after{
+        content: '';
+        max-width: 100%;
+        height: 1px;
+        background-color: #ccced2;
+        position: absolute;
+        left: 30px;
+        right: 30px;
+        bottom: 0;
+      }
+      .social__personal__photo_wrap {
+        margin-top: -100px;
+        width: 170px;
+        height: 170px;
+        position: relative;
+        .social__personal__photo {
+          border-radius: 50%;
+          border: 3px solid #fff;
+          cursor: pointer;
+          transition: 0.2s;
+          &:hover{
+          box-shadow: 0 0 10px #999;
+          }
+          img{
+            width: 100%;
+            border-radius: 50%;
+
+          }
+        }
+        .social__personal__photo_change {
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #e4e6eb;
+          border-radius: 50%;
+          position: absolute;
+          right: 7px;
+          bottom: 7px;
+          cursor: pointer;
+          &:hover{
+            box-shadow: 0 0 10px #999;
+          }
+          img{
+            width: 25px;
+          }
+        }
+      }
+      .social__personal_name {
+        font-size: 32px;
+        font-weight: 700;
+      }
+      .social__personal_button{
+        display: flex;
+        gap: 10px;
+        margin-left: auto;
+      }
+    }
+
+
+  }
+
+}
+
+
+.social__main {
+  padding: 10px 30px 5px 30px;
+
+  .social__main_wrap {
+    display: flex;
+    justify-content: space-between;
+    .social__main_items{
+      display: flex;
+      gap: 5px;
+      .social__main_btn{
+        font-size: 15px;
+        font-weight: 500;
+        color: #65676b;
+        padding: 12px;
+        background-color: transparent;
+        position: relative;
+        &.active{
+          color: #1877f2;
+          &::after{
+            content: '';
+            width: 100%;
+            height: 3px;
+            background-color: #1877f2;
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+          }
+        }
+        &:hover{
+          background-color: #eeeeee;
+          border-radius: 4px;
+        }
+
+      }
+    }
+  }
+
+
+
+
+
+}
+
+.social__footer {
+
+}

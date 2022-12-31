@@ -19,6 +19,12 @@ import {Templates} from '../components/Menu/Templates/Templates';
 import {Gallery} from '../features/Photo-gallery/Gallery';
 import {useAppSelector} from './store';
 import {SocialNetwork} from '../features/Social-Network/Social-Network';
+import {About} from '../features/Social-Network/About/About';
+import {Friends} from '../features/Social-Network/Friends/Friends';
+import {Posts} from '../features/Social-Network/Posts/Posts';
+import {Photos} from '../features/Social-Network/Photos/Photos';
+import {Videos} from '../features/Social-Network/Videos/Videos';
+import {Chat} from '../features/Social-Network/Chat/Chat';
 
 export type TasksStateType = {
     [toDoList_ID: string]: Array<TaskType>
@@ -98,7 +104,14 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                 {/*<Route path={'/menupage/*'} element={<MenuPage/>}/>*/}
                                 <Route path={'/*'} element={<Error/>}/>
                                 <Route path={'/gallery'} element={<Gallery/>}/>
-                                <Route path={'/social-network'} element={<SocialNetwork/>}/>
+                                <Route path={'/social-network'} element={<div><SocialNetwork/><Outlet/></div>}>
+                                    <Route path={'/social-network/posts'} element={<div><Posts/></div>}/>
+                                    <Route path={'/social-network/about'} element={<div><About/></div>}/>
+                                    <Route path={'/social-network/friends'} element={<div><Friends/></div>}/>
+                                    <Route path={'/social-network/photos'} element={<div><Photos/></div>}/>
+                                    <Route path={'/social-network/videos'} element={<div><Videos/></div>}/>
+                                    <Route path={'/social-network/chat'} element={<div><Chat/></div>}/>
+                                </Route>
                                 <Route path={'/settings'} element={
                                     <div><Settings/><Outlet/></div>}>
                                     <Route path={'*'} element={<div><Error/></div>}/>
@@ -111,6 +124,7 @@ export const App: React.FC<PropsType> = React.memo(props => {
                                        element={<TodoListsList applicationChangingTheme={applicationChangingTheme}
                                                                demo={false}/>}/>
                                 <Route path={'/login'} element={<Login/>}/>
+
                             </Routes>
                         </div>
                     </div>
@@ -118,5 +132,5 @@ export const App: React.FC<PropsType> = React.memo(props => {
                 </div>
             </div>
         </div>
-    )
+    );
 })
