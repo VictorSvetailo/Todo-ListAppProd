@@ -26,11 +26,6 @@ export const fetchUsersAC = (users: Array<any>) =>
 export const fetchProfileAC = (profile: any) =>
     ({type: 'FETCH_PROFILE', profile} as const);
 
-
-// export const currentWindowAC = (value: string) =>
-//     ({ type: 'CURRENT_WINDOW', value} as const);
-
-
 export const fetchUsersTC = () => (dispatch: any) => {
     socialNetworkAPI.getUsers()
         .then(res => {
@@ -44,8 +39,6 @@ export const fetchProfileTC = (userID: number) => (dispatch: any) => {
         .then(res => {
             // @ts-ignore
             dispatch(fetchProfileAC(res.data))
-            // @ts-ignore
-            // console.log(res.data)
         })
 }
 
@@ -53,7 +46,6 @@ export const fetchProfileTC = (userID: number) => (dispatch: any) => {
 export type AppActionsType =
     | ReturnType<typeof fetchUsersAC>
     | ReturnType<typeof fetchProfileAC>
-// | ReturnType<typeof applicationChangingThemeLocalStorageAC>
 
 
 export type ProfileItemsType = {
